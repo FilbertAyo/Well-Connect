@@ -164,8 +164,8 @@
 
                                                 <div class="flex gap-2">
                                                 <input type="text" class="form-control" name="street" placeholder="Steet" required>
-                                                <input type="text" class="form-control" name="region" placeholder="Region" required>
-                                                <input type="text" class="form-control" name="city" placeholder="City" required>
+                                                <input type="text" class="form-control" name="region" placeholder="District" required>
+                                                <input type="text" class="form-control" name="city" placeholder="Region" required>
                                             </div>
 
                                             </div>

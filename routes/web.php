@@ -31,7 +31,4 @@ Route::get('/view', function(){
     return view('layout.order_details');
 });
 
-// Route::get('/r_register', function(){
-//     return view('auth.register');
-// });
 
