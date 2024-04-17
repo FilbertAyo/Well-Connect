@@ -38,14 +38,15 @@
     <body class="font-sans antialiased bd dark:text-dark/50">
 
 
-                <div class="relative  px-6 lg:max-w-7xl">
                     <header class="hh">
                         <div class="flex items-center well s">
                         <h1>Well-Connect</h1>
                         </div>
 
                         <div class="flex btn-s">
-                            <a href="" class=" cloth btn act">Verify Pharmacy</a>
+                            <button type="button" class="btn cloth btn act" data-toggle="modal" data-target="#exampleModal">
+                                Verify Pharmacy
+                              </button>
                         </div>
                         {{-- @if (Route::has('login'))
                             <nav class="mr-4 flex flex-1 justify-end btn-s">
@@ -77,15 +78,16 @@
                         @endif --}}
                     </header>
 
-                    <main class="mt-0 main1">
+                    @if(Session::has('success'))
+                    <div class="alert alert-success" role="alert">
+                    {{ Session::get('success') }}
+                    </div>
+                      @endif
+
+                            <div class="container2 flex">
 
 
-                            <div class="container2">
-
-
-
-
-                                        <div class="left-content">
+                                        <div class="left-content col-lg-6">
                                             <h2 class="text-xl font-semibold text-black">Place orders for prescription medications</h2>
 
                                             <p class="mt-4 text-sm/relaxed">
@@ -93,14 +95,16 @@
                                             </p>
                                             <div class="mt-4 text-gray-300 btn-s">
 
-                                                <a href="" class="clot btn act">Verify Pharmacy</a>
+                                                <button type="button" class="btn cloth btn act" data-toggle="modal" data-target="#exampleModal">
+                                                    Verify Pharmacy
+                                                  </button>
 
                          @if (Route::has('login'))
 
                                 @auth
                                     <a
                                         href="{{ url('/dashboard') }}"
-                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                        class="btn"
                                     >
                                         Log in
                                     </a>
@@ -135,7 +139,9 @@
 
                                             </div>
                                         </div>
-                                        <div class="right-content">
+
+
+                                        <div class="right-content" col-lg-6>
                                             <img src="/image/imag1.png" alt="">
                                         </div>
 
@@ -143,61 +149,69 @@
 
                             </div>
 
-                            <div class="container py-7">
-
-                                <div class="add_form hidden">
 
 
 
-                                    <form  action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
-                                         {!!  csrf_field() !!}
-                                         <div class="mb-3 flex justify-center ">Fill the Information to verify your Pharmacy</div>
-                                            <div class="mb-3">
-                                                <label for="price" class="form-label">Pharmacy name</label>
-                                                <input type="text" class="form-control" name="pharmacyName" placeholder="eg : Example Pharmacy" required>
+
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="exampleModalLabel">Fill required Information to verify your Pharmacy</h5>
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form  action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
+                                                        {!!  csrf_field() !!}
+
+                                                           <div class="mb-3">
+                                                               <label for="price" class="form-label">Pharmacy name</label>
+                                                               <input type="text" class="form-control" name="pharmacyName" placeholder="eg : Example Pharmacy" required>
+                                                             </div>
+
+                                                             <div class="mb-3">
+                                                               <label for="title" class="form-label">Email</label>
+                                                               <input type="email" class="form-control" name="pharmacyEmail" placeholder="eg: example@gmail.com" required>
+                                                             </div>
+
+                                                             <div class="mb-3">
+                                                               <label for="title" class="form-label">Contacts</label>
+                                                               <input type="text" class="form-control" name="contact" placeholder="eg: 073XXXXXXX" value="{{ old('contact') }}" required>
+                                                               @error('contact')
+                                                               <div class="alert alert-danger">
+                                                              invalid phone number format
+                                                               </div>
+                                                               @enderror
+                                                             </div>
+
+
+                                                             <div class="mb-3 ">
+                                                               <label for="productCode" class="form-label">Location of your pharmacy</label>
+
+                                                               <div class="flex gap-2">
+                                                               <input type="text" class="form-control" name="street" placeholder="Steet" required>
+                                                               <input type="text" class="form-control" name="region" placeholder="District" required>
+                                                               <input type="text" class="form-control" name="city" placeholder="Region" required>
+                                                           </div>
+
+                                                           </div>
+
+                                                             <div class="mb-3">
+                                                               <label for="description" class="form-label">Licence</label>
+                                                               <input type="file"  class="form-control" name="certification" placeholder="Licence" required>
+                                                             </div>
+
+                                                     <div class="mt-3 flex justify-end">
+                                                        <button type="submit" class="btn act">verify</button>
+                                                      </div>
+
+                                                       </form>
+                                                </div>
+
                                               </div>
-
-                                              <div class="mb-3 ">
-
-
-                                                <label for="productCode" class="form-label">Location of your pharmacy</label>
-
-                                                <div class="flex gap-2">
-                                                <input type="text" class="form-control" name="street" placeholder="Steet" required>
-                                                <input type="text" class="form-control" name="region" placeholder="District" required>
-                                                <input type="text" class="form-control" name="city" placeholder="Region" required>
                                             </div>
-
-                                            </div>
-
-                                              <div class="mb-3">
-                                                <label for="title" class="form-label">Contacts</label>
-                                                <input type="text" class="form-control" name="contact" placeholder="eg: 073XXXXXXX" required>
-                                              </div>
-
-                                              <div class="mb-3">
-                                                <label for="description" class="form-label">Licence</label>
-                                                <input type="file"  class="form-control" name="licence" placeholder="Licence" required>
-                                              </div>
-
-                                    <div class="flex justify-end">
-                                        <button class="btn act">Verify</button>
-                                      </div>
-
-                                        </form>
-
-                                        </div>
-
-                              </div>
-
-                    </main>
-
-
-                </div>
-
-                <div class="overlay hidden"></div>
-
-
-                <script src="js/model1.js"></script>
-    </body>
+                                          </div>
+                        </body>
 </html>

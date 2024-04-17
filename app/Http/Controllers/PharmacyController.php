@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pharmacy;
+use App\Models\UnverifiedPharmacy;
 use Illuminate\Http\Request;
 
 class PharmacyController extends Controller
@@ -12,7 +12,7 @@ class PharmacyController extends Controller
      */
     public function index()
     {
-        $pharmacy = Pharmacy::all();
+        $pharmacy = UnverifiedPharmacy::all();
 
         return view('layout.system_admin',compact('pharmacy'));
     }
@@ -30,14 +30,18 @@ class PharmacyController extends Controller
      */
     public function store(Request $request)
     {
-
         $requestData= $request->all();
-        $fileName = time().$request->file('licence')->getClientOriginalName();
-        $path = $request->file('licence')->storeAs('folder',$fileName,'public');
-        $requestData['licence'] = '/storage/'.$path;
-        Pharmacy::create($requestData);
 
-        return redirect()->back()->with('success',"Product added successfully");
+
+        $fileName = time().$request->file('certification')->getClientOriginalName();
+        $path = $request->file('certification')->storeAs('folder',$fileName,'public');
+        $requestData['certification'] = '/storage/'.$path;
+        UnverifiedPharmacy::create($requestData);
+
+        // $unverifiedPharmacy = UnverifiedPharmacy::create($requestData);
+        // $unverifiedPharmacy->update(['status'=>'complete']);
+
+        return redirect()->back()->with('success',"Verification sent successfully");
 
     }
 
@@ -46,7 +50,7 @@ class PharmacyController extends Controller
      */
     public function show(string $id)
     {
-        $pharmacy= Pharmacy::findOrFail($id);
+        $pharmacy= UnverifiedPharmacy::findOrFail($id);
 
         return view('layout.pharmacy_details',compact('pharmacy'));
     }
