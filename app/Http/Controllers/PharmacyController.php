@@ -30,16 +30,16 @@ class PharmacyController extends Controller
      */
     public function store(Request $request)
     {
-
         $requestData= $request->all();
         $fileName = time().$request->file('licence')->getClientOriginalName();
         $path = $request->file('licence')->storeAs('folder',$fileName,'public');
-        $requestData['certification'] = '/storage/'.$path;
+        $requestData['licence'] = '/storage/'.$path;
+        Pharmacy::create($requestData);
 
+        // $unverifiedPharmacy = UnverifiedPharmacy::create($requestData);
+        // $unverifiedPharmacy->update(['status'=>'complete']);
 
-        UnverifiedPharmacy::create($requestData);
-
-        return redirect()->back()->with('success',"Product added successfully");
+        return redirect()->back()->with('success',"Verification sent successfully");
 
     }
 

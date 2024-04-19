@@ -194,6 +194,21 @@
                                     <input type="text" class="form-control" name="pharmacyName"  value="{{ $pharmacy->pharmacyName }}" readonly>
                                   </div>
 
+                                  <div class="mb-3 flex gap-2">
+
+                                    <div class="col-md-6">
+                                        <label for="quantity" class="form-label">Pharmacy Email</label>
+                                        <input type="text"  class="form-control" name="contact" value="{{ $pharmacy->pharmacyEmail }}" readonly>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <label for="quantity" class="form-label">Phone Number</label>
+                                        <input type="text"  class="form-control" name="contact" value="{{ $pharmacy->contact }}" readonly>
+                                      </div>
+
+                                </div>
+
+
                                   <div class="mb-3">
                                     <label for="price" class="form-label">Location</label>
                                     <div class="flex gap-2">
@@ -203,16 +218,13 @@
                                 </div>
                                   </div>
 
-                                  <div class="mb-3">
-                                    <label for="quantity" class="form-label">Contact</label>
-                                    <input type="text"  class="form-control" name="contact" value="{{ $pharmacy->contact }}" readonly>
-                                  </div>
+
 
                                   <div class="mt-4 cr">
 
                                     <div>
                                         <label for="quantity" class="form-label">Licence:  </label>
-                                        <a href="{{ asset('$pharmacy->licence') }}" class="badge bg-primary">Download Licence</a>
+                                        <a href="{{ asset('$pharmacy->certification') }}" class="badge bg-primary">Download Licence</a>
                                       </div>
 
                                     <div>
@@ -224,10 +236,9 @@
 
                                 <div class="flex items-center justify-end mt-4">
 
-                                    <a href="" class="btn cloth act">
+                                    <button class="btn cloth act" data-toggle="modal" data-target="#exampleModal">
                                      Register
-                                    </a>
-
+                                    </button>
 
                                  </div>
 
@@ -247,24 +258,32 @@
         </div>
 
 
-        <div class="add_form hidden">
-           
-        <form method="POST" action="{{ route('register') }}">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Pharmacy Registration</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+
+        <form method="POST" action="{{ route('reg.store') }}">
             @csrf
-<div class="flex justify-center mb-2">
-    Pharmacy Registration
-</div>
+
             <!-- Name -->
             <div>
-                <x-input-label for="name" :value="__('Name')" />
-                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+                <label for="name">Pharmacy Name</label>
+                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ $pharmacy->pharmacyName }}" required autofocus autocomplete="name" readonly/>
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <!-- Email Address -->
             <div class="mt-4">
                 <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"  value="{{ $pharmacy->pharmacyEmail }}" required autocomplete="username" readonly/>
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
@@ -275,7 +294,8 @@
                 <x-text-input id="password" class="block mt-1 w-full"
                                 type="password"
                                 name="password"
-                                required autocomplete="new-password" />
+                                value="12345678"
+                                required autocomplete="new-password"  readonly />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
@@ -286,27 +306,39 @@
 
                 <x-text-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
+                                name="password_confirmation"
+                                value="12345678"
+                                required autocomplete="new-password"  readonly />
 
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-    
-                <x-primary-button class="ms-4">
+
+                {{-- <x-primary-button class="ms-4 btn btn-primary">
                     {{ __('Register') }}
-                </x-primary-button>
+                </x-primary-button> --}}
+
+
+                    <button class="btn cloth act">Register</button>
+
+
             </div>
         </form>
-   
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
     </div>
 
-<div class="overlay hidden"></div>
 
-
-<script src="/js/model.js"></script>
     </body>
 </html>

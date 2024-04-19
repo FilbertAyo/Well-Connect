@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pharmacies', function (Blueprint $table) {
+        Schema::create('unverified_pharmacies', function (Blueprint $table) {
             $table->id();
             $table->string('pharmacyName');
             $table->string('street');
             $table->string('region');
             $table->string('city');
             $table->string('contact');
-            $table->string('licence');
+            $table->string('pharmacyEmail');
+            $table->string('certification');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pharmacies');
+        Schema::dropIfExists('unverified_pharmacies');
     }
 };
