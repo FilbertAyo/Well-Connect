@@ -8,8 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Pharmacy extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'name',
+        'user_id',
+        'location',
+        'distance',
+        'image'
+    ];
     public function medicines()
-{
-    return $this->hasMany(Medicine::class);
-}
+    {
+        return $this->hasMany(Medicine::class);
+    }
 }

@@ -85,7 +85,7 @@ public function login(Request $request){
     $user = auth()->user();
 
     // Check if user_type is 2
-    if ($user->userType != 2) {
+    if ($user->usertype != 2) {
         return response()->json([
             'status' => false,
             'message' => 'Unauthorized user',

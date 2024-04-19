@@ -84,7 +84,7 @@
                         <td>{{ $loop->iteration }}</td>
 
                         <td class="product-name">
-                            {{ $prod->name }}
+                            {{ $prod->medicine_name }}
                         </td>
                         <td>{{ $prod->price }}/=</td>
                         <td>{{ $prod->quantity }}</td>

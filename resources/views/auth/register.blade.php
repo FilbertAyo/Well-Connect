@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
 
         <!-- Name -->
@@ -16,8 +16,25 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <div class="mt-4">
+            <x-input-label for="location" :value="__('location')" />
+            <x-text-input id="location" class="block mt-1 w-full" type="text" name="location" :value="old('location')" required autocomplete="username" />
+            <x-input-error :messages="$errors->get('location')" class="mt-2" />
+        </div>
+
+       <!-- Image Upload -->
+<div class="mt-4">
+    <x-input-label for="file" :value="__('Add Image')" />
+    <label for="file" class="cursor-pointer block w-full py-2 px-4 bg-gray-200 text-gray-700 rounded-md text-center hover:bg-gray-300 hover:text-gray-800">
+        <span id="selectedImage">Choose an image</span>
+        <input id="file" type="file" name="file" class="hidden" accept="image/*" onchange="updateSelectedImage(this)">
+    </label>
+    <x-input-error :messages="$errors->get('file')" class="mt-2" />
+</div>
+
         <!-- Password -->
         <div class="mt-4">
+
             <x-input-label for="password" :value="__('Password')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
@@ -49,4 +66,15 @@
             </x-primary-button>
         </div>
     </form>
+
+    <script>
+    function updateSelectedImage(input) {
+        const span = document.getElementById('selectedImage');
+        if (input.files && input.files[0]) {
+            span.textContent = input.files[0].name;
+        } else {
+            span.textContent = 'Choose an image';
+        }
+    }
+</script>
 </x-guest-layout>

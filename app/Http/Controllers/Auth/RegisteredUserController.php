@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Pharmacy;
 
 class RegisteredUserController extends Controller
 {
@@ -35,11 +36,33 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $image=$request->file;
+        $imagename=time().'.'.$image->getClientOriginalExtension();
+        $request->file->move('productimage',$imagename);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'location'=> $request->location,
+            'distance'=> $request->distance,
+            'file'=> $imagename,
         ]);
+
+        
+        // Logic to create Pharmacy entry if usertype is 0
+if ($user->usertype == 0) {
+    Pharmacy::create([
+        'user_id' => $user->id, // Assigning the user's ID to the 'user_id' field
+        'name' => $user->name,
+        'location'=> $user->location,
+        'region'=> $user->region,
+        'distance'=> $user->distance,
+        'image'=> $user->file,
+    ]);
+
+    
+}
 
         event(new Registered($user));
 

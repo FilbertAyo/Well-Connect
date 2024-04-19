@@ -9,8 +9,8 @@
      {!!  csrf_field() !!}
 
         <div class="mb-3">
-            <label for="price" class="form-label">Product name</label>
-            <input type="text" class="form-control" name="name" placeholder="product_name" required>
+            <label for="medicine_name" class="form-label">medicine name</label>
+            <input type="text" class="form-control" name="medicine_name" placeholder="medicine_name" required>
           </div>
 
           <div class="mb-3">
@@ -23,9 +23,14 @@
             <input type="text"  class="form-control" name="quantity" placeholder="Quantity" required>
           </div>
 
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <input type="text"  class="form-control" name="category" placeholder="category" required>
+          </div>
+
 
         <div class="mb-3">
-            <label for="title" class="form-label">Description</label>
+            <label for="description" class="form-label">Description</label>
             <input type="text" class="form-control" name="description" placeholder="description" required>
           </div>
 

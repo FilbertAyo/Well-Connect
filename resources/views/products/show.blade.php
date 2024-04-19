@@ -54,7 +54,7 @@
 
                 <div class="mb-3">
                     <label for="name" class="form-label">NCD Medicine name</label>
-                    <input type="text" class="form-control" name="name" placeholder="product_name" value="{{ $product->name }}" readonly>
+                    <input type="text" class="form-control" name="medicine_name" placeholder="product_name" value="{{ $product->medicine_name }}" readonly>
                   </div>
 
                   <div class="mb-3">
