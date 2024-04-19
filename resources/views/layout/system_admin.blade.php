@@ -191,11 +191,12 @@
                                       <thead>
                                         <tr>
                                           <th>No.</th>
-                                          <th class="product-name">Pharmacy Name</th>
-                                          <th class="product-price">Location</th>
-                                          <th class="product-remove">Contact</th>
-                                          <th class="product-price">Licence</th>
-                                          <th class="product-price">Status</th>
+                                          <th>Pharmacy Name</th>
+                                          <th>Pharmacy Email</th>
+                                          <th>Location</th>
+                                          <th>Contact</th>
+                                          <th>Licence</th>
+                                          <th>Status</th>
                                         </tr>
                                       </thead>
                                       <tbody>
@@ -205,17 +206,21 @@
                                       <tr>
                                         <td>{{ $loop->iteration }}</td>
 
-                                        <td class="product-name">
+                                        <td>
                                             {{ $pharma->pharmacyName }}
+                                        </td>
+                                        <td>
+                                            {{ $pharma->pharmacyEmail }}
                                         </td>
                                         <td>{{ $pharma->street }},    {{ $pharma->region }},    {{ $pharma->city }}</td>
                                         <td>{{ $pharma->contact }}</td>
                                         <td>
-                                            <a href="{{ asset($pharma->licence) }}" class="badge bg-primary"> Licence </a>
+                                            <a href="{{ asset($pharma->certification) }}" class="badge bg-primary"> Licence </a>
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.show', $pharma->id) }}" class="badge btn btn-info">Details</a>
-                                            <a href="" class="badge btn btn-danger ">Pending</a>
+
+                                            <a href="" class="badge btn btn-danger ">{{ $pharma -> status }}</a>
 
                                         </td>
                                       </tr>

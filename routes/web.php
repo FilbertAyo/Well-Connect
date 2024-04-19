@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -24,6 +25,7 @@ require __DIR__.'/auth.php';
 
 
 Route::resource('stock',ProductController::class);
+Route::resource('reg',RegisteredUserController::class);
 Route::resource('admin',PharmacyController::class);
 
 
