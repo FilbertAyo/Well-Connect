@@ -14,7 +14,18 @@ class ProductController extends Controller
     {
         $product = Product::all();
 
-        return view('products.create',compact('product'));
+        foreach ($product as $prod) {
+            // Check if quantity is below 20
+            if ($prod['quantity']< 20) {
+                // Update status to 'low'
+                $prod->update(['status'=>'low']);
+            } else {
+                // Update status to 'enough'
+                $prod->update(['status'=>'sufficient']);
+            }
+        }
+
+        return view('layout.stock',compact('product'));
     }
 
     /**

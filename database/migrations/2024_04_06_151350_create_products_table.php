@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('price');
             $table->string('quantity');
             $table->string('description');
+            $table->string('status')->default('enough');
             $table->timestamps();
         });
     }

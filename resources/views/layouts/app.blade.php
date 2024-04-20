@@ -8,7 +8,13 @@
         <title>Well-Connect</title>
 
         {{-- added --}}
-        <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/dashboard/">
+        <link rel="canonical" href="{{ asset('https://v5.getbootstrap.com/docs/5.0/examples/dashboard/') }}">
+
+    <link rel="preconnect" href="{{ asset('https://fonts.gstatic.com') }}">
+    <link rel="shortcut icon" href="{{ asset('static/img/icons/icon-48x48.png') }}" />
+    <link rel="canonical" href="{{ asset('https://demo-basic.adminkit.io/') }}" />
+    <link href="{{ asset('static/css/app.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 
 
@@ -25,14 +31,15 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="{{ asset('https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap') }}" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
+
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+
 
             <!-- Page Heading -->
             @if (isset($header))
@@ -51,6 +58,7 @@
 
         <div class="overlay hidden"></div>
 
+        <script src="{{ asset('static/js/app.js') }}"></script>
         <script src="js/model.js"></script>
 
     </body>

@@ -38,9 +38,7 @@ class PharmacyController extends Controller
         $requestData['certification'] = '/storage/'.$path;
         UnverifiedPharmacy::create($requestData);
 
-        // $unverifiedPharmacy = UnverifiedPharmacy::create($requestData);
-        // $unverifiedPharmacy->update(['status'=>'complete']);
-
+       
         return redirect()->back()->with('success',"Verification sent successfully");
 
     }
