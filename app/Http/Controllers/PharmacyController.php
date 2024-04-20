@@ -45,9 +45,7 @@ class PharmacyController extends Controller
         Pharmacy::create($requestData);
 >>>>>>> ce9961721bbd4819aa6e43f97ba627b22f7059cf
 
-        // $unverifiedPharmacy = UnverifiedPharmacy::create($requestData);
-        // $unverifiedPharmacy->update(['status'=>'complete']);
-
+       
         return redirect()->back()->with('success',"Verification sent successfully");
 
     }

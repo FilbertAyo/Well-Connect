@@ -1,86 +1,104 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
-
-    <div class="py-0">
-
-            <div class="bg-white overflow-hidden shadow-sm ">
 
 
-
-  <div class="container-fluid">
-    <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="position-sticky">
-          <ul class="nav flex-column">
-            <li class="nav-item itemdash">
-              <a class="nav-link" aria-current="page" href="{{ url('/dashboard') }}">
-                <span data-feather="home"></span>
-                Order
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+          <div class="sidebar-content js-simplebar">
+              <a class="sidebar-brand" href="index.html">
+                  <span class="align-middle">Well-Connect</span>
               </a>
-            </li>
-            <li class="nav-item actv">
-              <a class="nav-link active" href="{{ url('/stock') }}">
-                <span data-feather="file"></span>
-               Stock
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/routes">
-                <span data-feather="shopping-cart"></span>
-                Messages
-              </a>
-            </li>
+
+              <ul class="sidebar-nav">
+                  <li class="sidebar-header">
+                      Pages
+                  </li>
+
+                  <li class="sidebar-item">
+                      <a class="sidebar-link" href="{{ url('/dashboard') }}">
+                          <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Order</span>
+                      </a>
+                  </li>
+
+                  <li class="sidebar-item active">
+                      <a class="sidebar-link" href="{{ url('/stock') }}">
+                          <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Stock</span>
+                      </a>
+                  </li>
 
 
-          </ul>
-        </div>
+                  <div class="sidebar-cta">
+                      <div class="sidebar-cta-content">
+                          <strong class="d-inline-block mb-2">Chat</strong>
+                          <div class="mb-3 text-sm">
+                              Do you face a problem? Check out the system admin.
+                          </div>
+                          <div class="d-grid">
+                              <a href="upgrade-to-pro.html" class="btn btn-primary">Messages</a>
+                          </div>
+                      </div>
+                  </div>
+          </div>
       </nav>
 
-      <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-3">
+      <div class="main">
+
+          @include('layouts.navigation')
 
 
-        <div class="headstock">
-            <div class="s">
-               <h1>Stock</h1>
+          <main class="content">
+
+              <div class="container-fluid p-0">
+
+                  <div class="headstock">
+                      <div class="">
+                  <h1 class="h3 mb-3">Available Stock</h1>
+              </div>
+              <div class="text-gray-300 ">
+                <button type="button" class="btn cloth btn act" data-toggle="modal" data-target="#exampleModal">
+                    Add stock
+                  </button>
             </div>
+                  </div>
 
-           
-          <div class="text-gray-300 ">
-            <a href="" class="cloth btn act">Add item</a>
-        </div>
-        </div>
 
-    <div class="col-md-12">
+                      <div class="row">
+                          <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                              <div class="card flex-fill">
+                                <div class="site-blocks-table">
 
-                <div class="site-blocks-table">
+                                    @if(Session::has('success'))
+                                    <div class="alert alert-success" role="alert">
+                                    {{ Session::get('success') }}
+                                    </div>
+                                      @endif
 
-                    @if(Session::has('success'))
-                    <div class="alert alert-success" role="alert">
-                    {{ Session::get('success') }}
-                    </div>
-                      @endif
-
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>No.</th>
-                        <th class="product-name">NCD Name</th>
-                        <th class="product-price">Price</th>
-                        <th class="product-price">Quantity</th>
-                        <th class="product-description">Description</th>
-                        <th class="product-remove">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                                  <table class="table table-hover my-0">
+                                      <thead>
+                                          <tr>
+                                              <th></th>
+                                              <th>No.</th>
+                                              <th class="d-none d-xl-table-cell">NCD Name</th>
+                                              <th class="d-none d-xl-table-cell">Price</th>
+                                              <th class="d-none d-xl-table-cell">Quantity</th>
+                                              <th class="d-none d-md-table-cell">Description</th>
+                                              <th>Actions</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
 
                         @if($product->count()>0)
                         @foreach ($product as $prod)
 
                       <tr>
+                        @if($prod->status === 'low')
+                        <td>
+                                <img src="/image/sdfs.gif" alt="" class="img-fluid rounded-circle" style="width: 30px;">
+                    </td>
+                    @else
+                    <td>
+
+                    </td>
+                    @endif
                         <td>{{ $loop->iteration }}</td>
 
                         <td class="product-name">
@@ -105,7 +123,6 @@
 
                             </a>
 
-
                         </td>
                       </tr>
 
@@ -116,21 +133,72 @@
                     </tr>
                 @endif
 
-                    </tbody>
-                  </table>
-                </div>
-            </div>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
 
-            <div class="container py-7">
-                @yield('body')
+                      </div>
+
+                  </div>
               </div>
+          </main>
 
-      </main>
         </div>
     </div>
-    </div>
 
-    </div>
+
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add new stock</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+                <form  action="{{ route('stock.store') }}" method="POST" enctype="multipart/form-data">
+                    {!!  csrf_field() !!}
+
+                       <div class="mb-3">
+                           <label for="price" class="form-label">Medicine name</label>
+                           <input type="text" class="form-control" name="medicine_name" placeholder="medicine_name" required>
+                         </div>
+
+                         <div class="mb-3">
+                           <label for="productCode" class="form-label">Price (each product)</label>
+                           <input type="text" class="form-control" name="price" placeholder="Price" required>
+                         </div>
+
+                         <div class="mb-3">
+                           <label for="description" class="form-label">Quantity</label>
+                           <input type="text"  class="form-control" name="quantity" placeholder="Quantity" required>
+                         </div>
+
+
+                       <div class="mb-3">
+                           <label for="title" class="form-label">Description</label>
+                           <textarea type="text" class="form-control" name="description" placeholder="description" required></textarea>
+                         </div>
+
+
+               <div class="flex justify-end">
+                   <button class="btn act">Add</button>
+                 </div>
+
+                   </form>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
 
 
 </x-app-layout>
