@@ -165,8 +165,8 @@
                     {!!  csrf_field() !!}
 
                        <div class="mb-3">
-                           <label for="price" class="form-label">Product name</label>
-                           <input type="text" class="form-control" name="name" placeholder="product_name" required>
+                           <label for="price" class="form-label">Medicine name</label>
+                           <input type="text" class="form-control" name="medicine_name" placeholder="medicine_name" required>
                          </div>
 
                          <div class="mb-3">
