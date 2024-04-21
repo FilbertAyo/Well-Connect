@@ -207,6 +207,11 @@
                                                                <input type="file"  class="form-control" name="certification" placeholder="Licence" required>
                                                              </div>
 
+                                                             <div class="mb-3">
+                                                                <label for="description" class="form-label">Pharmacy Image</label>
+                                                                <input type="file"  class="form-control" name="un_pharmacy_image" placeholder="pharmacy image" required>
+                                                              </div>
+
                                                      <div class="mt-3 flex justify-end">
                                                         <button type="submit" class="btn act">verify</button>
                                                       </div>

@@ -72,7 +72,7 @@
                                     </div>
                                       @endif
 
-                                  <table class="table table-hover my-0">
+                                  <table class="table my-0">
                                       <thead>
                                           <tr>
                                               <th></th>
@@ -129,7 +129,7 @@
                       @endforeach
                       @else
                       <tr>
-                        <td class="text-center" colspan="5">Product not found</td>
+                        <td class="text-center" colspan="5">NCD medicine not found</td>
                     </tr>
                 @endif
 
@@ -179,6 +179,10 @@
                            <input type="text"  class="form-control" name="quantity" placeholder="Quantity" required>
                          </div>
 
+                         <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <input type="text"  class="form-control" name="category" placeholder="category" required>
+                          </div>
 
                        <div class="mb-3">
                            <label for="title" class="form-label">Description</label>

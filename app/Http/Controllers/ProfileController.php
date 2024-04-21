@@ -14,12 +14,9 @@ class ProfileController extends Controller
 
     public function redirect()
     {
-<<<<<<< HEAD
-       $usertype = Auth::user()->userType;
-=======
-       $usertype = Auth::user()->usertype;
->>>>>>> ce9961721bbd4819aa6e43f97ba627b22f7059cf
-       if($usertype=='1'){
+    //    $usertype = Auth::user()->userType;
+       $userType = Auth::user()->userType;
+       if($userType=='1'){
         return redirect()->route('admin.index');
        }elseif($userType=='0'){
         return view('layout.order');

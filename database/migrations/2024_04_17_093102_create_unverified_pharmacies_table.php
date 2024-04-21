@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('contact');
             $table->string('pharmacyEmail');
             $table->string('certification');
+            $table->string('un_pharmacy_image');
             $table->string('status')->default('pending');
             $table->timestamps();
         });

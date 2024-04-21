@@ -49,9 +49,9 @@ class RegisteredUserController extends Controller
             'file'=> $imagename,
         ]);
 
-        
+
         // Logic to create Pharmacy entry if usertype is 0
-if ($user->usertype == 0) {
+if ($user->userType == 0) {
     Pharmacy::create([
         'user_id' => $user->id, // Assigning the user's ID to the 'user_id' field
         'name' => $user->name,
@@ -61,7 +61,7 @@ if ($user->usertype == 0) {
         'image'=> $user->file,
     ]);
 
-    
+
 }
 
         event(new Registered($user));

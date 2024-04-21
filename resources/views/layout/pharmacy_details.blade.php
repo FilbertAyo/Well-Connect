@@ -242,6 +242,11 @@
                                                         <input type="text"  class="form-control" name="contact" value="{{ $pharmacy->contact }}" readonly>
                                                       </div>
 
+                                                      <div class="col-md">
+                                                        <label for="quantity" class="form-label">Pharmacy Image</label>
+                                                        <img  class="form-control" name="un_pharmacy_image" placeholder="image" src="{{ asset($pharmacy->un_pharmacy_image )}}" style="height: auto;" readonly>
+                                                      </div>
+
                                                 </div>
                                                   <div class="mb-3">
                                                     <label for="price" class="form-label">Location</label>
@@ -295,7 +300,7 @@
                 <div class="modal-body">
 
 
-        <form method="POST" action="{{ route('reg.store') }}">
+        <form method="POST" action="{{ route('reg.store') }}" enctype="multipart/form-data">
             @csrf
 
             <!-- Name -->
@@ -311,6 +316,21 @@
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"  value="{{ $pharmacy->pharmacyEmail }}" required autocomplete="username" readonly/>
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
+
+            <div class="mt-4">
+                <x-input-label for="location" :value="__('location')" />
+                <x-text-input id="location" class="block mt-1 w-full" type="text" name="location" value="{{ $pharmacy->street }},{{ $pharmacy->region }},{{ $pharmacy->city }} " required autocomplete="username" />
+                <x-input-error :messages="$errors->get('location')" class="mt-2" />
+            </div>
+
+            <div class="mt-4">
+    <x-input-label for="file" :value="__('Add Image')" />
+    <label for="file" class="cursor-pointer block w-full py-2 px-4 bg-gray-200 text-gray-700 rounded-md text-center hover:bg-gray-300 hover:text-gray-800">
+        <span id="selectedImage">Choose an image</span>
+        <input id="file" type="file" name="file" class="hidden" accept="image/*" onchange="updateSelectedImage(this)">
+    </label>
+    <x-input-error :messages="$errors->get('file')" class="mt-2" />
+</div>
 
             <!-- Password -->
             <div class="mt-4">
@@ -365,5 +385,16 @@
 
 
     <script src="{{ asset('static/js/app.js') }}"></script>
+
+    <script>
+        function updateSelectedImage(input) {
+            const span = document.getElementById('selectedImage');
+            if (input.files && input.files[0]) {
+                span.textContent = input.files[0].name;
+            } else {
+                span.textContent = 'Choose an image';
+            }
+        }
+    </script>
     </body>
 </html>

@@ -15,7 +15,8 @@ class Medicine extends Model
         'category',
         'price',
         'quantity',
-        'description'
+        'description',
+        'status'
     ];
 
     public function pharmacy()

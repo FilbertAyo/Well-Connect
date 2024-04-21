@@ -237,6 +237,7 @@
                                           <th class="d-none d-xl-table-cell">Location</th>
                                           <th class="d-none d-md-table-cell">Contact</th>
                                           <th class="d-none d-md-table-cell">Licence</th>
+                                          <th class="d-none d-md-table-cell">Image</th>
                                           <th>Status</th>
                                       </tr>
                                   </thead>
@@ -258,6 +259,11 @@
                                     <td>
                                         <a href="{{ asset($pharma->certification) }}" class="badge bg-primary"> Licence </a>
                                     </td>
+                                    <td class="product-thumbnail">
+
+                                        <img src="{{ asset($pharma->un_pharmacy_image) }}" alt="" class="img-fluid">
+
+                                    </td>
                                     <td>
                                         <a href="{{ route('admin.show', $pharma->id) }}" class="badge btn btn-info">Details</a>
 
@@ -269,7 +275,7 @@
                                   @endforeach
                                   @else
                                   <tr>
-                                    <td class="text-center" colspan="5">Product not found</td>
+                                    <td class="text-center" colspan="5">Pharmacy not found</td>
                                 </tr>
                             @endif
                                   </tbody>

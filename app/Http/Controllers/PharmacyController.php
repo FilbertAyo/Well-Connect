@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pharmacy;
 use App\Models\UnverifiedPharmacy;
 use Illuminate\Http\Request;
 
@@ -31,21 +32,37 @@ class PharmacyController extends Controller
     public function store(Request $request)
     {
         $requestData= $request->all();
-<<<<<<< HEAD
 
 
-        $fileName = time().$request->file('certification')->getClientOriginalName();
-        $path = $request->file('certification')->storeAs('folder',$fileName,'public');
-        $requestData['certification'] = '/storage/'.$path;
+        // $fileName = time().$request->file('certification','un_pharmacy_image')->getClientOriginalName();
+        // $path = $request->file('certification','un_pharmacy_image')->storeAs('folder',$fileName,'public');
+        // $requestData['certification'] = '/storage/'.$path;
+        // $requestData['un_pharmacy_image'] = '/storage/'.$path;
+        // UnverifiedPharmacy::create($requestData);
+
+
+        $certification=$request->certification;
+        $certification_name=time().'.'.$certification->getClientOriginalExtension();
+        $request->certification->move('cert_image',$certification_name);
+
+        $un_pharmacy_image=$request->un_pharmacy_image;
+        $un_pharmacy_name=time().'.'.$un_pharmacy_image->getClientOriginalExtension();
+        $request->un_pharmacy_image->move('pharmacy_image',$un_pharmacy_name);
+
+
         UnverifiedPharmacy::create($requestData);
-=======
-        $fileName = time().$request->file('licence')->getClientOriginalName();
-        $path = $request->file('licence')->storeAs('folder',$fileName,'public');
-        $requestData['licence'] = '/storage/'.$path;
-        Pharmacy::create($requestData);
->>>>>>> ce9961721bbd4819aa6e43f97ba627b22f7059cf
 
-       
+        // $fileName = time().$request->file('un_pharmacy_image')->getClientOriginalName();
+        // $path = $request->file('un_pharmacy_image')->storeAs('folder',$fileName,'public');
+        // $requestData['un_pharmacy_image'] = '/storage/'.$path;
+        // UnverifiedPharmacy::create($requestData);
+
+        // $fileName = time().$request->file('licence')->getClientOriginalName();
+        // $path = $request->file('licence')->storeAs('folder',$fileName,'public');
+        // $requestData['licence'] = '/storage/'.$path;
+        // Pharmacy::create($requestData);
+
+
         return redirect()->back()->with('success',"Verification sent successfully");
 
     }

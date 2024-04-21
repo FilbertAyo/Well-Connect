@@ -99,6 +99,11 @@
                                       </div>
 
                                       <div class="mb-3">
+                                        <label for="quantity" class="form-label">Category</label>
+                                        <input type="text"  class="form-control" name="category" placeholder="Category" value="{{ $product->category }}" readonly>
+                                      </div>
+
+                                      <div class="mb-3">
                                         <label for="quantity" class="form-label">Description</label>
                                         <input type="text"  class="form-control" name="description" placeholder="Description" value="{{ $product->description }}" readonly>
                                       </div>
