@@ -15,6 +15,7 @@ class UnverifiedPharmacy extends Model
         'city',
         'contact',
         'certification',
+        'un_pharmacy_image',
         'pharmacyEmail',
         'status'
     ];

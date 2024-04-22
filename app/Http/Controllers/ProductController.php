@@ -15,18 +15,38 @@ class ProductController extends Controller
      */
     public function index()
     {
-       // Get the ID of the logged-in user
+
+
+
+            // Get the ID of the logged-in user
     $userId = Auth::id();
 
     // Find the pharmacy associated with the logged-in user
     $pharmacy = Pharmacy::where('user_id', $userId)->first();
-    
+
     if ($pharmacy) {
+
+
         // If pharmacy found, fetch only the medicines associated with that pharmacy
         $product = Medicine::where('pharmacy_id', $pharmacy->id)->get();
 
+
+
+        foreach ($product as $prod) {
+            // Check if quantity is below 20
+            if ($prod['quantity']< 20) {
+                // Update status to 'low'
+                $prod->update(['status'=>'low']);
+            } else {
+                // Update status to 'enough'
+                $prod->update(['status'=>'sufficient']);
+            }
+        }
+
+        // return view('layout.stock',compact('product'));
+
         // Pass the filtered medicines to the view
-        return view('products.create', compact('product'));
+        return view('layout.stock', compact('product'));
     } else {
         // Handle the case where no pharmacy is found for the logged-in user
         return redirect()->route('stock.index')->with('error', "No pharmacy found for the logged-in user.");
@@ -46,12 +66,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-       // Get the ID of the logged-in user
+        // $requestData= $request->all();
+        // Product::create($requestData);
+        // return redirect()->route('stock.index')->with('success',"NCD medicine added successfully");
+
+
+             // Get the ID of the logged-in user
     $userId = Auth::id();
 
     // Find the pharmacy associated with the logged-in user
     $pharmacy = Pharmacy::where('user_id', $userId)->first();
-    
+
     // Merge the pharmacy's ID and name into the request data
     if ($pharmacy) {
         // If pharmacy found, merge its ID and name into the request data
@@ -66,7 +91,9 @@ class ProductController extends Controller
         // Handle the case where no pharmacy is found for the logged-in user
         return redirect()->route('stock.index')->with('error', "No pharmacy found for the logged-in user.");
     }
-}
+
+
+    }
 
     /**
      * Display the specified resource.
@@ -83,6 +110,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        // $product= Product::findOrFail($id);
+
+        // return view('products.edit',compact('product'));
+
         $product= Medicine::findOrFail($id);
 
         return view('products.edit',compact('product'));
@@ -93,6 +124,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // $product= Product::findOrFail($id);
+
+        // $product->update($request->all());
+
+        // return redirect()->route('stock.index')->with('success',"NCD medicine updated successfully");
+
         $product= Medicine::findOrFail($id);
 
         $product->update($request->all());
@@ -105,6 +142,12 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
+        // $product= Product::findOrFail($id);
+
+        // $product->delete();
+
+        // return redirect()->route('stock.index')->with('success',"NCD Medicine deleted successfully");
+
         $product= Medicine::findOrFail($id);
 
         $product->delete();

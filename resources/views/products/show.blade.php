@@ -2,101 +2,139 @@
 <x-app-layout>
 
 
-    <div class="py-0">
-
-            <div class="bg-white overflow-hidden shadow-sm ">
 
 
 
-  <div class="container-fluid">
-    <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="position-sticky">
-          <ul class="nav flex-column">
-            <li class="nav-item itemdash">
-              <a class="nav-link" aria-current="page" href="{{ url('/dashboard') }}">
-                <span data-feather="home"></span>
-                Order
+
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+          <div class="sidebar-content js-simplebar">
+              <a class="sidebar-brand" href="index.html">
+                  <span class="align-middle">Well-Connect</span>
               </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="{{ url('/stock') }}">
-                <span data-feather="file"></span>
-               Stock
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/routes">
-                <span data-feather="shopping-cart"></span>
-                Messages
-              </a>
-            </li>
+
+              <ul class="sidebar-nav">
+                  <li class="sidebar-header">
+                      Pages
+                  </li>
+
+                  <li class="sidebar-item">
+                      <a class="sidebar-link" href="{{ url('/dashboard') }}">
+                          <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Order</span>
+                      </a>
+                  </li>
+
+                  <li class="sidebar-item active">
+                      <a class="sidebar-link" href="{{ url('/stock') }}">
+                          <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Stock</span>
+                      </a>
+                  </li>
 
 
-          </ul>
-        </div>
+                  <div class="sidebar-cta">
+                      <div class="sidebar-cta-content">
+                          <strong class="d-inline-block mb-2">Chat</strong>
+                          <div class="mb-3 text-sm">
+                              Do you face a problem? Check out the system admin.
+                          </div>
+                          <div class="d-grid">
+                              <a href="upgrade-to-pro.html" class="btn btn-primary">Messages</a>
+                          </div>
+                      </div>
+                  </div>
+          </div>
       </nav>
 
-      <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-3">
+      <div class="main">
 
-        <div class="headstock">
-            <div class="s">
-               <h1>NCD Medicine Details</h1>
+          @include('layouts.navigation')
+
+
+          <main class="content">
+
+              <div class="container-fluid p-0">
+
+                  <div class="headstock">
+                      <div class="mb-3 ">
+                  <h1 class="h3 d-inline align-middle">NCD Medicine Details</h1>
+                  {{-- @foreach ($product as $prod) --}}
+
+                  @if($product->status === 'low')
+                  <span class="badge btn-danger text-white ms-2">
+                    Your stock is running {{ $product->status }}
+                </span>
+                @else
+                <span class="badge btn-success text-white ms-2">
+                    Your stock is {{ $product->status }} for current demand.
+                </span>
+                @endif
+
+                {{-- @endforeach --}}
+
+              </div>
+              <div class="text-gray-300 ">
+                <a href="{{ url('/stock') }}" class="cloth btn act">Go back</a>
             </div>
-          <div class="text-gray-900 ">
-            <a href="{{ url('/stock') }}" class="cloth btn act">Go back</a>
-        </div>
-        </div>
+                  </div>
 
 
-    <div class="col-md-12">
-
+                      <div class="row">
+                          <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                              <div class="card flex-fill">
+                                <div class="p-3">
 
                 <div class="mb-3">
                     <label for="name" class="form-label">NCD Medicine name</label>
-                    <input type="text" class="form-control" name="medicine_name" placeholder="product_name" value="{{ $product->medicine_name }}" readonly>
+                    <input type="text" class="form-control" name="name" placeholder="product_name" value="{{ $product->name }}" readonly>
                   </div>
 
-                  <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input type="text" class="form-control" name="price" placeholder="Price" value="{{ $product->price }}/=" readonly>
+                                      <div class="mb-3">
+                                        <label for="price" class="form-label">Price</label>
+                                        <input type="text" class="form-control" name="price" placeholder="Price" value="{{ $product->price }}/=" readonly>
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label for="quantity" class="form-label">Quantity</label>
+                                        <input type="text"  class="form-control" name="quantity" placeholder="Quantity" value="{{ $product->quantity }}" readonly>
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label for="quantity" class="form-label">Category</label>
+                                        <input type="text"  class="form-control" name="category" placeholder="Category" value="{{ $product->category }}" readonly>
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label for="quantity" class="form-label">Description</label>
+                                        <input type="text"  class="form-control" name="description" placeholder="Description" value="{{ $product->description }}" readonly>
+                                      </div>
+
+
+                                      <div class="cr mt-4">
+                                        <div class="">
+                                          <label class="form-label">created At</label>
+                                          <span class="badge bg-warning" readonly> {{ $product->created_at }}</span>
+                                        </div>
+
+                                        <div class="">
+                                          <label class="form-label">Updated At</label>
+                                          <span class="badge bg-warning" readonly> {{ $product->updated_at }}</span>
+                                        </div>
+                                    </div>
+
+                              </div>
+                          </div>
+
+                      </div>
+
                   </div>
+              </div>
+          </main>
 
-                  <div class="mb-3">
-                    <label for="quantity" class="form-label">Quantity</label>
-                    <input type="text"  class="form-control" name="quantity" placeholder="Quantity" value="{{ $product->quantity }}" readonly>
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="quantity" class="form-label">Description</label>
-                    <input type="text"  class="form-control" name="description" placeholder="Description" value="{{ $product->description }}" readonly>
-                  </div>
-
-
-                  <div class="cr mt-4">
-                    <div class="">
-                      <label class="form-label">created At</label>
-                      <span class="badge bg-warning" readonly> {{ $product->created_at }}</span>
-                    </div>
-
-                    <div class="">
-                      <label class="form-label">Updated At</label>
-                      <span class="badge bg-warning" readonly> {{ $product->updated_at }}</span>
-                    </div>
-                </div>
-
-
-
-
-            </div>
-
-
-      </main>
         </div>
     </div>
-    </div>
 
-    </div>
+
+
 
 
 </x-app-layout>
