@@ -33,14 +33,7 @@ class PharmacyController extends Controller
     {
         $requestData= $request->all();
 
-
-        // $fileName = time().$request->file('certification','un_pharmacy_image')->getClientOriginalName();
-        // $path = $request->file('certification','un_pharmacy_image')->storeAs('folder',$fileName,'public');
-        // $requestData['certification'] = '/storage/'.$path;
-        // $requestData['un_pharmacy_image'] = '/storage/'.$path;
-        // UnverifiedPharmacy::create($requestData);
-
-
+        
         $certification=$request->certification;
         $certification_name=time().'.'.$certification->getClientOriginalExtension();
         $request->certification->move('cert_image',$certification_name);
@@ -51,17 +44,6 @@ class PharmacyController extends Controller
 
 
         UnverifiedPharmacy::create($requestData);
-
-        // $fileName = time().$request->file('un_pharmacy_image')->getClientOriginalName();
-        // $path = $request->file('un_pharmacy_image')->storeAs('folder',$fileName,'public');
-        // $requestData['un_pharmacy_image'] = '/storage/'.$path;
-        // UnverifiedPharmacy::create($requestData);
-
-        // $fileName = time().$request->file('licence')->getClientOriginalName();
-        // $path = $request->file('licence')->storeAs('folder',$fileName,'public');
-        // $requestData['licence'] = '/storage/'.$path;
-        // Pharmacy::create($requestData);
-
 
         return redirect()->back()->with('success',"Verification sent successfully");
 
