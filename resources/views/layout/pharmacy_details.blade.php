@@ -225,6 +225,11 @@
                                     <div class="col-12 col-lg-12 col-xxl-12 d-flex">
                                         <div class="card flex-fill p-3">
 
+                                            <div class="col-md">
+                                                <label for="quantity" class="form-label">Pharmacy Image</label>
+                                                <img  class="form-control" name="un_pharmacy_image" src="{{ asset('pharmacy_image/'.$pharmacy->un_pharmacy_image) }}" style="height: auto;" readonly>
+                                              </div>
+
                                                 <div class="mb-3">
                                                     <label for="name" class="form-label">Pharmacy Name</label>
                                                     <input type="text" class="form-control" name="pharmacyName"  value="{{ $pharmacy->pharmacyName }}" readonly>
@@ -242,11 +247,6 @@
                                                         <input type="text"  class="form-control" name="contact" value="{{ $pharmacy->contact }}" readonly>
                                                       </div>
 
-                                                      <div class="col-md">
-                                                        <label for="quantity" class="form-label">Pharmacy Image</label>
-                                                        <img  class="form-control" name="un_pharmacy_image" placeholder="image" src="{{ asset($pharmacy->un_pharmacy_image )}}" style="height: auto;" readonly>
-                                                      </div>
-
                                                 </div>
                                                   <div class="mb-3">
                                                     <label for="price" class="form-label">Location</label>
@@ -259,7 +259,7 @@
                                                   <div class="mt-4 cr">
                                                     <div>
                                                         <label for="quantity" class="form-label">Licence:  </label>
-                                                        <a href="{{ asset('$pharmacy->certification') }}" class="badge bg-primary">Download Licence</a>
+                                                        <a href="{{ asset('cert_image/' . $pharmacy->certification) }}" class="badge bg-primary">Download Licence</a>
                                                       </div>
                                                     <div>
                                                       <label class="form-label">created At</label>
@@ -323,14 +323,29 @@
                 <x-input-error :messages="$errors->get('location')" class="mt-2" />
             </div>
 
+
+
             <div class="mt-4">
-    <x-input-label for="file" :value="__('Add Image')" />
-    <label for="file" class="cursor-pointer block w-full py-2 px-4 bg-gray-200 text-gray-700 rounded-md text-center hover:bg-gray-300 hover:text-gray-800">
-        <span id="selectedImage">Choose an image</span>
-        <input id="file" type="file" name="file" class="hidden" accept="image/*" onchange="updateSelectedImage(this)">
-    </label>
-    <x-input-error :messages="$errors->get('file')" class="mt-2" />
-</div>
+                <label for="current_image">Current Pharmacy Image</label>
+                @if($pharmacy->un_pharmacy_image)
+                    <img src="{{ asset('pharmacy_image/'.$pharmacy->un_pharmacy_image) }}" style="height: auto;" class="block w-full" alt="Pharmacy Image">
+                @else
+                    <p>No image available</p>
+                @endif
+                <x-input-error :messages="$errors->get('file')" class="mt-2" />
+            </div>
+
+            <div class="mt-4">
+                <label for="file">New Pharmacy Image (Optional)</label>
+                <input id="file" type="file" name="file" accept="image/*">
+                <x-input-error :messages="$errors->get('file')" class="mt-2" />
+            </div>
+
+            <div class="mt-4" style="display: none;">
+                <x-input-label for="location" :value="__('userType')" />
+                <x-text-input id="location" class="block mt-1 w-full" type="text" name="userType" value="0" required autocomplete="username" />
+
+            </div>
 
             <!-- Password -->
             <div class="mt-4">
@@ -386,7 +401,7 @@
 
     <script src="{{ asset('static/js/app.js') }}"></script>
 
-    <script>
+    {{-- <script>
         function updateSelectedImage(input) {
             const span = document.getElementById('selectedImage');
             if (input.files && input.files[0]) {
@@ -395,6 +410,6 @@
                 span.textContent = 'Choose an image';
             }
         }
-    </script>
+    </script> --}}
     </body>
 </html>

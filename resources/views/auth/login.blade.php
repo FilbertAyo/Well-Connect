@@ -1,4 +1,15 @@
 <x-guest-layout>
+
+
+    <div>
+        <a href="/">
+           Welcome back
+        </a>
+    </div>
+
+    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -44,4 +55,6 @@
             </x-primary-button>
         </div>
     </form>
+
+    </div>
 </x-guest-layout>
