@@ -257,11 +257,12 @@
                                     <td>{{ $pharma->street }},    {{ $pharma->region }},    {{ $pharma->city }}</td>
                                     <td>{{ $pharma->contact }}</td>
                                     <td>
-                                        <a href="{{ asset($pharma->certification) }}" class="badge bg-primary"> Licence </a>
+                                        <a href="{{ asset('cert_image/' . $pharma->certification) }}" class="badge bg-primary"> Licence </a>
                                     </td>
-                                    <td class="product-thumbnail">
 
-                                        <img src="{{ asset($pharma->un_pharmacy_image) }}" alt="" class="img-fluid">
+                                    <td>
+
+                                        <a href="{{ asset('pharmacy_image/'.$pharma->un_pharmacy_image) }}" alt="" class="badge bg-secondary">pharmaacy image</a>
 
                                     </td>
                                     <td>
@@ -275,7 +276,7 @@
                                   @endforeach
                                   @else
                                   <tr>
-                                    <td class="text-center" colspan="5">Pharmacy not found</td>
+                                    <td class="text-center" colspan="8">Pharmacy not found</td>
                                 </tr>
                             @endif
                                   </tbody>

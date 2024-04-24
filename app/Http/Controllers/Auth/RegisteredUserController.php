@@ -36,9 +36,9 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $image=$request->file;
-        $imagename=time().'.'.$image->getClientOriginalExtension();
-        $request->file->move('productimage',$imagename);
+        // $image=$request->file;
+        // $imagename=time().'.'.$image->getClientOriginalExtension();
+        // $request->file->move('productimage',$imagename);
 
         $user = User::create([
             'name' => $request->name,
@@ -46,11 +46,20 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'location'=> $request->location,
             'distance'=> $request->distance,
-            'file'=> $imagename,
+            'userType' => $request->userType,
+            'file'=> null, //Default value if no file is uploaded
         ]);
 
+        if ($request->hasFile('file')) {
+            $image = $request->file('file');
+            $imagename = time().'.'.$image->getClientOriginalExtension();
+            $image->move('productimage', $imagename);
+            $user->file = $imagename;
+            $user->save();
+        }
 
-        // Logic to create Pharmacy entry if usertype is 0
+
+        // Logic to create Pharmacy entry if userType is 0
 if ($user->userType == 0) {
     Pharmacy::create([
         'user_id' => $user->id, // Assigning the user's ID to the 'user_id' field
