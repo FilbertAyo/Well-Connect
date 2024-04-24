@@ -11,6 +11,7 @@ use App\Models\Medicine;
 use App\Models\Cart;
 use App\Models\cartHistory;
 use App\Models\PharmacyOrder;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -378,11 +379,12 @@ public function deleteCartItem($id)
 }
 public function sendOrderToPharmacy(Request $request)
 {
-    try{// Validate request data
+    try {
+        // Validate request data
         $validateData = Validator::make($request->all(), [
             'prescription' => 'required|file',
         ]);
-    
+
         if ($validateData->fails()) {
             return response()->json([
                 'status' => false,
@@ -391,27 +393,37 @@ public function sendOrderToPharmacy(Request $request)
             ], 401);
         }
 
-         // Get the authenticated user
-         $user = Auth::user();
-    
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Fetch profile data for the authenticated user
+        $profile = Profile::where('email', $user->email)->first();
+
+        if (!$profile) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Profile not found for the user',
+            ], 404);
+        }
+
         // Fetch cart data for the specified user_id
         $carts = Cart::where('user_id', $user->id)->get();
 
         $pharmacyOrderData = [];
-    
+
         if ($carts->isEmpty()) {
             return response()->json([
                 'status' => false,
                 'message' => 'No cart data found for the user',
             ], 404);
         }
-    
+
         foreach ($carts as $cart) {
             // Handle prescription file upload
             $prescriptionPath = $request->file('prescription')->store('prescriptions');
-    
+
             // Create a new record in pharmacy_orders table for each cart item
-            $pharmacyOrder= PharmacyOrder::create([
+            $pharmacyOrder = PharmacyOrder::create([
                 'user_id' => $cart->user_id,
                 'pharmacyName' => $cart->pharmacyName,
                 'medicineName' => $cart->medicineName,
@@ -420,25 +432,25 @@ public function sendOrderToPharmacy(Request $request)
                 'pharmacyLocation' => $cart->pharmacyLocation,
                 'prescription' => $prescriptionPath,
                 // Add other necessary fields
+                'user_name' => $profile->username,
+                'user_email' => $profile->email,
+                'user_address' => $profile->street,
             ]);
 
             $pharmacyOrderData[] = $pharmacyOrder;
         }
-    
+
         // You may choose to delete the carts data here if needed
         // Cart::where('user_id', $request->user_id)->delete();
-    
+
         return response()->json([
             'status' => true,
             'message' => 'Orders sent to pharmacy successfully',
             'data' => $pharmacyOrderData,
-        ], 200);}
-
-        catch (Exception $e) {
-            // Handle error
-            return response()->json(['error' => 'Failed : 
-            ' . $e->getMessage()], 500);
-        }
-    
+        ], 200);
+    } catch (Exception $e) {
+        // Handle error
+        return response()->json(['error' => 'Failed: ' . $e->getMessage()], 500);
+    }
 }
 }

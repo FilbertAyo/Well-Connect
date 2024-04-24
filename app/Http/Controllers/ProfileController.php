@@ -18,7 +18,7 @@ class ProfileController extends Controller
        $userType = Auth::user()->userType;
        if($userType=='1'){
         return redirect()->route('admin.index');
-       }elseif($usertype=='0'){
+       }elseif($userType=='0'){
         return view('layout.order');
        }else{
         redirect()->back()->with('status',"You're not authorized");

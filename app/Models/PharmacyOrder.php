@@ -15,6 +15,9 @@ class PharmacyOrder extends Model
         'medicineCategory',
         'medicinePrice',
         'pharmacyLocation',
-        'prescription'
+        'prescription',
+        'user_name' ,
+        'user_email' ,
+        'user_address' 
     ];
 }
