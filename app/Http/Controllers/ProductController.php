@@ -30,8 +30,6 @@ class ProductController extends Controller
         // If pharmacy found, fetch only the medicines associated with that pharmacy
         $product = Medicine::where('pharmacy_id', $pharmacy->id)->get();
 
-
-
         foreach ($product as $prod) {
             // Check if quantity is below 20
             if ($prod['quantity']< 20) {

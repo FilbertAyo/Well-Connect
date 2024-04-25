@@ -31,19 +31,38 @@ class PharmacyController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData= $request->all();
+        // $requestData= $request->all();
 
-        
-        $certification=$request->certification;
-        $certification_name=time().'.'.$certification->getClientOriginalExtension();
-        $request->certification->move('cert_image',$certification_name);
+        $pharmacy = UnverifiedPharmacy::create([
+            'pharmacyName' => $request->pharmacyName,
+            'street' => $request->street,
 
-        $un_pharmacy_image=$request->un_pharmacy_image;
-        $un_pharmacy_name=time().'.'.$un_pharmacy_image->getClientOriginalExtension();
-        $request->un_pharmacy_image->move('pharmacy_image',$un_pharmacy_name);
+            'region'=> $request->region,
+            'city'=> $request->city,
+            'contact'=> $request->contact,
+            'pharmacyEmail'=> $request->pharmacyEmail,
+            'certification'=> $request->certification,
+            'un_pharmacy_image'=> $request->un_pharmacy_image,
+            'file'=> null, //Default value if no file is uploaded
+        ]);
+
+        if ($request->hasFile('certification')) {
+            $certification = $request->file('certification');
+            $certification_name = time().'.'.$certification->getClientOriginalExtension();
+            $certification->move('cert_image', $certification_name);
+            $pharmacy->certification = $certification_name;
+            $pharmacy->save();
+        }
+
+         if ($request->hasFile('un_pharmacy_image')) {
+            $un_pharmacy_image = $request->file('un_pharmacy_image');
+            $un_pharmacy_name = time().'.'.$un_pharmacy_image->getClientOriginalExtension();
+            $un_pharmacy_image->move('pharmacy_image', $un_pharmacy_name);
+            $pharmacy->un_pharmacy_image = $un_pharmacy_name;
+            $pharmacy->save();
+        }
 
 
-        UnverifiedPharmacy::create($requestData);
 
         return redirect()->back()->with('success',"Verification sent successfully");
 

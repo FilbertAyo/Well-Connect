@@ -129,7 +129,7 @@
                       @endforeach
                       @else
                       <tr>
-                        <td class="text-center" colspan="5">NCD medicine not found</td>
+                        <td class="text-center" colspan="8">NCD medicine not found</td>
                     </tr>
                 @endif
 
