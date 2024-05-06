@@ -16,13 +16,13 @@
                   </li>
 
                   <li class="sidebar-item active">
-                      <a class="sidebar-link" href="{{ url('/dashboard') }}">
+                      <a class="sidebar-link" href="{{ route('order.index') }}">
                           <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Order</span>
                       </a>
                   </li>
 
                   <li class="sidebar-item">
-                      <a class="sidebar-link" href="{{ url('/stock') }}">
+                      <a class="sidebar-link" href="{{ route('stock.index') }}">
                           <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Stock</span>
                       </a>
                   </li>
@@ -35,7 +35,7 @@
                               Do you face a problem? Check out the system admin.
                           </div>
                           <div class="d-grid">
-                              <a href="upgrade-to-pro.html" class="btn btn-primary">Messages</a>
+                              <a href="{{ url('/chat') }}" class="btn btn-primary">Messages</a>
                           </div>
                       </div>
                   </div>
@@ -52,11 +52,12 @@
               <div class="container-fluid p-0">
 
                 <div class="headstock">
-                      <div class="">
-                  <h1 class="h3 mb-3">Moses Bunango</h1>
+                      <div class="mb-3">
+                  <h1 class="h3 d-inline align-middle">{{ $order->patient_name }}</h1>
+                  <a href="{{ $order->prescription }}" class="badge bg-primary  ms-3">prescription</a>
               </div>
               <div class="text-gray-300 btn-s">
-                <a href="{{ url('/dashboard') }}" class="btn act">Back</a>
+                <a href="{{ route('order.index') }}" class="btn act">Back</a>
             </div>
         </div>
 
@@ -64,7 +65,7 @@
             <div class="card flex-fill w-100">
                 <div class="card-header">
 
-                    <h5 class="card-title mb-0">mwananchi,ubungo,Dar es salaam : +25573223273</h5>
+                    <h5 class="card-title mb-0">{{ $order->pat_street }}, {{ $order->pat_district }}, {{ $order->pat_city }} : {{ $order->contact }}</h5>
                 </div>
                 <div class="card-body px-4">
                     <div id="world_map" style="height:300px;"></div>
@@ -81,38 +82,43 @@
                                       <tr>
                                         <th>No.</th>
                                         <th class="product-name">NCD Name</th>
-                                        <th class="product-price">Quantity</th>
+                                        <th class="product-price">Category</th>
                                         <th class="product-price">Price</th>
                                       </tr>
                                     </thead>
                                     <tbody>
+
+                                        @if($orderedMedicine->count()>0)
+                                        @foreach ($orderedMedicine as $order)
+
                                         <t>
-                                        <td>1</td>
-                                        <td class="product-name">Obesity</td>
-                                        <td class="product-price">2</td>
-                                        <td class="product-price">30000/=</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td class="product-name">{{ $order->medicineName }}</td>
+                                        <td class="product-price">{{ $order->medicineCategory }}</td>
+                                        <td class="product-price">{{ $order->medicinePrice }}</td>
                                       </tr>
-                                      <t>
-                                        <td>2</td>
-                                        <td class="product-name">Sugar dosage</td>
-                                        <td class="product-price">1</td>
-                                        <td class="product-price">90000/=</td>
+
+                                         @endforeach
+                                         @endif
+                                      <tr>
+                                        <th></th>
+                                        <th>TOTAL PRICE</th>
+                                        <th></th>
+                                        <th>120,000</th>
                                       </tr>
                                     </tbody>
                                 </table>
 
-                                <div class="headstock">
-                                    <div class="s">
-                                       <h1>Total Price</h1>
-                                    </div>
-                                  <div class="text-gray-300 btn-s">
-                                    <a href="" class="btn">120000/=</a>
-                                </div>
-                                </div>
 
                               </div>
                           </div>
                       </div>
+
+                      <div class="text-gray-300 btn-s flex justify-end">
+                        <a href="" class="btn act">Complete order</a>
+                    </div>
+
+
                   </div>
 
 

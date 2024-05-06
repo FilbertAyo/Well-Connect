@@ -205,86 +205,36 @@
 
               <div class="headstock">
                   <div class="">
-              <h1 class="h3 mb-3">Pharmacies</h1>
+              <h1 class="h3 mb-3">Messages</h1>
           </div>
-          <div class="text-gray-300 btn-s">
-            <a href="" class="btn act">All Pharma</a>
-            <a href="" class="btn">Registered</a>
-            <a href="" class="btn">Requested</a>
-            <a href="" class="btn">Insufficient</a>
-        </div>
+
               </div>
 
 
-                  <div class="row">
-                      <div class="col-12 col-lg-12 col-xxl-12 d-flex">
-                          <div class="card flex-fill">
+              <div class="col-md-12 col-xl-12">
+                <div class="card">
 
-                            @if(Session::has('success'))
-                            <div class="alert alert-success" role="alert">
-                            {{ Session::get('success') }}
+                    <div class="card-body h-100">
+
+                        <div class="d-flex align-items-start">
+
+                            <div class="flex-grow-1">
+                                <small class="float-end text-navy">5m ago</small>
+                                <strong>Vanessa Tucker</strong> started following <strong>Christina Mason</strong><br />
+                                <small class="text-muted">Today 7:51 pm</small><br />
+
                             </div>
-                              @endif
+                        </div>
 
 
-                              <table class="table table-hover my-0">
-                                  <thead>
+                        <hr />
 
-                                      <tr>
-                                          <th>No.</th>
-                                          <th class="d-none d-xl-table-cell">Pharmacy name</th>
-                                          <th class="d-none d-xl-table-cell">Pharmacy Email</th>
-                                          <th class="d-none d-xl-table-cell">Location</th>
-                                          <th class="d-none d-md-table-cell">Contact</th>
-                                          <th class="d-none d-md-table-cell">Licence</th>
-                                          <th class="d-none d-md-table-cell">Image</th>
-                                          <th>Status</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                    @if($pharmacy->count()>0)
-                                    @foreach ($pharmacy as $pharma)
 
-                                  <tr>
-                                    <td>{{ $loop->iteration }}</td>
 
-                                    <td>
-                                        {{ $pharma->pharmacyName }}
-                                    </td>
-                                    <td>
-                                        {{ $pharma->pharmacyEmail }}
-                                    </td>
-                                    <td>{{ $pharma->street }},    {{ $pharma->region }},    {{ $pharma->city }}</td>
-                                    <td>{{ $pharma->contact }}</td>
-                                    <td>
-                                        <a href="{{ asset('cert_image/' . $pharma->certification) }}" class="badge bg-primary"> Licence </a>
-                                    </td>
+                    </div>
+                </div>
+            </div>
 
-                                    <td>
-
-                                        <a href="{{ asset('pharmacy_image/'.$pharma->un_pharmacy_image) }}" alt="" class="badge bg-secondary">pharmaacy image</a>
-
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.show', $pharma->id) }}" class="badge btn btn-info">Details</a>
-
-                                        <a href="" class="badge btn btn-danger ">{{ $pharma -> status }}</a>
-
-                                    </td>
-                                  </tr>
-
-                                  @endforeach
-                                  @else
-                                  <tr>
-                                    <td class="text-center" colspan="8">Pharmacy not found</td>
-                                </tr>
-                            @endif
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
-
-                  </div>
 
               </div>
       </main>
