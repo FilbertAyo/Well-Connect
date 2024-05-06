@@ -84,10 +84,10 @@
 
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $order->patient_name }}</td>
-                                        <td>{{ $order->pat_street }}, {{ $order->pat_district }}, {{ $order->pat_city }}</td>
+                                        <td>{{ $order->user_name }}</td>
+                                        <td>{{ $order->user_address }}</td>
 
-                                        <td>{{ $order->contact }}</td>
+                                        <td>{{ $order->user_email }}</td>
                                         <td> <a href="{{ route('order.show', $order->id) }}" class="badge btn btn-info ">View Order</a> <a href="" class="badge btn btn-danger">Pending</a></td>
                                     </tr>
 

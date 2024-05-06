@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\OrderedMedicine;
 
 class PharmacyOrder extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'user_id', // Add 'user_id' to the fillable array
         'pharmacyName',
         'medicineName',
@@ -18,6 +20,11 @@ class PharmacyOrder extends Model
         'prescription',
         'user_name' ,
         'user_email' ,
-        'user_address' 
+        'user_address'
     ];
+
+
+    public function orderedMedicine(){
+        return $this->hasMany(OrderedMedicine::class , 'order_id','id');
+    }
 }

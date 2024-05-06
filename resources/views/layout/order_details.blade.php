@@ -53,7 +53,7 @@
 
                 <div class="headstock">
                       <div class="mb-3">
-                  <h1 class="h3 d-inline align-middle">{{ $order->patient_name }}</h1>
+                  <h1 class="h3 d-inline align-middle">{{ $order->user_name }}</h1>
                   <a href="{{ $order->prescription }}" class="badge bg-primary  ms-3">prescription</a>
               </div>
               <div class="text-gray-300 btn-s">
@@ -65,7 +65,7 @@
             <div class="card flex-fill w-100">
                 <div class="card-header">
 
-                    <h5 class="card-title mb-0">{{ $order->pat_street }}, {{ $order->pat_district }}, {{ $order->pat_city }} : {{ $order->contact }}</h5>
+                    <h5 class="card-title mb-0">{{ $order->user_address }} : {{ $order->user_email }}</h5>
                 </div>
                 <div class="card-body px-4">
                     <div id="world_map" style="height:300px;"></div>
