@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Order;
+use App\Models\PharmacyOrder;
 
 class OrderedMedicine extends Model
 {
@@ -21,6 +21,6 @@ class OrderedMedicine extends Model
     ];
 
     public function orders(){
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(PharmacyOrder::class);
      }
 }

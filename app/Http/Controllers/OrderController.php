@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
+
 use App\Models\OrderedMedicine;
+use App\Models\PharmacyOrder;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,7 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::with('orderedMedicine')->get();
+        $order = PharmacyOrder::with('orderedMedicine')->get();
         $orderedMedicine = OrderedMedicine::with('orders')->get();
 
         return view('layout.order', compact('order','orderedMedicine'));
@@ -40,7 +41,7 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        $order = Order::findOrFail($id);
+        $order = PharmacyOrder::findOrFail($id);
         // $orders = Order::with('orderedMedicine')->get();
         $orderedMedicine = OrderedMedicine::where('order_id',$id)->get();
 
