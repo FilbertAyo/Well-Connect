@@ -73,7 +73,7 @@
 
               </div>
               <div class="text-gray-300 ">
-                <a href="{{ url('/stock') }}" class="cloth btn act">Go back</a>
+                <a href="{{ route('stock.index') }}" class="cloth btn act">Go back</a>
             </div>
                   </div>
 

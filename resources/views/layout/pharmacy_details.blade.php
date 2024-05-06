@@ -91,7 +91,7 @@
                                         Is there stock shortage? alert the pharmacy admin.
                                     </div>
                                     <div class="d-grid">
-                                        <a href="upgrade-to-pro.html" class="btn btn-primary">Messages</a>
+                                        <a href="{{ url('/admin_chat') }}" class="btn btn-primary">Messages</a>
                                     </div>
                                 </div>
                             </div>

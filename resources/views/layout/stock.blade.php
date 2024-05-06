@@ -14,13 +14,13 @@
                   </li>
 
                   <li class="sidebar-item">
-                      <a class="sidebar-link" href="{{ url('/dashboard') }}">
+                      <a class="sidebar-link" href="{{ route('order.index') }}">
                           <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Order</span>
                       </a>
                   </li>
 
                   <li class="sidebar-item active">
-                      <a class="sidebar-link" href="{{ url('/stock') }}">
+                      <a class="sidebar-link" href="{{ route('stock.index') }}">
                           <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Stock</span>
                       </a>
                   </li>
@@ -33,7 +33,7 @@
                               Do you face a problem? Check out the system admin.
                           </div>
                           <div class="d-grid">
-                              <a href="upgrade-to-pro.html" class="btn btn-primary">Messages</a>
+                              <a href="{{ url('/chat') }}" class="btn btn-primary">Messages</a>
                           </div>
                       </div>
                   </div>

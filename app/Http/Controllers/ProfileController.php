@@ -19,7 +19,7 @@ class ProfileController extends Controller
        if($userType=='1'){
         return redirect()->route('admin.index');
        }elseif($userType=='0'){
-        return view('layout.order');
+        return redirect()->route('order.index');
        }else{
         redirect()->back()->with('status',"You're not authorized");
        }

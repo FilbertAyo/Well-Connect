@@ -15,13 +15,13 @@
             </li>
 
             <li class="sidebar-item active">
-                <a class="sidebar-link" href="{{ url('/dashboard') }}">
+                <a class="sidebar-link" href="{{ route('order.index') }}">
                     <i class="align-middle" data-feather="layers"></i> <span class="align-middle">Order</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('/stock') }}">
+                <a class="sidebar-link" href="{{ route('stock.index') }}">
                     <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Stock</span>
                 </a>
             </li>
@@ -34,7 +34,7 @@
                         Do you face a problem? Check out the system admin.
                     </div>
                     <div class="d-grid">
-                        <a href="upgrade-to-pro.html" class="btn btn-primary">Messages</a>
+                        <a href="{{ url('/chat') }}" class="btn btn-primary">Messages</a>
                     </div>
                 </div>
             </div>
@@ -71,22 +71,32 @@
                                     <tr>
                                         <th>No.</th>
                                         <th class="d-none d-xl-table-cell">Name</th>
-                                        <th class="d-none d-xl-table-cell">order-ID</th>
+
                                         <th class="d-none d-xl-table-cell">Address</th>
                                         <th class="d-none d-md-table-cell">Contacts</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
+                                    @if($order->count()>0)
+                                    @foreach ($order as $order)
+
                                     <tr>
-                                        <td>1</td>
-                                        <td>Moses Bunango</td>
-                                        <td>O-234234</td>
-                                        <td>mwananchi, Ubungo ,Dar es salaam</td>
-                                        <td>+2557 322 2345</td>
-                                        <td> <a href="{{ url('/view') }}" class="badge btn btn-info ">View Order</a> <a href="" class="badge btn btn-danger">Pending</a></td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $order->patient_name }}</td>
+                                        <td>{{ $order->pat_street }}, {{ $order->pat_district }}, {{ $order->pat_city }}</td>
+
+                                        <td>{{ $order->contact }}</td>
+                                        <td> <a href="{{ route('order.show', $order->id) }}" class="badge btn btn-info ">View Order</a> <a href="" class="badge btn btn-danger">Pending</a></td>
                                     </tr>
 
+                                    @endforeach
+                                    @else
+                                    <tr>
+                                      <td class="text-center" colspan="5">Order not found</td>
+                                  </tr>
+                              @endif
 
                                 </tbody>
                             </table>

@@ -56,7 +56,7 @@
                   <h1 class="h3 mb-3">Edit NCD Medicine Details</h1>
               </div>
               <div class="text-gray-300 ">
-                <a href="{{ url('/stock') }}" class="cloth btn act">Go back</a>
+                <a href="{{ route('stock.index') }}" class="cloth btn act">Go back</a>
             </div>
                   </div>
 
@@ -91,7 +91,7 @@
                                                   </div>
 
                                                   <div class="flex justify-end">
-                                                    <button class="btn btn-primary">Update</button>
+                                                    <button class="cloth btn act">Update</button>
                                                   </div>
 
                                             </form>
