@@ -66,8 +66,9 @@
 
                             <div class="flex-grow-1">
                                 <small class="float-end text-navy">5m ago</small>
-                                <strong>Vanessa Tucker</strong> started following <strong>Christina Mason</strong><br />
+                                <strong>Admin</strong>
                                 <small class="text-muted">Today 7:51 pm</small><br />
+                                Update your obesity stock
 
                             </div>
                         </div>

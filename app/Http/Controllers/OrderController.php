@@ -43,8 +43,11 @@ class OrderController extends Controller
     {
         $order = PharmacyOrder::findOrFail($id);
         // $orders = Order::with('orderedMedicine')->get();
-        $orderedMedicine = OrderedMedicine::where('order_id',$id)->get();
+        $orderedMedicine = OrderedMedicine::where('pharmacy_order_id',$order->user_id)->get();
 
+        // $order = PharmacyOrder::where('user_id', $user_id)->firstOrFail();
+
+        // $orderedMedicines = $order->orderedMedicines;
 
 
         return view('layout.order_details', compact('order','orderedMedicine'));
