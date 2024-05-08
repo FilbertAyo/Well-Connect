@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('ordered_medicines', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->foreignId('pharmacy_order_id')
+          ->constrained('pharmacy_orders', 'user_id') // Reference the column 'user_id'
+          ->onDelete('cascade');
             $table->string('medicineName');
             $table->string('medicineCategory');
             $table->string('medicinePrice');

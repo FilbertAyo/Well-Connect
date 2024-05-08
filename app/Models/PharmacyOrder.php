@@ -25,6 +25,6 @@ class PharmacyOrder extends Model
 
 
     public function orderedMedicine(){
-        return $this->hasMany(OrderedMedicine::class , 'order_id','id');
+        return $this->hasMany(OrderedMedicine::class , 'pharmacy_order_id','user_id');
     }
 }

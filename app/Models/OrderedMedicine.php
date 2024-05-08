@@ -14,7 +14,7 @@ class OrderedMedicine extends Model
     protected $fillable = [
 
         'id',
-        'order_id',
+        'pharmacy_order_id',
         'medicineName',
         'medicineCategory',
         'medicinePrice',
