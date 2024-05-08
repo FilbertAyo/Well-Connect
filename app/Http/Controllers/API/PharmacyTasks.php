@@ -12,6 +12,7 @@ use App\Models\Cart;
 use App\Models\cartHistory;
 use App\Models\PharmacyOrder;
 use App\Models\Profile;
+use App\Models\OrderedMedicine;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -436,6 +437,14 @@ public function sendOrderToPharmacy(Request $request)
                 'user_email' => $profile->email,
                 'user_address' => $profile->street,
             ]);
+
+            // Create a record in ordered_medicines table for each cart item
+                  OrderedMedicine::create([
+                 'pharmacy_order_id' => $cart->user_id,
+                 'medicineName' => $cart->medicineName,
+                 'medicineCategory' => $cart->medicineCategory,
+                 'medicinePrice' => $cart->medicinePrice,
+          ]);
 
             $pharmacyOrderData[] = $pharmacyOrder;
         }
