@@ -35,7 +35,7 @@
     <body class="font-sans antialiased bd dark:text-dark/50">
 
 
-                    <header class="hh">
+                    <header class="hh border-bottom">
                         <div class="flex items-center well s">
                         <h1>Well-Connect</h1>
                         </div>
@@ -219,5 +219,8 @@
                                               </div>
                                             </div>
                                           </div>
-                        </body>
+
+
+
+                                        </body>
 </html>
