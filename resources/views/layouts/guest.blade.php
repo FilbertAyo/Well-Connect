@@ -9,22 +9,52 @@
 
         {{-- added  --}}
         <link rel="stylesheet" href="{{ asset('css/all_dash.css') }}">
-
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <!-- Style -->
+        <link rel="stylesheet" href="css/cstyle.css">
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+    <body>
 
+    <div class="d-md-flex half">
+        <div class="bg" style="background-color: #2b4257;"></div>
+        <div class="contents">
 
-            {{ $slot }}
-
-
-
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12">
+                        <div class="form-block mx-auto">
+                            {{ $slot }}
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+
+    </div>
+
+
+
+
+
+
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/main.js"></script>
     </body>
 </html>

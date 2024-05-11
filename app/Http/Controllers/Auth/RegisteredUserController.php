@@ -69,8 +69,6 @@ if ($user->userType == 0) {
         'distance'=> $user->distance,
         'image'=> $user->file,
     ]);
-
-
 }
 
         event(new Registered($user));
