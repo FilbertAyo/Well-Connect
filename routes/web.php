@@ -40,6 +40,8 @@ Route::get('/admin_chat', function(){
 });
 
 
+
+//below function is just for the testing of some features before implementing even you Bunasta vina you can use it
 Route::get('/test', function(){
     return view('test');
 });

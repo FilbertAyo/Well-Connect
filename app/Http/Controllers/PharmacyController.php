@@ -64,7 +64,7 @@ class PharmacyController extends Controller
 
 
 
-        return redirect()->back()->with('success',"Verification sent successfully");
+        return redirect()->back()->with('success',"Request sent successfully, Wait for verification ...");
 
     }
 
