@@ -51,12 +51,9 @@ class RegisteredUserController extends Controller
             'file'=> null, //Default value if no file is uploaded
         ]);
 
-        //trigger status of the pharmacy after registered
-        $verify_pharmacy = UnverifiedPharmacy::find($request->pid);
-        $verify_pharmacy->status = 'registered';
-        $verify_pharmacy->save();
 
-        
+
+
         if ($request->hasFile('file')) {
             $image = $request->file('file');
             $imagename = time().'.'.$image->getClientOriginalExtension();
@@ -76,6 +73,18 @@ if ($user->userType == 0) {
         'distance'=> $user->distance,
         'image'=> $user->file,
     ]);
+
+
+      //trigger status of the pharmacy after registered
+      $verify_pharmacy = UnverifiedPharmacy::find($request->pid);
+      $verify_pharmacy->status = 'registered';
+      $verify_pharmacy->save();
+
+    return redirect()->back()->with('success','Registration done successfully');
+
+
+}elseif($user->userType == 1){
+
 }
 
         event(new Registered($user));

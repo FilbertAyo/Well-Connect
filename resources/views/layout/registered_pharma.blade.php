@@ -270,13 +270,14 @@
 
                                     </td>
                                   </tr>
+                                  @else
+                                  <tr>
+                                    <td class="text-center" colspan="8">No pharmacy was registered </td>
+                                </tr>
                                   @endif
 
                                   @endforeach
-                                  @else
-                                  <tr>
-                                    <td class="text-center" colspan="8">No pharmacy is registered </td>
-                                </tr>
+                              
                             @endif
                                   </tbody>
                               </table>

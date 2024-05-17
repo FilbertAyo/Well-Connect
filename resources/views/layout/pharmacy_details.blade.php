@@ -221,7 +221,7 @@
                 </span>
                 @else
                 <span class="badge btn-success text-white ms-2">
-                  This pharmacy is already registered
+                  This pharmacy was already registered
                 </span>
                 @endif
 
@@ -238,6 +238,11 @@
                          </div>
                             </div>
 
+                            @if(Session::has('success'))
+                            <div class="alert alert-success" role="alert">
+                            {{ Session::get('success') }}
+                            </div>
+                              @endif
 
                                 <div class="row">
                                     <div class="col-12 col-lg-12 col-xxl-12 d-flex">
