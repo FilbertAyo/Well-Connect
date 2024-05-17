@@ -209,9 +209,27 @@
                         <div class="container-fluid p-0">
 
                             <div class="headstock">
-                                <div class="">
+                                <div class="flex">
                             <h1 class="h3 mb-3">Pharmacy Verification</h1>
+
+
+                            <div class="">
+
+                                  @if($pharmacy->status === 'pending')
+                  <span class="badge btn-danger text-white ms-2">
+                   This pharmarcy is not registered
+                </span>
+                @else
+                <span class="badge btn-success text-white ms-2">
+                  This pharmacy is already registered
+                </span>
+                @endif
+
+                            </div>
+
+
                         </div>
+
                         <div class="text-gray-300 btn-s">
 
                             <a href="{{ route('admin.index') }}" class="btn act" >
@@ -225,7 +243,7 @@
                                     <div class="col-12 col-lg-12 col-xxl-12 d-flex">
                                         <div class="card flex-fill p-3">
 
-                                            <div class="col-md">
+                                            <div class="col-md mb-3">
                                                 <label for="quantity" class="form-label">Pharmacy Image</label>
                                                 <img  class="form-control" name="un_pharmacy_image" src="{{ asset('pharmacy_image/'.$pharmacy->un_pharmacy_image) }}" style="height: auto;" readonly>
                                               </div>
@@ -266,12 +284,17 @@
                                                       <span class="badge bg-warning" readonly>{{ $pharmacy->created_at }} </span>
                                                     </div>
                                                 </div>
+
+                                                @if($pharmacy->status === 'pending')
+
                                                 <div class="flex items-center justify-end mt-4">
                                                     <button class="btn cloth act" data-toggle="modal" data-target="#exampleModal">
                                                      Register
                                                     </button>
 
                                                  </div>
+
+                                                 @endif
 
 
                                         </div>
@@ -304,6 +327,7 @@
             @csrf
 
             <!-- Name -->
+            <input type="hidden" name="pid" value="{{ $pharmacy->id }}">
             <div>
                 <label for="name">Pharmacy Name</label>
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ $pharmacy->pharmacyName }}" required autofocus autocomplete="name" readonly/>

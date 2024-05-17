@@ -78,21 +78,6 @@ class PharmacyController extends Controller
         return view('layout.pharmacy_details',compact('pharmacy'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -100,5 +85,19 @@ class PharmacyController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function registered(){
+
+        $pharmacy = UnverifiedPharmacy::all();
+
+        return view('layout.registered_pharma',compact('pharmacy'));
+    }
+
+    public function pending(){
+
+        $pharmacy = UnverifiedPharmacy::all();
+
+        return view('layout.pending_pharma',compact('pharmacy'));
     }
 }
