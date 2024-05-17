@@ -208,8 +208,8 @@
               <h1 class="h3 mb-3">Pharmacies</h1>
           </div>
           <div class="text-gray-300 btn-s">
-            <a href="{{ url('/dashboard') }}" class="btn act">All Pharmacy</a>
-            <a href="{{ url('/registered') }}" class="btn">Registered</a>
+            <a href="{{ url('/dashboard') }}" class="btn">All Pharmacy</a>
+            <a href="{{ url('/registered') }}" class="btn act">Registered</a>
             <a href="{{ url('/pending') }}" class="btn">Requested</a>
             {{-- <a href="" class="btn">Insufficient</a> --}}
         </div>
@@ -239,6 +239,7 @@
                                     @if($pharmacy->count()>0)
                                     @foreach ($pharmacy as $pharma)
 
+                                    @if( $pharma->status === 'registered')
                                   <tr>
                                     <td>{{ $loop->iteration }}</td>
 
@@ -262,19 +263,19 @@
                                     <td>
                                         <a href="{{ route('admin.show', $pharma->id) }}" class="badge btn btn-info">Details</a>
 
-                                    @if( $pharma->status === 'pending')
-                                        <i class="badge btn btn-danger">{{ $pharma->status }}</i>
-                                        @else
-                                        <i class="badge btn btn-success ">{{ $pharma->status }}</i>
-                                        @endif
+
+
+                                        <a href="" class="badge btn btn-success ">{{ $pharma->status }}</a>
+
 
                                     </td>
                                   </tr>
+                                  @endif
 
                                   @endforeach
                                   @else
                                   <tr>
-                                    <td class="text-center" colspan="8">Pharmacy not found</td>
+                                    <td class="text-center" colspan="8">No pharmacy is registered </td>
                                 </tr>
                             @endif
                                   </tbody>

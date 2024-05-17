@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Models\Pharmacy;
+use App\Models\UnverifiedPharmacy;
 
 class RegisteredUserController extends Controller
 {
@@ -50,6 +51,12 @@ class RegisteredUserController extends Controller
             'file'=> null, //Default value if no file is uploaded
         ]);
 
+        //trigger status of the pharmacy after registered
+        $verify_pharmacy = UnverifiedPharmacy::find($request->pid);
+        $verify_pharmacy->status = 'registered';
+        $verify_pharmacy->save();
+
+        
         if ($request->hasFile('file')) {
             $image = $request->file('file');
             $imagename = time().'.'.$image->getClientOriginalExtension();

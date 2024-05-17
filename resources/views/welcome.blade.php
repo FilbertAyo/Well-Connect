@@ -34,7 +34,23 @@
     </head>
     <body class="font-sans antialiased bd dark:text-dark/50">
 
+        @if(Session::has('success'))
+        {{-- <div class="" style="padding: 0px 50px;">
+            <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
+            </div>
+        </div>
+        <img src="/image/verification.gif" alt="" style="height: 95vh ; width: 100%;"> --}}
 
+        <div class=" flex justify-center" style="padding: 20px; background-color: #2b4257;" >
+            <div class="text-white flex justify-center" >
+                {{ Session::get('success') }}
+            </div>
+        </div>
+        <div class="" style="background-image: url('/image/verification.gif'); height: 91vh; background-size: 100%; background-position: center;">
+
+        </div>
+        @else
                     <header class="hh border-bottom">
                         <div class="flex items-center well s">
                         <h1>Well-Connect</h1>
@@ -75,13 +91,7 @@
                         @endif --}}
                     </header>
 
-                    <div class="" style="padding: 0px 50px;">
-                        @if(Session::has('success'))
-                        <div class="alert alert-success" role="alert">
-                        {{ Session::get('success') }}
-                        </div>
-                          @endif
-                    </div>
+
 
 
 
@@ -221,6 +231,8 @@
                                           </div>
 
 
+
+                                          @endif
 
                                         </body>
 </html>
