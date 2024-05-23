@@ -34,7 +34,7 @@
                           Do you face a problem? Check out the system admin.
                       </div>
                       <div class="d-grid">
-                          <a href="{{ url('/chat') }}" class="btn btn-primary">Messages</a>
+                          <a href="{{ route('chatify') }}" class="btn btn-primary">Messages</a>
                       </div>
                   </div>
               </div>
