@@ -208,10 +208,10 @@
               <h1 class="h3 mb-3">Pharmacies</h1>
           </div>
           <div class="text-gray-300 btn-s">
-            <a href="" class="btn act">All Pharma</a>
-            <a href="" class="btn">Registered</a>
-            <a href="" class="btn">Requested</a>
-            <a href="" class="btn">Insufficient</a>
+            <a href="{{ url('/dashboard') }}" class="btn act">All Pharmacy</a>
+            <a href="{{ url('/registered') }}" class="btn">Registered</a>
+            <a href="{{ url('/pending') }}" class="btn">Requested</a>
+            {{-- <a href="" class="btn">Insufficient</a> --}}
         </div>
               </div>
 
@@ -219,12 +219,6 @@
                   <div class="row">
                       <div class="col-12 col-lg-12 col-xxl-12 d-flex">
                           <div class="card flex-fill">
-
-                            @if(Session::has('success'))
-                            <div class="alert alert-success" role="alert">
-                            {{ Session::get('success') }}
-                            </div>
-                              @endif
 
 
                               <table class="table table-hover my-0">
@@ -268,7 +262,11 @@
                                     <td>
                                         <a href="{{ route('admin.show', $pharma->id) }}" class="badge btn btn-info">Details</a>
 
-                                        <a href="" class="badge btn btn-danger ">{{ $pharma -> status }}</a>
+                                    @if( $pharma->status === 'pending')
+                                        <i class="badge btn btn-danger">{{ $pharma->status }}</i>
+                                        @else
+                                        <i class="badge btn btn-success ">{{ $pharma->status }}</i>
+                                        @endif
 
                                     </td>
                                   </tr>

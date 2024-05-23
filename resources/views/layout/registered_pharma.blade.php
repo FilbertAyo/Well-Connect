@@ -86,7 +86,10 @@
                           Is there stock shortage? alert the pharmacy admin.
                       </div>
                       <div class="d-grid">
+
                           <a href="{{ route('chatify') }}" class="btn btn-primary">Messages</a>
+
+                  
                       </div>
                   </div>
               </div>

@@ -57,7 +57,7 @@
                   <div class="headstock">
                       <div class="mb-3 ">
                   <h1 class="h3 d-inline align-middle">NCD Medicine Details</h1>
-                  {{-- @foreach ($product as $prod) --}}
+
 
                   @if($product->status === 'low')
                   <span class="badge btn-danger text-white ms-2">
@@ -69,7 +69,7 @@
                 </span>
                 @endif
 
-                {{-- @endforeach --}}
+            
 
               </div>
               <div class="text-gray-300 ">
