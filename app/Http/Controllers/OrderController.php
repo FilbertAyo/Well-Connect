@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 
 use App\Models\OrderedMedicine;
+use App\Models\Pharmacy;
 use App\Models\PharmacyOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -14,10 +16,22 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = PharmacyOrder::with('orderedMedicine')->get();
+
+        $userId = Auth::id();
+          // Find the pharmacy associated with the logged-in user
+    $pharmacy = Pharmacy::where('user_id', $userId)->first();
+
+    if ($pharmacy) {
+
+        // $order = PharmacyOrder::with('orderedMedicine')->get();
+          // If pharmacy found, fetch only the medicines associated with that pharmacy
+          $order = PharmacyOrder::where('pharmacy_id', $pharmacy->id)->get();
         $orderedMedicine = OrderedMedicine::with('orders')->get();
 
         return view('layout.order', compact('order','orderedMedicine'));
+    }
+
+
     }
 
     /**

@@ -12,7 +12,7 @@ class OrderedMedicine extends Model
 
 
     protected $fillable = [
-
+        'pharmacy_id',
         'id',
         'pharmacy_order_id',
         'medicineName',
@@ -22,5 +22,10 @@ class OrderedMedicine extends Model
 
     public function orders(){
         return $this->belongsTo(PharmacyOrder::class);
+     }
+
+     public function pharmacy()
+     {
+         return $this->belongsTo(Pharmacy::class, 'pharmacy_id');
      }
 }
