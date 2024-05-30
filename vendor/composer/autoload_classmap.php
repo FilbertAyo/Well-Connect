@@ -25,6 +25,8 @@ return array(
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
     'App\\Http\\Requests\\ProfileUpdateRequest' => $baseDir . '/app/Http/Requests/ProfileUpdateRequest.php',
     'App\\Models\\Cart' => $baseDir . '/app/Models/Cart.php',
+    'App\\Models\\ChFavorite' => $baseDir . '/app/Models/ChFavorite.php',
+    'App\\Models\\ChMessage' => $baseDir . '/app/Models/ChMessage.php',
     'App\\Models\\Medicine' => $baseDir . '/app/Models/Medicine.php',
     'App\\Models\\OrderedMedicine' => $baseDir . '/app/Models/OrderedMedicine.php',
     'App\\Models\\Pharmacy' => $baseDir . '/app/Models/Pharmacy.php',

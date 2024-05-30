@@ -174,15 +174,23 @@ public function addToCart(Request $request)
       
         // Get user ID (assuming you have a logged-in user)
         $userId = auth()->id();
+        $pharmacy = Pharmacy::where('name', $request->pharmacyName)->first();
+        if (!$pharmacy) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pharmacy not found',
+            ], 404);
+        }
       
         // Create a new Cart item
-        $cart=Cart::create([
-          'user_id' => $userId,
-          'pharmacyName' => $request->pharmacyName,
-          'medicineName' => $request->medicineName,
-          'medicineCategory' => $request->medicineCategory,
-          'medicinePrice' => $request->medicinePrice,
-          'pharmacyLocation' => $request->pharmacyLocation,
+        $cart = Cart::create([
+            'user_id' => $userId,
+            'pharmacy_id' => $pharmacy->id, // Use the retrieved pharmacy_id
+            'pharmacyName' => $request->pharmacyName,
+            'medicineName' => $request->medicineName,
+            'medicineCategory' => $request->medicineCategory,
+            'medicinePrice' => $request->medicinePrice,
+            'pharmacyLocation' => $request->pharmacyLocation,
         ]);
       
         $cart->save();
@@ -426,6 +434,7 @@ public function sendOrderToPharmacy(Request $request)
             // Create a new record in pharmacy_orders table for each cart item
             $pharmacyOrder = PharmacyOrder::create([
                 'user_id' => $cart->user_id,
+                'pharmacy_id' => $cart->pharmacy_id,
                 'pharmacyName' => $cart->pharmacyName,
                 'medicineName' => $cart->medicineName,
                 'medicineCategory' => $cart->medicineCategory,

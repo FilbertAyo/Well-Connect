@@ -570,6 +570,8 @@ class ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Models\\Cart' => __DIR__ . '/../..' . '/app/Models/Cart.php',
+        'App\\Models\\ChFavorite' => __DIR__ . '/../..' . '/app/Models/ChFavorite.php',
+        'App\\Models\\ChMessage' => __DIR__ . '/../..' . '/app/Models/ChMessage.php',
         'App\\Models\\Medicine' => __DIR__ . '/../..' . '/app/Models/Medicine.php',
         'App\\Models\\OrderedMedicine' => __DIR__ . '/../..' . '/app/Models/OrderedMedicine.php',
         'App\\Models\\Pharmacy' => __DIR__ . '/../..' . '/app/Models/Pharmacy.php',
