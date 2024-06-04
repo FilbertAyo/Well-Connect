@@ -104,7 +104,7 @@
                                         <th></th>
                                         <th>TOTAL PRICE</th>
                                         <th></th>
-                                        <th>120,000</th>
+                                        <th>{{ number_format($totalPrice, 2) }}</th>
                                       </tr>
                                     </tbody>
                                 </table>
@@ -115,7 +115,12 @@
                       </div>
 
                       <div class="text-gray-300 btn-s flex justify-end">
-                        <a href="" class="btn act">Complete order</a>
+
+                        <form action="{{ route('order.destroy', $order->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn act">Complete Order</button>
+                        </form>
                     </div>
 
 

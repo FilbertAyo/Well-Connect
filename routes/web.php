@@ -31,6 +31,8 @@ Route::resource('admin',PharmacyController::class);
 Route::resource('order',OrderController::class);
 Route::get('/registered', [PharmacyController::class, 'registered']);
 Route::get('/pending', [PharmacyController::class, 'pending']);
+Route::get('/completed_order', [OrderController::class, 'completeOrder']);
+Route::get('/pending_order', [OrderController::class, 'pendingOrder']);
 
 
 Route::get('/chat', function(){
