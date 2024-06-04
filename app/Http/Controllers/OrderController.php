@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Medicine;
 use App\Models\OrderedMedicine;
 use App\Models\Pharmacy;
 use App\Models\PharmacyOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -101,7 +102,31 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
+
+        $ordered = OrderedMedicine::find($id);
+
+        if(!$ordered){
+            return redirect()->back()->with('error','order not found');
+        }
+
+        $medicineName = $ordered->medicineName;
+
+        $stock = Medicine::where('medicine_name',$medicineName)->first();
+
+        if(!$stock){
+            return redirect()->back()->with('error','stock for this medicine is not found');
+        }
+
+        $stock->quantity-=1;
+        $stock->save();
+
         $order = PharmacyOrder::findOrFail($id);
+
+           // Get the user ID from the order and futa ile list of order
+        $userId = $order->user_id;
+         DB::table('ordered_medicines')->where('pharmacy_order_id', $userId)->delete();
+
+
         $order->delete();
 
         return redirect()->route('order.index')->with('success',"Order completed successfully");
