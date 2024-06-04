@@ -108,12 +108,9 @@
                                       </tr>
                                     </tbody>
                                 </table>
-
-
                               </div>
                           </div>
                       </div>
-
                       <div class="text-gray-300 btn-s flex justify-end">
 
                         <form action="{{ route('order.destroy', $order->id) }}" method="POST">
