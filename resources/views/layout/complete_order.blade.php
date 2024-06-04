@@ -58,7 +58,7 @@
                 <a href="{{ route('order.index') }}" class="btn">Received</a>
                 <a href="{{ url('/pending_order') }}" class="btn">Pending</a>
                 <a href="{{ url('/completed_order') }}" class="btn act">Completed</a>
-                
+
               </div>
               </div>
 
@@ -90,9 +90,8 @@
                                                     <td>{{ $order->user_address }}</td>
                                                     <td>{{ $order->user_email }}</td>
                                                     <td>
-
                                                             <span class="badge btn btn-success">completed</span>
-
+                                                            <span class="badge btn btn-primary">{{ $order->deleted_at }}
                                                     </td>
                                                 </tr>
                                                 @php

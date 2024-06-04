@@ -103,22 +103,21 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
 
-        $ordered = OrderedMedicine::find($id);
+        $orders = OrderedMedicine::all();
 
-        if(!$ordered){
-            return redirect()->back()->with('error','order not found');
+        foreach ($orders as $ordered) {
+            $medicineName = $ordered->medicineName;
+
+            $stock = Medicine::where('medicine_name', $medicineName)->first();
+
+            if (!$stock) {
+                return redirect()->back()->with('error', "Stock for medicine $medicineName is not found");
+            }
+
+            // Decrease the stock quantity by one
+            $stock->quantity -= 1;
+            $stock->save();
         }
-
-        $medicineName = $ordered->medicineName;
-
-        $stock = Medicine::where('medicine_name',$medicineName)->first();
-
-        if(!$stock){
-            return redirect()->back()->with('error','stock for this medicine is not found');
-        }
-
-        $stock->quantity-=1;
-        $stock->save();
 
         $order = PharmacyOrder::findOrFail($id);
 
@@ -127,7 +126,8 @@ class OrderController extends Controller
          DB::table('ordered_medicines')->where('pharmacy_order_id', $userId)->delete();
 
 
-        $order->delete();
+        // $order->delete();
+        PharmacyOrder::where('user_id', $userId)->delete();
 
         return redirect()->route('order.index')->with('success',"Order completed successfully");
 
