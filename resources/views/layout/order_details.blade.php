@@ -68,7 +68,7 @@
                     <h5 class="card-title mb-0">{{ $order->user_address }} : {{ $order->user_email }}</h5>
                 </div>
                 <div class="card-body px-4">
-                    <div id="world_map" style="height:300px;"></div>
+                    <div id="map" style="height:300px;"></div>
                 </div>
             </div>
         </div>
@@ -134,73 +134,42 @@
 
 
 
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    
+    <!-- Include Leaflet Routing Machine CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var markers = [{
-                coords: [31.230391, 121.473701],
-                name: "Shanghai"
-            }, {
-                coords: [28.704060, 77.102493],
-                name: "Delhi"
-            }, {
-                coords: [6.524379, 3.379206],
-                name: "Lagos"
-            }, {
-                coords: [35.689487, 139.691711],
-                name: "Tokyo"
-            }, {
-                coords: [23.129110, 113.264381],
-                name: "Guangzhou"
-            }, {
-                coords: [40.7127837, -74.0059413],
-                name: "New York"
-            }, {
-                coords: [34.052235, -118.243683],
-                name: "Los Angeles"
-            }, {
-                coords: [41.878113, -87.629799],
-                name: "Chicago"
-            }, {
-                coords: [51.507351, -0.127758],
-                name: "London"
-            }, {
-                coords: [40.416775, -3.703790],
-                name: "Madrid "
-            }];
-            var map = new jsVectorMap({
-                map: "world",
-                selector: "#world_map",
-                zoomButtons: true,
-                markers: markers,
-                markerStyle: {
-                    initial: {
-                        r: 9,
-                        strokeWidth: 7,
-                        stokeOpacity: .4,
-                        fill: window.theme.primary
-                    },
-                    hover: {
-                        fill: window.theme.primary,
-                        stroke: window.theme.primary
-                    }
-                },
-                zoomOnScroll: false
+        document.addEventListener("DOMContentLoaded", function () {
+            var map = L.map('map').setView([-6.7924, 39.2083], 12); // Centered on Dar es Salaam
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            var markers = [
+                { coords: [-6.771430, 39.241420], name: "Sinza" },
+                { coords: [-6.752140, 39.268910], name: "Mikocheni" }
+            ];
+
+            var markerObjects = markers.map(function(marker) {
+                return L.marker(marker.coords).addTo(map)
+                    .bindPopup(marker.name);
             });
-            window.addEventListener("resize", () => {
-                map.updateSize();
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-            var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-            document.getElementById("datetimepicker-dashboard").flatpickr({
-                inline: true,
-                prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-                nextArrow: "<span title=\"Next month\">&raquo;</span>",
-                defaultDate: defaultDate
-            });
+
+            // Add routing between Sinza and Mikocheni
+            L.Routing.control({
+                waypoints: [
+                    L.latLng(-6.771430, 39.241420),
+                    L.latLng(-6.752140, 39.268910)
+                ],
+                createMarker: function(i, waypoint, n) {
+                    var marker = L.marker(waypoint.latLng).bindPopup(markers[i].name);
+                    return marker;
+                }
+            }).addTo(map);
         });
     </script>
 
