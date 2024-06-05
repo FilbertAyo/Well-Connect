@@ -25,6 +25,7 @@ return new class extends Migration
             $table->decimal('medicinePrice', 8, 2);
             $table->string('pharmacyLocation')->nullable();
             $table->string('prescription'); // Path to the uploaded prescription file
+            $table->softDeletes();
             $table->timestamps();
         });
     }

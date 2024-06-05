@@ -55,12 +55,18 @@
             <h1 class="h3 mb-3">NCD Orders</h1>
         </div>
             <div class="text-gray-300 btn-s">
-                <a href="" class="btn act">Received</a>
-                <a href="" class="btn">Processed</a>
-                <a href="" class="btn">Pending</a>
+                <a href="{{ route('order.index') }}" class="btn act">Received</a>
+                <a href="{{ url('/pending_order') }}" class="btn">Pending</a>
+                <a href="{{ url('/completed_order') }}" class="btn">Completed</a>
+
             </div>
             </div>
 
+            @if(Session::has('success'))
+            <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
+            </div>
+              @endif
 
                 <div class="row">
                     <div class="col-12 col-lg-12 col-xxl-12 d-flex">
@@ -71,34 +77,108 @@
                                     <tr>
                                         <th>No.</th>
                                         <th class="d-none d-xl-table-cell">Name</th>
-
                                         <th class="d-none d-xl-table-cell">Address</th>
                                         <th class="d-none d-md-table-cell">Contacts</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                    $userOrdersDisplayed = [];
+                                    @endphp
 
-                                    @if($order->count()>0)
-                                    @foreach ($order as $order)
+@if($order->count() > 0)
+    @foreach ($order as $order)
 
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $order->user_name }}</td>
-                                        <td>{{ $order->user_address }}</td>
+        @if (!array_key_exists($order->user_id . '_' . $order->id, $userOrdersDisplayed) && !$order->trashed())
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $order->user_name }}</td>
+                <td>{{ $order->user_address }}</td>
+                <td>{{ $order->user_email }}</td>
+                <td>
+                    <span class="badge btn btn-danger">pending</span>
+                    <a href="{{ route('order.show', $order->id) }}" class="badge btn btn-info">View Order</a>
+                </td>
+            </tr>
+            @php
+                $userOrdersDisplayed[$order->user_id . '_' . $order->id] = true;
+            @endphp
 
-                                        <td>{{ $order->user_email }}</td>
-                                        <td> <a href="{{ route('order.show', $order->id) }}" class="badge btn btn-info ">View Order</a> <a href="" class="badge btn btn-danger">Pending</a></td>
-                                    </tr>
+        @elseif(!array_key_exists($order->user_id . '_' . $order->id, $userOrdersDisplayed) && $order->trashed())
 
-                                    @endforeach
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $order->user_name }}</td>
+                <td>{{ $order->user_address }}</td>
+                <td>{{ $order->user_email }}</td>
+                <td>
+                    @php
+                        $userOrdersDisplayed[$order->user_id . '_' . $order->id] = true;
+                    @endphp
+
+                    <span class="badge btn btn-success">completed</span>
+                    <span class="badge btn btn-primary">{{ $order->deleted_at }}</span>
+                </td>
+            </tr>
+
+        @endif
+
+    @endforeach
+@else
+    <tr>
+        <td class="text-center" colspan="5">Order not found</td>
+    </tr>
+@endif
+
+
+                                    {{-- @if($order->count() > 0)
+                                        @foreach ($order as $order)
+
+                                            @if (!array_key_exists($order->user_id, $userOrdersDisplayed) && !$order->trashed())
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $order->user_name }}</td>
+                                                    <td>{{ $order->user_address }}</td>
+                                                    <td>{{ $order->user_email }}</td>
+                                                    <td>
+                                                            <span class="badge btn btn-danger">pending</span>
+                                                            <a href="{{ route('order.show', $order->id) }}" class="badge btn btn-info">View Order</a>
+                                                    </td>
+                                                </tr>
+                                                @php
+                                                $userOrdersDisplayed[$order->user_id] = true;
+                                                @endphp
+
+                                                @elseif(!array_key_exists($order->user_id, $userOrdersDisplayed) && $order->trashed())
+
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $order->user_name }}</td>
+                                                    <td>{{ $order->user_address }}</td>
+                                                    <td>{{ $order->user_email }}</td>
+                                                    <td>
+
+                                                        @php
+                                                        $userOrdersDisplayed[$order->user_id] = true;
+                                                        @endphp
+
+                                                            <span class="badge btn btn-success">completed</span>
+                                                            <span class="badge btn btn-primary">{{ $order->deleted_at }}</span>
+                                                    </td>
+                                                </tr>
+
+                                            @endif
+
+                                        @endforeach
                                     @else
-                                    <tr>
-                                      <td class="text-center" colspan="5">Order not found</td>
-                                  </tr>
-                              @endif
+                                        <tr>
+                                            <td class="text-center" colspan="5">Order not found</td>
+                                        </tr>
+                                    @endif --}}
 
                                 </tbody>
+
                             </table>
                         </div>
                     </div>

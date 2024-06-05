@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Medicine;
 use App\Models\OrderedMedicine;
 use App\Models\Pharmacy;
 use App\Models\PharmacyOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -23,17 +24,34 @@ class OrderController extends Controller
 
     if ($pharmacy) {
 
-        // $order = PharmacyOrder::with('orderedMedicine')->get();
-          // If pharmacy found, fetch only the medicines associated with that pharmacy
-          $order = PharmacyOrder::where('pharmacy_id', $pharmacy->id)->get();
+
+
+          $order = PharmacyOrder::where('pharmacy_id', $pharmacy->id)->withTrashed()->get();
+
         $orderedMedicine = OrderedMedicine::with('orders')->get();
 
         return view('layout.order', compact('order','orderedMedicine'));
     }
 
-
     }
 
+    public function completeOrder(){
+        $userId = Auth::id();
+  $pharmacy = Pharmacy::where('user_id', $userId)->first();
+        $trashedOrder = PharmacyOrder::where('pharmacy_id', $pharmacy->id)->onlyTrashed()->get();
+        $orderedMedicine = OrderedMedicine::with('orders')->get();
+
+        return view('layout.complete_order',compact('trashedOrder','orderedMedicine'));
+    }
+
+    public function pendingOrder(){
+        $userId = Auth::id();
+        $pharmacy = Pharmacy::where('user_id', $userId)->first();
+        $pendingOrder = PharmacyOrder::where('pharmacy_id', $pharmacy->id)->get();
+        $orderedMedicine = OrderedMedicine::with('orders')->get();
+
+        return view('layout.pending_order',compact('pendingOrder','orderedMedicine'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -56,15 +74,11 @@ class OrderController extends Controller
     public function show(string $id)
     {
         $order = PharmacyOrder::findOrFail($id);
-        // $orders = Order::with('orderedMedicine')->get();
         $orderedMedicine = OrderedMedicine::where('pharmacy_order_id',$order->user_id)->get();
 
-        // $order = PharmacyOrder::where('user_id', $user_id)->firstOrFail();
+        $totalPrice = $orderedMedicine->sum('medicinePrice');
 
-        // $orderedMedicines = $order->orderedMedicines;
-
-
-        return view('layout.order_details', compact('order','orderedMedicine'));
+        return view('layout.order_details', compact('order','orderedMedicine','totalPrice'));
     }
 
     /**
@@ -88,6 +102,34 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        $orders = OrderedMedicine::all();
+
+        foreach ($orders as $ordered) {
+            $medicineName = $ordered->medicineName;
+
+            $stock = Medicine::where('medicine_name', $medicineName)->first();
+
+            if (!$stock) {
+                return redirect()->back()->with('error', "Stock for medicine $medicineName is not found");
+            }
+
+            // Decrease the stock quantity by one
+            $stock->quantity -= 1;
+            $stock->save();
+        }
+
+        $order = PharmacyOrder::findOrFail($id);
+
+           // Get the user ID from the order and futa ile list of order
+        $userId = $order->user_id;
+         DB::table('ordered_medicines')->where('pharmacy_order_id', $userId)->delete();
+
+
+        // $order->delete();
+        PharmacyOrder::where('user_id', $userId)->delete();
+
+        return redirect()->route('order.index')->with('success',"Order completed successfully");
+
     }
 }
