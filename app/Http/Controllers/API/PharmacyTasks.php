@@ -11,6 +11,7 @@ use App\Models\Medicine;
 use App\Models\Cart;
 use App\Models\cartHistory;
 use App\Models\PharmacyOrder;
+use App\Models\Chatgpt;
 use App\Models\Profile;
 use App\Models\OrderedMedicine;
 use Illuminate\Support\Facades\Validator;
@@ -471,4 +472,32 @@ public function sendOrderToPharmacy(Request $request)
         return response()->json(['error' => 'Failed: ' . $e->getMessage()], 500);
     }
 }
+public function getRiskResults()
+{
+    try {
+        // Get the authenticated user (assuming a logged-in user)
+    $user = auth()->user();
+
+    // Retrieve cart items for the authenticated user
+    $chatgptResults = Chatgpt::where('user_id', $user->id)->get();
+
+        if(!$chatgptResults->isEmpty()) {
+            return response()->json([
+                'status' => true,
+                'data' => $chatgptResults
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'No results found.'
+            ], 404);
+        }
+    } catch (\Throwable $th) {
+        return response()->json([
+            'status' => false,
+            'message' => $th->getMessage()
+        ], 500);
+    }
+}
+
 }

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthenticationController;
 use App\Http\Controllers\API\PharmacyTasks;
+use App\Http\Controllers\API\ChatGptController;
 
 
 Route::post('auth/register',[AuthenticationController::class,'register']);
@@ -37,3 +38,9 @@ Route::get('/getMyCart',[PharmacyTasks::class,'getMyCart'])
 
     Route::post('/sendOrderToPharmacy',[PharmacyTasks::class,'sendOrderToPharmacy'])
     ->middleware('auth:sanctum');
+
+    Route::post('/chatgpt/ask', [ChatGptController::class, 'ask'])
+->name('chatgpt.ask')->middleware('auth:sanctum');
+
+Route::get('/getRiskResults', [PharmacyTasks::class, 'getRiskResults'])
+->middleware('auth:sanctum');
