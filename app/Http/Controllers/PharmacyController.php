@@ -31,7 +31,21 @@ class PharmacyController extends Controller
      */
     public function store(Request $request)
     {
-        // $requestData= $request->all();
+
+        $validatedData =  $request->validate([
+            'pharmacyName' => 'required|regex:/^[a-zA-Z\s]+$/|max:100', // Ensure the name contains only alphabetic characters
+            'street' => 'required|regex:/^[a-zA-Z\s]+$/|max:40',
+            'region' => 'required|regex:/^[a-zA-Z\s]+$/|max:40',
+            'city' => 'required|regex:/^[a-zA-Z\s]+$/|max:40',
+            'contact' => [
+                'required',
+                'regex:/^0[67][0-9]{8}$/'
+            ],
+            'pharmacyEmail' => 'required',
+            'certification'=> 'required',
+            'un_pharmacy_image'=>'required',
+            'file'=>'required',
+        ]);
 
         $pharmacy = UnverifiedPharmacy::create([
             'pharmacyName' => $request->pharmacyName,

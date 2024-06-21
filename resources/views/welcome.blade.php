@@ -13,7 +13,6 @@
     <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/dashboard/">
 
 
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
       integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -35,12 +34,7 @@
     <body class="font-sans antialiased bd dark:text-dark/50">
 
         @if(Session::has('success'))
-        {{-- <div class="" style="padding: 0px 50px;">
-            <div class="alert alert-success" role="alert">
-            {{ Session::get('success') }}
-            </div>
-        </div>
-        <img src="/image/verification.gif" alt="" style="height: 95vh ; width: 100%;"> --}}
+
 
         <div class=" flex justify-center" style="padding: 20px; background-color: #2b4257;" >
             <div class="text-white flex justify-center" >
@@ -61,34 +55,7 @@
                                 Verify Pharmacy
                               </button>
                         </div>
-                        {{-- @if (Route::has('login'))
-                            <nav class="mr-4 flex flex-1 justify-end btn-s">
-                                @auth
-                                    <a
-                                        href="{{ url('/dashboard') }}"
-                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                    >
-                                        Dashboard
-                                    </a>
-                                @else
-                                    <a
-                                        href="{{ route('login') }}"
-                                        class="btn"
-                                    >
-                                        Log in
-                                    </a>
 
-                                    @if (Route::has('register'))
-                                        <a
-                                            href="{{ route('register') }}"
-                                            class="btn rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-dark/80 dark:focus-visible:ring-white"
-                                        >
-                                            Register
-                                        </a>
-                                    @endif
-                                @endauth
-                            </nav>
-                        @endif --}}
                     </header>
 
 
@@ -160,8 +127,7 @@
 
                             </div>
 
-
-
+                                          @endif
 
 
                                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -179,22 +145,32 @@
 
                                                            <div class="mb-3">
                                                                <label for="price" class="form-label">Pharmacy name</label>
-                                                               <input type="text" class="form-control" name="pharmacyName" placeholder="eg : Example Pharmacy" required>
+                                                               <input type="text" class="form-control" name="pharmacyName" placeholder="eg : Example Pharmacy" value="{{ old('pharmacyName') }}" required>
+                                                               @if ($errors->has('pharmacyName'))
+                                                               <div class="alert alert-danger">
+                                                              invalid pharmacy name input
+                                                               </div>
+                                                               @endif
                                                              </div>
 
                                                              <div class="mb-3">
                                                                <label for="title" class="form-label">Email</label>
-                                                               <input type="email" class="form-control" name="pharmacyEmail" placeholder="eg: example@gmail.com" required>
+                                                               <input type="email" class="form-control" name="pharmacyEmail" placeholder="eg: example@gmail.com" value="{{ old('pharmacyEmail') }}"  required>
+                                                               @if ($errors->has('pharmacyEmail'))
+                                                               <div class="alert alert-danger">
+                                                              invalid email format
+                                                               </div>
+                                                               @endif
                                                              </div>
 
                                                              <div class="mb-3">
                                                                <label for="title" class="form-label">Contacts</label>
                                                                <input type="text" class="form-control" name="contact" placeholder="eg: 073XXXXXXX" value="{{ old('contact') }}" required>
-                                                               @error('contact')
+                                                               @if ($errors->has('contact'))
                                                                <div class="alert alert-danger">
-                                                              invalid phone number format
-                                                               </div>
-                                                               @enderror
+                                                                invalid contact format
+                                                                 </div>
+                                                           @endif
                                                              </div>
 
 
@@ -202,21 +178,46 @@
                                                                <label for="productCode" class="form-label">Location of your pharmacy</label>
 
                                                                <div class="flex gap-2">
-                                                               <input type="text" class="form-control" name="street" placeholder="Steet" required>
-                                                               <input type="text" class="form-control" name="region" placeholder="District" required>
-                                                               <input type="text" class="form-control" name="city" placeholder="Region" required>
+                                                               <input type="text" class="form-control" name="street" placeholder="Steet" value="{{ old('street') }}" required>
+                                                               @if ($errors->has('street'))
+                                                               <div class="alert alert-danger">
+                                                              invalid input
+                                                               </div>
+                                                               @endif
+                                                               <input type="text" class="form-control" name="region" placeholder="District" value="{{ old('region') }}" required>
+                                                               @if ($errors->has('region'))
+                                                               <div class="alert alert-danger">
+                                                              invalid input
+                                                               </div>
+                                                               @endif
+                                                               <input type="text" class="form-control" name="city" placeholder="Region" value="{{ old('city') }}" required>
+                                                               @if ($errors->has('city'))
+                                                               <div class="alert alert-danger">
+                                                              invalid input
+                                                               </div>
+                                                               @endif
                                                            </div>
 
                                                            </div>
 
                                                              <div class="mb-3">
                                                                <label for="description" class="form-label">Licence</label>
-                                                               <input type="file"  class="form-control" name="certification" placeholder="Licence" required>
+                                                               <input type="file"  class="form-control" name="certification" placeholder="Licence" value="{{ old('certification') }}" required>
+                                                               @if ($errors->has('certification'))
+                                                               <div class="alert alert-danger">
+                                                              invalid certifiaction file format
+                                                               </div>
+                                                               @endif
                                                              </div>
 
                                                              <div class="mb-3">
                                                                 <label for="description" class="form-label">Pharmacy Image</label>
-                                                                <input type="file"  class="form-control" name="un_pharmacy_image" placeholder="pharmacy image" required>
+                                                                <input type="file"  class="form-control" name="un_pharmacy_image" placeholder="pharmacy image" value="{{ old('pharmacy_image') }}" required>
+                                                                @if ($errors->has('un_pharmacy_image'))
+                                                                <div class="alert alert-danger">
+                                                               invalid pharmacy image
+                                                                </div>
+                                                                @endif
                                                               </div>
 
                                                      <div class="mt-3 flex justify-end">
@@ -232,7 +233,19 @@
 
 
 
+                                          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+                                          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+                                          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+                                          @if ($errors->any())
+                                          <script>
+                                              window.onload = function() {
+                                                  $('#exampleModal').modal('show');
+                                              }
+                                          </script>
                                           @endif
+
 
                                         </body>
 </html>
