@@ -30,7 +30,7 @@ class PharmacyTasks extends Controller
                 'pressure' =>  ['required','string', 'regex:/^\d{2,3}\/\d{2,3}$/',
                     function ($attribute, $value, $fail) {
                         list($systolic, $diastolic) = explode('/', $value);
-            
+
                         if ($systolic < 60 || $systolic > 180 || $diastolic < 40 || $diastolic > 120) {
                             $fail('The '.$attribute.' must be between 60/40 mmHg and 180/120 mmHg.');
                         }
@@ -60,15 +60,15 @@ class PharmacyTasks extends Controller
             $riskAssesment->username = $username; // Set username retrieved from the authenticated user
         }
         // Update profile fields with the validated data and user's email/username
-        $riskAssesment->email = $email; 
+        $riskAssesment->email = $email;
         $riskAssesment->username = $username;
         $riskAssesment->age = $request->age;
         $riskAssesment->weight = $request->weight;
         $riskAssesment->height = $request->height;
         $riskAssesment->pressure = $request->pressure;
         $riskAssesment->sugar = $request->sugar;
-            
-    
+
+
             $riskAssesment->save();
             return response()->json([
                 'status' => true,
@@ -164,7 +164,7 @@ public function addToCart(Request $request)
             'medicinePrice' => 'required|numeric',
             'pharmacyLocation' => 'nullable|string',
           ]);
-        
+
         if($validateUser->fails()){
           return response()->json([
               'status'=>false,
@@ -172,7 +172,7 @@ public function addToCart(Request $request)
               'error'=>$validateUser->errors()
           ],401);
       }
-      
+
         // Get user ID (assuming you have a logged-in user)
         $userId = auth()->id();
         $pharmacy = Pharmacy::where('name', $request->pharmacyName)->first();
@@ -182,7 +182,7 @@ public function addToCart(Request $request)
                 'message' => 'Pharmacy not found',
             ], 404);
         }
-      
+
         // Create a new Cart item
         $cart = Cart::create([
             'user_id' => $userId,
@@ -193,7 +193,7 @@ public function addToCart(Request $request)
             'medicinePrice' => $request->medicinePrice,
             'pharmacyLocation' => $request->pharmacyLocation,
         ]);
-      
+
         $cart->save();
         if ($cart) {
             // Item added successfully

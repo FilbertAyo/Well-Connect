@@ -167,26 +167,51 @@
                        <div class="mb-3">
                            <label for="price" class="form-label">Medicine name</label>
                            <input type="text" class="form-control" name="medicine_name" placeholder="medicine_name" required>
+                           @if ($errors->has('medicine_name'))
+                           <div class="alert alert-danger">
+                          invalid name of medicine
+                           </div>
+                           @endif
                          </div>
 
                          <div class="mb-3">
                            <label for="productCode" class="form-label">Price (each product)</label>
                            <input type="text" class="form-control" name="price" placeholder="Price" required>
+                           @if ($errors->has('price'))
+                           <div class="alert alert-danger">
+                          invalid price format
+                           </div>
+                           @endif
                          </div>
 
                          <div class="mb-3">
                            <label for="description" class="form-label">Quantity</label>
                            <input type="text"  class="form-control" name="quantity" placeholder="Quantity" required>
+                           @if ($errors->has('quantity'))
+                           <div class="alert alert-danger">
+                          invalid input
+                           </div>
+                           @endif
                          </div>
 
                          <div class="mb-3">
                             <label for="category" class="form-label">Category</label>
                             <input type="text"  class="form-control" name="category" placeholder="category" required>
+                            @if ($errors->has('category'))
+                            <div class="alert alert-danger">
+                           invalid category input
+                            </div>
+                            @endif
                           </div>
 
                        <div class="mb-3">
                            <label for="title" class="form-label">Description</label>
                            <textarea type="text" class="form-control" name="description" placeholder="description" required></textarea>
+                           @if ($errors->has('un_pharmacy_image'))
+                           <div class="alert alert-danger">
+                          invalid description
+                           </div>
+                           @endif
                          </div>
 
 
@@ -203,6 +228,15 @@
         </div>
       </div>
 
+     
+
+      @if ($errors->any())
+      <script>
+          window.onload = function() {
+              $('#exampleModal').modal('show');
+          }
+      </script>
+      @endif
 
 
 </x-app-layout>

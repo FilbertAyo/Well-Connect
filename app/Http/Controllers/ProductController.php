@@ -64,10 +64,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // $requestData= $request->all();
-        // Product::create($requestData);
-        // return redirect()->route('stock.index')->with('success',"NCD medicine added successfully");
-
+        $validatedData = $request->validate([
+            'medicine_name' => 'required|regex:/^[a-zA-Z\s]+$/|max:100',
+            'price' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:1',
+            'category' => 'required|regex:/^[a-zA-Z\s]+$/|max:40',
+            'description' => 'required|regex:/^[a-zA-Z\s]+$/|max:400',
+        ]);
 
              // Get the ID of the logged-in user
     $userId = Auth::id();
