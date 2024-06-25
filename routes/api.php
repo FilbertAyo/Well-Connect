@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthenticationController;
 use App\Http\Controllers\API\PharmacyTasks;
 use App\Http\Controllers\API\ChatGptController;
+use App\Http\Controllers\API\MessageController;
 
 
 Route::post('auth/register',[AuthenticationController::class,'register']);
@@ -43,4 +44,13 @@ Route::get('/getMyCart',[PharmacyTasks::class,'getMyCart'])
 ->name('chatgpt.ask')->middleware('auth:sanctum');
 
 Route::get('/getRiskResults', [PharmacyTasks::class, 'getRiskResults'])
+->middleware('auth:sanctum');
+
+Route::get('/pharmacies', [MessageController::class, 'pharmacies'])
+->middleware('auth:sanctum');
+
+Route::get('/pharmacies/{pharmacyId}/messages', [MessageController::class, 'getMessagesForPharmacy'])
+->middleware('auth:sanctum');
+
+Route::post('/sendmessage', [MessageController::class, 'sendMessage'])
 ->middleware('auth:sanctum');
