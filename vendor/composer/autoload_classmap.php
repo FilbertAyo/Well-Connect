@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Http\\Controllers\\API\\AuthenticationController' => $baseDir . '/app/Http/Controllers/API/AuthenticationController.php',
+    'App\\Http\\Controllers\\API\\ChatGptController' => $baseDir . '/app/Http/Controllers/API/ChatGptController.php',
     'App\\Http\\Controllers\\API\\PharmacyTasks' => $baseDir . '/app/Http/Controllers/API/PharmacyTasks.php',
     'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => $baseDir . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
@@ -27,6 +28,7 @@ return array(
     'App\\Models\\Cart' => $baseDir . '/app/Models/Cart.php',
     'App\\Models\\ChFavorite' => $baseDir . '/app/Models/ChFavorite.php',
     'App\\Models\\ChMessage' => $baseDir . '/app/Models/ChMessage.php',
+    'App\\Models\\Chatgpt' => $baseDir . '/app/Models/Chatgpt.php',
     'App\\Models\\Medicine' => $baseDir . '/app/Models/Medicine.php',
     'App\\Models\\OrderedMedicine' => $baseDir . '/app/Models/OrderedMedicine.php',
     'App\\Models\\Pharmacy' => $baseDir . '/app/Models/Pharmacy.php',

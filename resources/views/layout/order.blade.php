@@ -76,9 +76,9 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th class="d-none d-xl-table-cell">Name</th>
-                                        <th class="d-none d-xl-table-cell">Address</th>
-                                        <th class="d-none d-md-table-cell">Contacts</th>
+                                        <th >Name</th>
+                                        <th>Address</th>
+                                        <th >Contacts</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>

@@ -280,7 +280,7 @@
                                   @endif
 
                                   @endforeach
-                               
+
                             @endif
                                   </tbody>
                               </table>
