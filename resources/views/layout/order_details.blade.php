@@ -89,13 +89,13 @@
                                     <tbody>
 
                                         @if($orderedMedicine->count()>0)
-                                        @foreach ($orderedMedicine as $order)
+                                        @foreach ($orderedMedicine as $orderr)
 
                                         <t>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td class="product-name">{{ $order->medicineName }}</td>
-                                        <td class="product-price">{{ $order->medicineCategory }}</td>
-                                        <td class="product-price">{{ $order->medicinePrice }}</td>
+                                        <td class="product-name">{{ $orderr->medicineName }}</td>
+                                        <td class="product-price">{{ $orderr->medicineCategory }}</td>
+                                        <td class="product-price">{{ $orderr->medicinePrice }}</td>
                                       </tr>
 
                                          @endforeach
@@ -112,12 +112,9 @@
                           </div>
                       </div>
                       <div class="text-gray-300 btn-s flex justify-end">
-
-                        <form action="{{ route('order.destroy', $order->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn act">Complete Order</button>
-                        </form>
+                        <button type="button" class="btn act" data-bs-toggle="modal" data-bs-target="#completeOrderModal">
+                            Complete Order
+                        </button>
                     </div>
 
 
@@ -130,7 +127,29 @@
       </div>
       </div>
 
-
+      <!-- Modal -->
+    <div class="modal fade" id="completeOrderModal" tabindex="-1" aria-labelledby="completeOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="completeOrderModalLabel">Complete Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form id="completeOrderForm" action="{{ route('order.complete', $order->id) }}" method="POST">
+                 @csrf
+                <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                <input type="hidden" name="from_id" value="{{ auth()->user()->id }}">
+                 <input type="hidden" name="to_id" value="{{ $order->user_id }}">
+                 <button type="submit" class="btn btn-primary">Send Message & Complete Order</button>
+                 </form>
+                 </div>
+            </div>
+        </div>
+    </div>
 
 
 

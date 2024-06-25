@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthenticationController;
 use App\Http\Controllers\API\PharmacyTasks;
 use App\Http\Controllers\API\ChatGptController;
 use App\Http\Controllers\API\MessageController;
+use App\Http\Controllers\OrderController;
 
 
 Route::post('auth/register',[AuthenticationController::class,'register']);
@@ -54,3 +55,4 @@ Route::get('/pharmacies/{pharmacyId}/messages', [MessageController::class, 'getM
 
 Route::post('/sendmessage', [MessageController::class, 'sendMessage'])
 ->middleware('auth:sanctum');
+Route::post('/order/{id}/complete', [OrderController::class, 'completeOrderAndSendMessage'])->name('order.complete');
