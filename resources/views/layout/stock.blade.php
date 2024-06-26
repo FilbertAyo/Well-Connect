@@ -77,10 +77,10 @@
                                           <tr>
                                               <th></th>
                                               <th>No.</th>
-                                              <th class="d-none d-xl-table-cell">NCD Name</th>
-                                              <th class="d-none d-xl-table-cell">Price</th>
-                                              <th class="d-none d-xl-table-cell">Quantity</th>
-                                              <th class="d-none d-md-table-cell">Description</th>
+                                              <th >NCD Name</th>
+                                              <th >Price</th>
+                                              <th >Quantity</th>
+                                              <th>Description</th>
                                               <th>Actions</th>
                                           </tr>
                                       </thead>
@@ -228,7 +228,7 @@
         </div>
       </div>
 
-     
+
 
       @if ($errors->any())
       <script>

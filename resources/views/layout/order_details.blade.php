@@ -54,7 +54,7 @@
                 <div class="headstock">
                       <div class="mb-3">
                   <h1 class="h3 d-inline align-middle">{{ $order->user_name }}</h1>
-                  <a href="{{ $order->prescription }}" class="badge bg-primary  ms-3">prescription</a>
+                  <a href="{{ asset('prescription/'.$order->prescription) }}" class="badge bg-primary  ms-3">prescription</a>
               </div>
               <div class="text-gray-300 btn-s">
                 <a href="{{ route('order.index') }}" class="btn act">Back</a>
@@ -63,9 +63,9 @@
 
         <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
             <div class="card flex-fill w-100">
-                <div class="card-header">
+                <div class="card-header" style="display: flex; justify-content: space-between;">
 
-                    <h5 class="card-title mb-0">{{ $order->user_address }} : {{ $order->user_email }}</h5>
+                    <h5 class="card-title mb-0">{{ $order->user_address }} : {{ $order->user_email }}</h5>   <h5 class="card-title mb-0">Ordered time: {{ $order->created_at }}</h5>
                 </div>
                 <div class="card-body px-4">
                     <div id="map" style="height:300px;"></div>
@@ -167,11 +167,11 @@
 
       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    
+
     <!-- Include Leaflet Routing Machine CSS and JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var map = L.map('map').setView([-6.7924, 39.2083], 12); // Centered on Dar es Salaam

@@ -403,6 +403,8 @@ public function sendOrderToPharmacy(Request $request)
             ], 401);
         }
 
+
+
         // Get the authenticated user
         $user = Auth::user();
 
@@ -429,9 +431,12 @@ public function sendOrderToPharmacy(Request $request)
         }
 
         foreach ($carts as $cart) {
-            // Handle prescription file upload
-            $prescriptionPath = $request->file('prescription')->store('prescriptions');
 
+            if ($request->hasFile('prescription')) {
+                $image = $request->file('prescription');
+                $prescriptionName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('prescription'), $prescriptionName);
+            }
             // Create a new record in pharmacy_orders table for each cart item
             $pharmacyOrder = PharmacyOrder::create([
                 'user_id' => $cart->user_id,
@@ -441,7 +446,7 @@ public function sendOrderToPharmacy(Request $request)
                 'medicineCategory' => $cart->medicineCategory,
                 'medicinePrice' => $cart->medicinePrice,
                 'pharmacyLocation' => $cart->pharmacyLocation,
-                'prescription' => $prescriptionPath,
+                'prescription' => $prescriptionName,
                 // Add other necessary fields
                 'user_name' => $profile->username,
                 'user_email' => $profile->email,

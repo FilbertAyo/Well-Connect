@@ -62,7 +62,7 @@
 
 
 
-                            <div class="container2 flex">
+                            <div class="container2 flex mt-5">
 
 
                                         <div class="left-content col-lg-6">
@@ -127,109 +127,111 @@
 
                             </div>
 
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Fill required Information to verify your Pharmacy</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form  action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
+                                            {!!  csrf_field() !!}
+
+                                               <div class="mb-3">
+                                                   <label for="price" class="form-label">Pharmacy name</label>
+                                                   <input type="text" class="form-control" name="pharmacyName" placeholder="eg : Example Pharmacy" value="{{ old('pharmacyName') }}" required>
+                                                   @if ($errors->has('pharmacyName'))
+                                                   <div class="alert alert-danger">
+                                                  invalid pharmacy name input
+                                                   </div>
+                                                   @endif
+                                                 </div>
+
+                                                 <div class="mb-3">
+                                                   <label for="title" class="form-label">Email</label>
+                                                   <input type="email" class="form-control" name="pharmacyEmail" placeholder="eg: example@gmail.com" value="{{ old('pharmacyEmail') }}"  required>
+                                                   @if ($errors->has('pharmacyEmail'))
+                                                   <div class="alert alert-danger">
+                                                  invalid email format
+                                                   </div>
+                                                   @endif
+                                                 </div>
+
+                                                 <div class="mb-3">
+                                                   <label for="title" class="form-label">Contacts</label>
+                                                   <input type="text" class="form-control" name="contact" placeholder="eg: 073XXXXXXX" value="{{ old('contact') }}" required>
+                                                   @if ($errors->has('contact'))
+                                                   <div class="alert alert-danger">
+                                                    invalid contact format
+                                                     </div>
+                                               @endif
+                                                 </div>
+
+
+                                                 <div class="mb-3 ">
+                                                   <label for="productCode" class="form-label">Location of your pharmacy</label>
+
+                                                   <div class="flex gap-2">
+                                                   <input type="text" class="form-control" name="street" placeholder="Steet" value="{{ old('street') }}" required>
+                                                   @if ($errors->has('street'))
+                                                   <div class="alert alert-danger">
+                                                  invalid input
+                                                   </div>
+                                                   @endif
+                                                   <input type="text" class="form-control" name="region" placeholder="District" value="{{ old('region') }}" required>
+                                                   @if ($errors->has('region'))
+                                                   <div class="alert alert-danger">
+                                                  invalid input
+                                                   </div>
+                                                   @endif
+                                                   <input type="text" class="form-control" name="city" placeholder="Region" value="{{ old('city') }}" required>
+                                                   @if ($errors->has('city'))
+                                                   <div class="alert alert-danger">
+                                                  invalid input
+                                                   </div>
+                                                   @endif
+                                               </div>
+
+                                               </div>
+
+                                                 <div class="mb-3">
+                                                   <label for="description" class="form-label">Licence</label>
+                                                   <input type="file"  class="form-control" name="certification" placeholder="Licence" value="{{ old('certification') }}" required>
+                                                   @if ($errors->has('certification'))
+                                                   <div class="alert alert-danger">
+                                                  invalid certifiaction file format
+                                                   </div>
+                                                   @endif
+                                                 </div>
+
+                                                 <div class="mb-3">
+                                                    <label for="description" class="form-label">Pharmacy Image</label>
+                                                    <input type="file"  class="form-control" name="un_pharmacy_image" placeholder="pharmacy image" value="{{ old('pharmacy_image') }}" required>
+                                                    @if ($errors->has('un_pharmacy_image'))
+                                                    <div class="alert alert-danger">
+                                                   invalid pharmacy image
+                                                    </div>
+                                                    @endif
+                                                  </div>
+
+                                         <div class="mt-3 flex justify-end">
+                                            <button type="submit" class="btn act">verify</button>
+                                          </div>
+
+                                           </form>
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+
                                           @endif
 
 
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                  <h5 class="modal-title" id="exampleModalLabel">Fill required Information to verify your Pharmacy</h5>
-                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                  </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form  action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
-                                                        {!!  csrf_field() !!}
-
-                                                           <div class="mb-3">
-                                                               <label for="price" class="form-label">Pharmacy name</label>
-                                                               <input type="text" class="form-control" name="pharmacyName" placeholder="eg : Example Pharmacy" value="{{ old('pharmacyName') }}" required>
-                                                               @if ($errors->has('pharmacyName'))
-                                                               <div class="alert alert-danger">
-                                                              invalid pharmacy name input
-                                                               </div>
-                                                               @endif
-                                                             </div>
-
-                                                             <div class="mb-3">
-                                                               <label for="title" class="form-label">Email</label>
-                                                               <input type="email" class="form-control" name="pharmacyEmail" placeholder="eg: example@gmail.com" value="{{ old('pharmacyEmail') }}"  required>
-                                                               @if ($errors->has('pharmacyEmail'))
-                                                               <div class="alert alert-danger">
-                                                              invalid email format
-                                                               </div>
-                                                               @endif
-                                                             </div>
-
-                                                             <div class="mb-3">
-                                                               <label for="title" class="form-label">Contacts</label>
-                                                               <input type="text" class="form-control" name="contact" placeholder="eg: 073XXXXXXX" value="{{ old('contact') }}" required>
-                                                               @if ($errors->has('contact'))
-                                                               <div class="alert alert-danger">
-                                                                invalid contact format
-                                                                 </div>
-                                                           @endif
-                                                             </div>
-
-
-                                                             <div class="mb-3 ">
-                                                               <label for="productCode" class="form-label">Location of your pharmacy</label>
-
-                                                               <div class="flex gap-2">
-                                                               <input type="text" class="form-control" name="street" placeholder="Steet" value="{{ old('street') }}" required>
-                                                               @if ($errors->has('street'))
-                                                               <div class="alert alert-danger">
-                                                              invalid input
-                                                               </div>
-                                                               @endif
-                                                               <input type="text" class="form-control" name="region" placeholder="District" value="{{ old('region') }}" required>
-                                                               @if ($errors->has('region'))
-                                                               <div class="alert alert-danger">
-                                                              invalid input
-                                                               </div>
-                                                               @endif
-                                                               <input type="text" class="form-control" name="city" placeholder="Region" value="{{ old('city') }}" required>
-                                                               @if ($errors->has('city'))
-                                                               <div class="alert alert-danger">
-                                                              invalid input
-                                                               </div>
-                                                               @endif
-                                                           </div>
-
-                                                           </div>
-
-                                                             <div class="mb-3">
-                                                               <label for="description" class="form-label">Licence</label>
-                                                               <input type="file"  class="form-control" name="certification" placeholder="Licence" value="{{ old('certification') }}" required>
-                                                               @if ($errors->has('certification'))
-                                                               <div class="alert alert-danger">
-                                                              invalid certifiaction file format
-                                                               </div>
-                                                               @endif
-                                                             </div>
-
-                                                             <div class="mb-3">
-                                                                <label for="description" class="form-label">Pharmacy Image</label>
-                                                                <input type="file"  class="form-control" name="un_pharmacy_image" placeholder="pharmacy image" value="{{ old('pharmacy_image') }}" required>
-                                                                @if ($errors->has('un_pharmacy_image'))
-                                                                <div class="alert alert-danger">
-                                                               invalid pharmacy image
-                                                                </div>
-                                                                @endif
-                                                              </div>
-
-                                                     <div class="mt-3 flex justify-end">
-                                                        <button type="submit" class="btn act">verify</button>
-                                                      </div>
-
-                                                       </form>
-                                                </div>
-
-                                              </div>
-                                            </div>
-                                          </div>
 
 
 

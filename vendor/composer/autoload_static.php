@@ -552,6 +552,7 @@ class ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d
 
     public static $classMap = array (
         'App\\Http\\Controllers\\API\\AuthenticationController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/AuthenticationController.php',
+        'App\\Http\\Controllers\\API\\ChatGptController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ChatGptController.php',
         'App\\Http\\Controllers\\API\\PharmacyTasks' => __DIR__ . '/../..' . '/app/Http/Controllers/API/PharmacyTasks.php',
         'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
@@ -572,6 +573,7 @@ class ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d
         'App\\Models\\Cart' => __DIR__ . '/../..' . '/app/Models/Cart.php',
         'App\\Models\\ChFavorite' => __DIR__ . '/../..' . '/app/Models/ChFavorite.php',
         'App\\Models\\ChMessage' => __DIR__ . '/../..' . '/app/Models/ChMessage.php',
+        'App\\Models\\Chatgpt' => __DIR__ . '/../..' . '/app/Models/Chatgpt.php',
         'App\\Models\\Medicine' => __DIR__ . '/../..' . '/app/Models/Medicine.php',
         'App\\Models\\OrderedMedicine' => __DIR__ . '/../..' . '/app/Models/OrderedMedicine.php',
         'App\\Models\\Pharmacy' => __DIR__ . '/../..' . '/app/Models/Pharmacy.php',

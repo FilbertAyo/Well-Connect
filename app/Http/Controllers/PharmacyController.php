@@ -44,7 +44,9 @@ class PharmacyController extends Controller
             'pharmacyEmail' => 'required',
             'certification'=> 'required',
             'un_pharmacy_image'=>'required',
-            // 'file'=>'required',
+
+
+
         ]);
 
         $pharmacy = UnverifiedPharmacy::create([
@@ -57,7 +59,9 @@ class PharmacyController extends Controller
             'pharmacyEmail'=> $request->pharmacyEmail,
             'certification'=> $request->certification,
             'un_pharmacy_image'=> $request->un_pharmacy_image,
-            // 'file'=> null, //Default value if no file is uploaded
+
+
+
         ]);
 
         if ($request->hasFile('certification')) {
