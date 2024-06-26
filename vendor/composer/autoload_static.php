@@ -553,6 +553,7 @@ class ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d
     public static $classMap = array (
         'App\\Http\\Controllers\\API\\AuthenticationController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/AuthenticationController.php',
         'App\\Http\\Controllers\\API\\ChatGptController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ChatGptController.php',
+        'App\\Http\\Controllers\\API\\MessageController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/MessageController.php',
         'App\\Http\\Controllers\\API\\PharmacyTasks' => __DIR__ . '/../..' . '/app/Http/Controllers/API/PharmacyTasks.php',
         'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
@@ -563,6 +564,7 @@ class ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d
         'App\\Http\\Controllers\\Auth\\PasswordResetLinkController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/PasswordResetLinkController.php',
         'App\\Http\\Controllers\\Auth\\RegisteredUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisteredUserController.php',
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
+        'App\\Http\\Controllers\\ChatController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChatController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/OrderController.php',
         'App\\Http\\Controllers\\PharmacyController' => __DIR__ . '/../..' . '/app/Http/Controllers/PharmacyController.php',
@@ -584,6 +586,7 @@ class ComposerStaticInita9bbd3976012d5a30a5f6721e86c380d
         'App\\Models\\UnverifiedPharmacy' => __DIR__ . '/../..' . '/app/Models/UnverifiedPharmacy.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\cartHistory' => __DIR__ . '/../..' . '/app/Models/cartHistory.php',
+        'App\\Notifications\\RegistrationFormMail' => __DIR__ . '/../..' . '/app/Notifications/RegistrationFormMail.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\View\\Components\\AppLayout' => __DIR__ . '/../..' . '/app/View/Components/AppLayout.php',
         'App\\View\\Components\\GuestLayout' => __DIR__ . '/../..' . '/app/View/Components/GuestLayout.php',

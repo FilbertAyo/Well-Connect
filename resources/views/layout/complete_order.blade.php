@@ -83,7 +83,12 @@
 
                                     @if($trashedOrder->count() > 0)
                                         @foreach ($trashedOrder as $order)
-                                            @if (!array_key_exists($order->user_id, $userOrdersDisplayed))
+                                        @php
+                                        // Create a unique key for each user order based on user_id and created_at timestamp
+                                        $orderKey = $order->user_id . '_' . $order->created_at->timestamp;
+                                    @endphp
+
+                                            @if (!array_key_exists($orderKey, $userOrdersDisplayed))
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $order->user_name }}</td>
@@ -96,7 +101,7 @@
                                                 </tr>
                                                 @php
                                                 // Mark user_id as displayed
-                                                $userOrdersDisplayed[$order->user_id] = true;
+                                                $userOrdersDisplayed[$orderKey] = true;
                                                 @endphp
                                             @endif
                                         @endforeach

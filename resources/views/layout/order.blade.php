@@ -86,99 +86,57 @@
                                 <tbody>
                                     @php
                                     $userOrdersDisplayed = [];
-                                    @endphp
+                                @endphp
 
-@if($order->count() > 0)
-    @foreach ($order as $order)
+                                @if($order->count() > 0)
+                                    @foreach ($order as $order)
+                                        @php
+                                            // Create a unique key for each user order based on user_id and created_at timestamp
+                                            $orderKey = $order->user_id . '_' . $order->created_at->timestamp;
+                                        @endphp
 
-        @if (!array_key_exists($order->user_id . '_' . $order->id, $userOrdersDisplayed) && !$order->trashed())
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $order->user_name }}</td>
-                <td>{{ $order->user_address }}</td>
-                <td>{{ $order->user_email }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>
-                    <span class="badge btn btn-danger">pending</span>
-                    <a href="{{ route('order.show', $order->id) }}" class="badge btn btn-info">View Order</a>
-                </td>
-            </tr>
-            @php
-                $userOrdersDisplayed[$order->user_id . '_' . $order->id] = true;
-            @endphp
+                                        @if (!array_key_exists($orderKey, $userOrdersDisplayed) && !$order->trashed())
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $order->user_name }}</td>
+                                                <td>{{ $order->user_address }}</td>
+                                                <td>{{ $order->user_email }}</td>
+                                                <td>{{ $order->created_at }}</td>
+                                                <td>
+                                                    <span class="badge btn btn-danger">pending</span>
+                                                    <a href="{{ route('order.show', ['id' => $order->id, 'timestamp' => $order->created_at->timestamp]) }}" class="badge btn btn-info">View Order</a>
 
-        @elseif(!array_key_exists($order->user_id . '_' . $order->id, $userOrdersDisplayed) && $order->trashed())
+                                                </td>
+                                            </tr>
+                                            @php
+                                                $userOrdersDisplayed[$orderKey] = true;
+                                            @endphp
+                                            @elseif(!array_key_exists($orderKey, $userOrdersDisplayed) && $order->trashed())
 
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $order->user_name }}</td>
-                <td>{{ $order->user_address }}</td>
-                <td>{{ $order->user_email }}</td>
-                <td>{{ $order->created_at }}</td>
-                <td>
-                    @php
-                        $userOrdersDisplayed[$order->user_id . '_' . $order->id] = true;
-                    @endphp
+<tr>
+    <td>{{ $loop->iteration }}</td>
+    <td>{{ $order->user_name }}</td>
+    <td>{{ $order->user_address }}</td>
+    <td>{{ $order->user_email }}</td>
+    <td>{{ $order->created_at }}</td>
+    <td>
 
-                    <span class="badge btn btn-success">completed</span>
-                    <span class="badge btn btn-primary">{{ $order->deleted_at }}</span>
-                </td>
-            </tr>
+            <span class="badge btn btn-success">completed</span>
+            <span class="badge btn btn-primary">{{ $order->deleted_at }}</span>
+    </td>
+</tr>
 
-        @endif
+@php
+$userOrdersDisplayed[$orderKey] = true;
+@endphp
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td class="text-center" colspan="5">Order not found</td>
+                                    </tr>
+                                @endif
 
-    @endforeach
-@else
-    <tr>
-        <td class="text-center" colspan="5">Order not found</td>
-    </tr>
-@endif
-
-
-                                    {{-- @if($order->count() > 0)
-                                        @foreach ($order as $order)
-
-                                            @if (!array_key_exists($order->user_id, $userOrdersDisplayed) && !$order->trashed())
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $order->user_name }}</td>
-                                                    <td>{{ $order->user_address }}</td>
-                                                    <td>{{ $order->user_email }}</td>
-                                                    <td>
-                                                            <span class="badge btn btn-danger">pending</span>
-                                                            <a href="{{ route('order.show', $order->id) }}" class="badge btn btn-info">View Order</a>
-                                                    </td>
-                                                </tr>
-                                                @php
-                                                $userOrdersDisplayed[$order->user_id] = true;
-                                                @endphp
-
-                                                @elseif(!array_key_exists($order->user_id, $userOrdersDisplayed) && $order->trashed())
-
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $order->user_name }}</td>
-                                                    <td>{{ $order->user_address }}</td>
-                                                    <td>{{ $order->user_email }}</td>
-                                                    <td>
-
-                                                        @php
-                                                        $userOrdersDisplayed[$order->user_id] = true;
-                                                        @endphp
-
-                                                            <span class="badge btn btn-success">completed</span>
-                                                            <span class="badge btn btn-primary">{{ $order->deleted_at }}</span>
-                                                    </td>
-                                                </tr>
-
-                                            @endif
-
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td class="text-center" colspan="5">Order not found</td>
-                                        </tr>
-                                    @endif --}}
 
                                 </tbody>
 
@@ -193,5 +151,7 @@
 
 </div>
 </div>
+
+
 
 </x-app-layout>

@@ -58,7 +58,8 @@ class RegisteredUserController extends Controller
             $user->save();
         }
 
-       
+        // $user->notify(new RegistrationFormMail());
+
         // Logic to create Pharmacy entry if userType is 0
 if ($user->userType == 0) {
     Pharmacy::create([
@@ -69,14 +70,15 @@ if ($user->userType == 0) {
         'distance'=> $user->distance,
         'image'=> $user->file,
     ]);
-  
+
+
 
       //trigger status of the pharmacy after registered
       $verify_pharmacy = UnverifiedPharmacy::find($request->pid);
       $verify_pharmacy->status = 'registered';
       $verify_pharmacy->save();
 
-    
+
 
     return redirect()->back()->with('success','Registration done successfully');
 
@@ -85,13 +87,8 @@ if ($user->userType == 0) {
 
 }
 
-try {
-    $user->notify(new RegistrationFormMail());
-    Log::info('Notification sent successfully.');
-} catch (\Exception $e) {
-    Log::error('Notification failed: '.$e->getMessage());
-    return redirect()->back()->with('error', 'Failed to send notification.');
-}
+
+
 
         event(new Registered($user));
 

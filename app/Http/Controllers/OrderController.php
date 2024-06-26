@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\ChMessage;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -24,8 +25,6 @@ class OrderController extends Controller
     $pharmacy = Pharmacy::where('user_id', $userId)->first();
 
     if ($pharmacy) {
-
-
 
           $order = PharmacyOrder::where('pharmacy_id', $pharmacy->id)->withTrashed()->get();
 
@@ -72,11 +71,12 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id, $timestamp)
     {
-        $order = PharmacyOrder::findOrFail($id);
-        $orderedMedicine = OrderedMedicine::where('pharmacy_order_id',$order->user_id)->get();
 
+        $orderedMedicine = PharmacyOrder::where('created_at', '=', Carbon::createFromTimestamp($timestamp))->get();
+
+        $order = PharmacyOrder::findOrFail($id);
         $totalPrice = $orderedMedicine->sum('medicinePrice');
 
         return view('layout.order_details', compact('order','orderedMedicine','totalPrice'));
@@ -101,41 +101,12 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
+  
 
-        $orders = OrderedMedicine::all();
-
-        foreach ($orders as $ordered) {
-            $medicineName = $ordered->medicineName;
-
-            $stock = Medicine::where('medicine_name', $medicineName)->first();
-
-            if (!$stock) {
-                return redirect()->back()->with('error', "Stock for medicine $medicineName is not found");
-            }
-
-            // Decrease the stock quantity by one
-            $stock->quantity -= 1;
-            $stock->save();
-        }
-
-        $order = PharmacyOrder::findOrFail($id);
-
-           // Get the user ID from the order and futa ile list of order
-        $userId = $order->user_id;
-         DB::table('ordered_medicines')->where('pharmacy_order_id', $userId)->delete();
-
-
-        // $order->delete();
-        PharmacyOrder::where('user_id', $userId)->delete();
-
-        return redirect()->route('order.index')->with('success',"Order completed successfully");
-
-    }
-
-    public function completeOrderAndSendMessage(Request $request, string $id)
+    public function completeOrderAndSendMessage(Request $request, string $id, $timestamp)
 {
+
+
     // Validate the request data
     $request->validate([
         'message' => 'required|string',
@@ -153,7 +124,8 @@ class OrderController extends Controller
     $chat->save();
 
     // Process the order
-    $orders = OrderedMedicine::all();
+    // $orders = OrderedMedicine::all();
+    $orders =  OrderedMedicine::where('created_at', '=', Carbon::createFromTimestamp($timestamp))->where('id',$id)->get();
 
         foreach ($orders as $ordered) {
             $medicineName = $ordered->medicineName;
@@ -173,11 +145,11 @@ class OrderController extends Controller
 
            // Get the user ID from the order and futa ile list of order
         $userId = $order->user_id;
-         DB::table('ordered_medicines')->where('pharmacy_order_id', $userId)->delete();
+         DB::table('ordered_medicines')->where('pharmacy_order_id', $userId)->where('created_at', '=', Carbon::createFromTimestamp($timestamp))->delete();
 
 
         // $order->delete();
-        PharmacyOrder::where('user_id', $userId)->delete();
+        PharmacyOrder::where('user_id', $userId)->where('created_at', '=', Carbon::createFromTimestamp($timestamp))->delete();
 
         return redirect()->route('order.index')->with('success',"Order completed successfully");
 }

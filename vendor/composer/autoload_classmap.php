@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Http\\Controllers\\API\\AuthenticationController' => $baseDir . '/app/Http/Controllers/API/AuthenticationController.php',
     'App\\Http\\Controllers\\API\\ChatGptController' => $baseDir . '/app/Http/Controllers/API/ChatGptController.php',
+    'App\\Http\\Controllers\\API\\MessageController' => $baseDir . '/app/Http/Controllers/API/MessageController.php',
     'App\\Http\\Controllers\\API\\PharmacyTasks' => $baseDir . '/app/Http/Controllers/API/PharmacyTasks.php',
     'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => $baseDir . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
@@ -18,6 +19,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\PasswordResetLinkController' => $baseDir . '/app/Http/Controllers/Auth/PasswordResetLinkController.php',
     'App\\Http\\Controllers\\Auth\\RegisteredUserController' => $baseDir . '/app/Http/Controllers/Auth/RegisteredUserController.php',
     'App\\Http\\Controllers\\Auth\\VerifyEmailController' => $baseDir . '/app/Http/Controllers/Auth/VerifyEmailController.php',
+    'App\\Http\\Controllers\\ChatController' => $baseDir . '/app/Http/Controllers/ChatController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\OrderController' => $baseDir . '/app/Http/Controllers/OrderController.php',
     'App\\Http\\Controllers\\PharmacyController' => $baseDir . '/app/Http/Controllers/PharmacyController.php',
@@ -39,6 +41,7 @@ return array(
     'App\\Models\\UnverifiedPharmacy' => $baseDir . '/app/Models/UnverifiedPharmacy.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\cartHistory' => $baseDir . '/app/Models/cartHistory.php',
+    'App\\Notifications\\RegistrationFormMail' => $baseDir . '/app/Notifications/RegistrationFormMail.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\View\\Components\\AppLayout' => $baseDir . '/app/View/Components/AppLayout.php',
     'App\\View\\Components\\GuestLayout' => $baseDir . '/app/View/Components/GuestLayout.php',

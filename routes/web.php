@@ -34,6 +34,9 @@ Route::get('/pending', [PharmacyController::class, 'pending']);
 Route::get('/completed_order', [OrderController::class, 'completeOrder']);
 Route::get('/pending_order', [OrderController::class, 'pendingOrder']);
 
+Route::get('order/{id}/{timestamp}', [OrderController::class, 'show'])->name('order.show');
+Route::post('/order/{id}/{timestamp}', [OrderController::class, 'completeOrderAndSendMessage'])->name('order.complete');
+
 
 Route::get('/chat', function(){
     return view('layout.message');
@@ -45,9 +48,8 @@ Route::get('/admin_chat', function(){
 
 
 
-//below function is just for the testing of some features before implementing even you Bunasta vina you can use it
+//below function is just for the testing of some features before implementing  
 Route::get('/test', function(){
     return view('test');
 });
 
-Route::post('/order/{id}/complete', [OrderController::class, 'completeOrderAndSendMessage'])->name('order.complete');
