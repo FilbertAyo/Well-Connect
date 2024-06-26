@@ -79,6 +79,7 @@
                                         <th >Name</th>
                                         <th>Address</th>
                                         <th >Contacts</th>
+                                        <th >Ordered date</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -96,6 +97,7 @@
                 <td>{{ $order->user_name }}</td>
                 <td>{{ $order->user_address }}</td>
                 <td>{{ $order->user_email }}</td>
+                <td>{{ $order->created_at }}</td>
                 <td>
                     <span class="badge btn btn-danger">pending</span>
                     <a href="{{ route('order.show', $order->id) }}" class="badge btn btn-info">View Order</a>
@@ -112,6 +114,7 @@
                 <td>{{ $order->user_name }}</td>
                 <td>{{ $order->user_address }}</td>
                 <td>{{ $order->user_email }}</td>
+                <td>{{ $order->created_at }}</td>
                 <td>
                     @php
                         $userOrdersDisplayed[$order->user_id . '_' . $order->id] = true;

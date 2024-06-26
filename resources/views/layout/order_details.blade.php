@@ -63,9 +63,9 @@
 
         <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
             <div class="card flex-fill w-100">
-                <div class="card-header">
+                <div class="card-header" style="display: flex; justify-content: space-between;">
 
-                    <h5 class="card-title mb-0">{{ $order->user_address }} : {{ $order->user_email }}</h5>
+                    <h5 class="card-title mb-0">{{ $order->user_address }} : {{ $order->user_email }}</h5>   <h5 class="card-title mb-0">Ordered time: {{ $order->created_at }}</h5>
                 </div>
                 <div class="card-body px-4">
                     <div id="map" style="height:300px;"></div>

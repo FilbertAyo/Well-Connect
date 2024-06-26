@@ -13,6 +13,9 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Models\Pharmacy;
 use App\Models\UnverifiedPharmacy;
+use App\Notifications\RegistrationFormMail;
+use Illuminate\Support\Facades\Log;
+
 
 class RegisteredUserController extends Controller
 {
@@ -37,10 +40,6 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // $image=$request->file;
-        // $imagename=time().'.'.$image->getClientOriginalExtension();
-        // $request->file->move('productimage',$imagename);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -51,9 +50,6 @@ class RegisteredUserController extends Controller
             'file'=> null, //Default value if no file is uploaded
         ]);
 
-
-
-
         if ($request->hasFile('file')) {
             $image = $request->file('file');
             $imagename = time().'.'.$image->getClientOriginalExtension();
@@ -62,7 +58,7 @@ class RegisteredUserController extends Controller
             $user->save();
         }
 
-
+       
         // Logic to create Pharmacy entry if userType is 0
 if ($user->userType == 0) {
     Pharmacy::create([
@@ -73,18 +69,28 @@ if ($user->userType == 0) {
         'distance'=> $user->distance,
         'image'=> $user->file,
     ]);
-
+  
 
       //trigger status of the pharmacy after registered
       $verify_pharmacy = UnverifiedPharmacy::find($request->pid);
       $verify_pharmacy->status = 'registered';
       $verify_pharmacy->save();
 
+    
+
     return redirect()->back()->with('success','Registration done successfully');
 
 
 }elseif($user->userType == 1){
 
+}
+
+try {
+    $user->notify(new RegistrationFormMail());
+    Log::info('Notification sent successfully.');
+} catch (\Exception $e) {
+    Log::error('Notification failed: '.$e->getMessage());
+    return redirect()->back()->with('error', 'Failed to send notification.');
 }
 
         event(new Registered($user));
