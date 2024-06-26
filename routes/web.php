@@ -49,3 +49,5 @@ Route::get('/admin_chat', function(){
 Route::get('/test', function(){
     return view('test');
 });
+
+Route::post('/order/{id}/complete', [OrderController::class, 'completeOrderAndSendMessage'])->name('order.complete');

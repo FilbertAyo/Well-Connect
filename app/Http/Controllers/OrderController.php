@@ -9,6 +9,7 @@ use App\Models\PharmacyOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\ChMessage;
 
 class OrderController extends Controller
 {
@@ -132,4 +133,52 @@ class OrderController extends Controller
         return redirect()->route('order.index')->with('success',"Order completed successfully");
 
     }
+
+    public function completeOrderAndSendMessage(Request $request, string $id)
+{
+    // Validate the request data
+    $request->validate([
+        'message' => 'required|string',
+        'from_id' => 'required|integer',
+        'to_id' => 'required|integer',
+    ]);
+
+    // Create and save the chat message
+    $chat = new ChMessage();
+    $chat->body = $request->input('message');
+    $chat->from_id = $request->input('from_id');
+    $chat->to_id = $request->input('to_id');
+    $chat->seen = false;
+    $chat->created_at = now();
+    $chat->save();
+
+    // Process the order
+    $orders = OrderedMedicine::all();
+
+        foreach ($orders as $ordered) {
+            $medicineName = $ordered->medicineName;
+
+            $stock = Medicine::where('medicine_name', $medicineName)->first();
+
+            if (!$stock) {
+                return redirect()->back()->with('error', "Stock for medicine $medicineName is not found");
+            }
+
+            // Decrease the stock quantity by one
+            $stock->quantity -= 1;
+            $stock->save();
+        }
+
+        $order = PharmacyOrder::findOrFail($id);
+
+           // Get the user ID from the order and futa ile list of order
+        $userId = $order->user_id;
+         DB::table('ordered_medicines')->where('pharmacy_order_id', $userId)->delete();
+
+
+        // $order->delete();
+        PharmacyOrder::where('user_id', $userId)->delete();
+
+        return redirect()->route('order.index')->with('success',"Order completed successfully");
+}
 }

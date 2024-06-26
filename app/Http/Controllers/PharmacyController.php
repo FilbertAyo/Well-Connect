@@ -45,6 +45,8 @@ class PharmacyController extends Controller
             'certification'=> 'required',
             'un_pharmacy_image'=>'required',
 
+
+
         ]);
 
         $pharmacy = UnverifiedPharmacy::create([
@@ -57,6 +59,8 @@ class PharmacyController extends Controller
             'pharmacyEmail'=> $request->pharmacyEmail,
             'certification'=> $request->certification,
             'un_pharmacy_image'=> $request->un_pharmacy_image,
+
+
 
         ]);
 
