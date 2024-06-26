@@ -131,31 +131,31 @@
       <div class="modal fade" id="completeOrderModal" tabindex="-1" aria-labelledby="completeOrderModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="completeOrderModalLabel">
-                    <i class="fas fa-clipboard-check me-2"></i>Complete Order
-                </h5>
+            <div class="modal-header act text-white">
+                <h3 class="modal-title text-white h3" id="completeOrderModalLabel">
+                    Complete Order
+                </h3>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="completeOrderForm" action="{{ route('order.complete', $order->id) }}" method="POST">
+                <form id="completeOrderForm" action="{{ route('order.complete', ['id' => $order->id, 'timestamp' => $order->created_at->timestamp]) }}" method="POST">
                     @csrf
                     <div class="mb-4">
-                        <label for="message" class="form-label fw-bold">Medication Dosage Instructions:</label>
-                        <textarea class="form-control" id="message" name="message" rows="5" required 
-                                  placeholder="Enter detailed medication dosage instructions here..."></textarea>
+                        <label for="message" class="form-label fw-bold h4">Medication Dosage Instructions:</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required
+                                  placeholder="Enter detailed medication dosage instructions here..."  value="old('message')"></textarea>
                     </div>
                     <input type="hidden" name="from_id" value="{{ auth()->user()->id }}">
                     <input type="hidden" name="to_id" value="{{ $order->user_id }}">
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-pills me-2"></i>Send Instructions & Complete Order
+                        <button type="submit" class="btn act btn-lg">
+                           Send Instructions & Complete Order
                         </button>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer bg-light">
-                <small class="text-muted">Please ensure all instructions are clear and accurate before submitting.</small>
+            <div class="bg-light p-3 text-danger">
+               Note: Please ensure all instructions are clear and accurate before submitting!!
             </div>
         </div>
     </div>

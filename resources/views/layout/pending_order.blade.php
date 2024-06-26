@@ -86,7 +86,12 @@
                                     @if($pendingOrder->count() > 0)
                                         @foreach ($pendingOrder as $order)
 
-                                            @if (!array_key_exists($order->user_id, $userOrdersDisplayed))
+                                        @php
+                                        // Create a unique key for each user order based on user_id and created_at timestamp
+                                        $orderKey = $order->user_id . '_' . $order->created_at->timestamp;
+                                    @endphp
+
+                                            @if (!array_key_exists($orderKey, $userOrdersDisplayed))
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $order->user_name }}</td>
@@ -94,11 +99,11 @@
                                                     <td>{{ $order->user_email }}</td>
                                                     <td>
                                                             <span class="badge btn btn-danger">pending</span>
-                                                            <a href="{{ route('order.show', $order->id) }}" class="badge btn btn-info">View Order</a>
+                                                            <a href="{{ route('order.show', ['id' => $order->id, 'timestamp' => $order->created_at->timestamp]) }}" class="badge btn btn-info">View Order</a>
                                                     </td>
                                                 </tr>
                                                 @php
-                                                $userOrdersDisplayed[$order->user_id] = true;
+                                                $userOrdersDisplayed[$orderKey] = true;
                                                 @endphp
 
                                                 @endif
