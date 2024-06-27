@@ -11,12 +11,15 @@ class RegistrationFormMail extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct()
+    public $name;
+    public $email;
+    public $password;
+
+    public function __construct($name, $email, $password)
     {
-        //
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
     }
 
     /**
@@ -35,10 +38,10 @@ class RegistrationFormMail extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-        ->subject('WeLL CoNNECT')
-        ->line('Welcome to Well Connect, where we ensure availability on NCD and personal assessment.')
-        ->action('Visit Well Connect', url('/'))
-        ->line('Thank you for using our App!');
+        ->view('confirmation',
+        ['name' => $this->name, 'email' => $this->email, 'password' => $this->password])
+        ->subject('WeLL CoNNECT');
+
     }
 
     /**

@@ -58,7 +58,7 @@ class RegisteredUserController extends Controller
             $user->save();
         }
 
-        // $user->notify(new RegistrationFormMail());
+
 
         // Logic to create Pharmacy entry if userType is 0
 if ($user->userType == 0) {
@@ -71,14 +71,12 @@ if ($user->userType == 0) {
         'image'=> $user->file,
     ]);
 
-
-
       //trigger status of the pharmacy after registered
       $verify_pharmacy = UnverifiedPharmacy::find($request->pid);
       $verify_pharmacy->status = 'registered';
       $verify_pharmacy->save();
 
-
+      $user->notify(new RegistrationFormMail($request->name, $request->email, $request->password));
 
     return redirect()->back()->with('success','Registration done successfully');
 
