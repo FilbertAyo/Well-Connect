@@ -48,8 +48,8 @@ Route::get('/admin_chat', function(){
 
 
 
-//below function is just for the testing of some features before implementing  
+//below function is just for the testing of some features before implementing
 Route::get('/test', function(){
-    return view('test');
+    return view('confirmation');
 });
 

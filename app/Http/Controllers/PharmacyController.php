@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pharmacy;
 use App\Models\UnverifiedPharmacy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class PharmacyController extends Controller
 {
@@ -91,9 +93,12 @@ class PharmacyController extends Controller
      */
     public function show(string $id)
     {
+
+        $randomPassword = str::random(8); // Password for the pharmacy
+
         $pharmacy= UnverifiedPharmacy::findOrFail($id);
 
-        return view('layout.pharmacy_details',compact('pharmacy'));
+        return view('layout.pharmacy_details',compact('pharmacy','randomPassword'));
     }
 
 
