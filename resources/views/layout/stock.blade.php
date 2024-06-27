@@ -207,7 +207,7 @@
                        <div class="mb-3">
                            <label for="title" class="form-label">Description</label>
                            <textarea type="text" class="form-control" name="description" placeholder="description" required></textarea>
-                           @if ($errors->has('un_pharmacy_image'))
+                           @if ($errors->has('description'))
                            <div class="alert alert-danger">
                           invalid description
                            </div>

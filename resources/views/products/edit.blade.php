@@ -72,22 +72,52 @@
 
                                                 <div class="mb-3">
                                                     <label for="name" class="form-label">NCD Medicine name</label>
-                                                    <input type="text" class="form-control" name="name" placeholder="product_name" value="{{ $product->name }}">
+                                                    <input type="text" class="form-control" name="name" placeholder="product_name" value="{{ $product->medicine_name }}">
+                                                    @if ($errors->has('medicine_name'))
+                                                    <div class="alert alert-danger">
+                                                   invalid name of medicine
+                                                    </div>
+                                                    @endif
                                                   </div>
 
                                                   <div class="mb-3">
                                                     <label for="price" class="form-label">Price</label>
                                                     <input type="text" class="form-control" name="price" placeholder="Price" value="{{ $product->price }}">
+                                                    @if ($errors->has('price'))
+                                                    <div class="alert alert-danger">
+                                                   invalid price format
+                                                    </div>
+                                                    @endif
                                                   </div>
 
                                                   <div class="mb-3">
                                                     <label for="quantity" class="form-label">Quantity</label>
                                                     <input type="text"  class="form-control" name="quantity" placeholder="Quantity" value="{{ $product->quantity }}">
+                                                    @if ($errors->has('quantity'))
+                                                    <div class="alert alert-danger">
+                                                   invalid input
+                                                    </div>
+                                                    @endif
+                                                  </div>
+
+                                                  <div class="mb-3">
+                                                    <label for="category" class="form-label">Category</label>
+                                                    <input type="text"  class="form-control" name="category" placeholder="category" value="{{ $product->category }}">
+                                                    @if ($errors->has('category'))
+                                                    <div class="alert alert-danger">
+                                                   invalid category input
+                                                    </div>
+                                                    @endif
                                                   </div>
 
                                                   <div class="mb-3">
                                                     <label for="quantity" class="form-label">Description</label>
                                                     <input type="text"  class="form-control" name="description" placeholder="Description" value="{{ $product->description }}">
+                                                    @if ($errors->has('description'))
+                                                    <div class="alert alert-danger">
+                                                   invalid description
+                                                    </div>
+                                                    @endif
                                                   </div>
 
                                                   <div class="flex justify-end">
