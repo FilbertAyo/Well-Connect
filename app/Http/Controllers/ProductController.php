@@ -16,8 +16,6 @@ class ProductController extends Controller
     public function index()
     {
 
-
-
             // Get the ID of the logged-in user
     $userId = Auth::id();
 
@@ -25,23 +23,23 @@ class ProductController extends Controller
     $pharmacy = Pharmacy::where('user_id', $userId)->first();
 
     if ($pharmacy) {
-
-
-        // If pharmacy found, fetch only the medicines associated with that pharmacy
+       // If pharmacy found, fetch only the medicines associated with that pharmacy
         $product = Medicine::where('pharmacy_id', $pharmacy->id)->get();
 
         foreach ($product as $prod) {
             // Check if quantity is below 20
-            if ($prod['quantity']< 20) {
-                // Update status to 'low'
+            if ($prod['quantity'] < 1) {
+                // Delete the product if quantity is less than 1
+                $prod->delete();
+            } elseif ($prod['quantity'] >= 1 && $prod['quantity'] < 20) {
+                // Update status to 'low' if quantity is between 1 and 19
                 $prod->update(['status'=>'low']);
-            } else {
-                // Update status to 'enough'
+            } elseif ($prod['quantity'] >= 20) {
+                // Update status to 'sufficient' if quantity is 20 or greater
                 $prod->update(['status'=>'sufficient']);
             }
-        }
 
-        // return view('layout.stock',compact('product'));
+        }
 
         // Pass the filtered medicines to the view
         return view('layout.stock', compact('product'));
@@ -111,9 +109,6 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        // $product= Product::findOrFail($id);
-
-        // return view('products.edit',compact('product'));
 
         $product= Medicine::findOrFail($id);
 
@@ -125,13 +120,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // $product= Product::findOrFail($id);
-
-        // $product->update($request->all());
-
-        // return redirect()->route('stock.index')->with('success',"NCD medicine updated successfully");
 
         $product= Medicine::findOrFail($id);
+
+        $request->validate([
+            'medicine_name' => 'required|regex:/^[a-zA-Z\s]+$/|max:100',
+            'price' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:1',
+            'category' => 'required|regex:/^[a-zA-Z\s]+$/|max:40',
+            'description' => 'required|regex:/^[a-zA-Z\s]+$/|max:400',
+        ]);
 
         $product->update($request->all());
 
@@ -143,11 +141,6 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        // $product= Product::findOrFail($id);
-
-        // $product->delete();
-
-        // return redirect()->route('stock.index')->with('success',"NCD Medicine deleted successfully");
 
         $product= Medicine::findOrFail($id);
 

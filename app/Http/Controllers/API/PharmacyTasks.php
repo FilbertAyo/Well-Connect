@@ -430,13 +430,16 @@ public function sendOrderToPharmacy(Request $request)
             ], 404);
         }
 
+
+        if ($request->hasFile('prescription')) {
+            $image = $request->file('prescription');
+            $prescriptionName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('prescription'), $prescriptionName);
+        }
+
         foreach ($carts as $cart) {
 
-            if ($request->hasFile('prescription')) {
-                $image = $request->file('prescription');
-                $prescriptionName = time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('prescription'), $prescriptionName);
-            }
+
             // Create a new record in pharmacy_orders table for each cart item
             $pharmacyOrder = PharmacyOrder::create([
                 'user_id' => $cart->user_id,

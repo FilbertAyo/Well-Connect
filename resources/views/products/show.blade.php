@@ -1,11 +1,6 @@
 
 <x-app-layout>
 
-
-
-
-
-
     <div class="wrapper">
         <nav id="sidebar" class="sidebar js-sidebar">
           <div class="sidebar-content js-simplebar">
@@ -69,7 +64,7 @@
                 </span>
                 @endif
 
-            
+
 
               </div>
               <div class="text-gray-300 ">
@@ -85,7 +80,7 @@
 
                 <div class="mb-3">
                     <label for="name" class="form-label">NCD Medicine name</label>
-                    <input type="text" class="form-control" name="name" placeholder="product_name" value="{{ $product->name }}" readonly>
+                    <input type="text" class="form-control" name="name" placeholder="product_name" value="{{ $product->medicine_name }}" readonly>
                   </div>
 
                                       <div class="mb-3">
