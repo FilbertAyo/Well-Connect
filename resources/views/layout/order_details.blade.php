@@ -182,7 +182,7 @@
 
             var markers = [
                 { coords: [-6.771430, 39.241420], name: "Sinza" },
-                { coords: [-6.752140, 39.268910], name: "Mikocheni" }
+                { coords: [-6.792354, 39.208328], name: "Kijitonyama" }
             ];
 
             var markerObjects = markers.map(function(marker) {
@@ -194,7 +194,7 @@
             L.Routing.control({
                 waypoints: [
                     L.latLng(-6.771430, 39.241420),
-                    L.latLng(-6.752140, 39.268910)
+                    L.latLng(-6.792354, 39.208328)
                 ],
                 createMarker: function(i, waypoint, n) {
                     var marker = L.marker(waypoint.latLng).bindPopup(markers[i].name);
