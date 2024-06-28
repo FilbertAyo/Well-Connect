@@ -34,9 +34,10 @@ Route::get('/pending', [PharmacyController::class, 'pending']);
 Route::get('/completed_order', [OrderController::class, 'completeOrder']);
 Route::get('/pending_order', [OrderController::class, 'pendingOrder']);
 
-Route::get('order/{id}/{timestamp}', [OrderController::class, 'show'])->name('order.show');
-Route::post('/order/{id}/{timestamp}', [OrderController::class, 'completeOrderAndSendMessage'])->name('order.complete');
+Route::get('order/{id}/{timestamp}', [OrderController::class, 'showOrder'])->name('order.showOrder');
+Route::post('/order/{id}/{timestamp}', [OrderController::class, 'completed'])->name('order.completed');
 
+Route::get('/status/{id}',[ProductController::class, 'stockStatus'])->name('status.stockStatus');
 
 Route::get('/chat', function(){
     return view('layout.message');

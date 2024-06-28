@@ -10,6 +10,7 @@ class Medicine extends Model
     use HasFactory;
     protected $fillable=[
         'pharmacy_id',
+        'user_id',
         'pharmacy_name',
         'medicine_name',
         'category',

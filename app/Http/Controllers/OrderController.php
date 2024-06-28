@@ -71,10 +71,13 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id, $timestamp)
+    public function showOrder($id, $timestamp)
     {
+        $userId = Auth::id();
+        // Find the pharmacy associated with the logged-in user
+     $pharmacy = Pharmacy::where('user_id', $userId)->first();
 
-        $orderedMedicine = PharmacyOrder::where('created_at', '=', Carbon::createFromTimestamp($timestamp))->get();
+        $orderedMedicine = PharmacyOrder::where('created_at', '=', Carbon::createFromTimestamp($timestamp))->where('pharmacy_id',$pharmacy->id)->get();
 
         $order = PharmacyOrder::findOrFail($id);
         $totalPrice = $orderedMedicine->sum('medicinePrice');
@@ -101,9 +104,9 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-  
 
-    public function completeOrderAndSendMessage(Request $request, string $id, $timestamp)
+
+    public function completed(Request $request, string $id, $timestamp)
 {
 
 

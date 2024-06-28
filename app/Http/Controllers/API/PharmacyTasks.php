@@ -14,6 +14,7 @@ use App\Models\PharmacyOrder;
 use App\Models\Chatgpt;
 use App\Models\Profile;
 use App\Models\OrderedMedicine;
+use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -458,6 +459,7 @@ public function sendOrderToPharmacy(Request $request)
 
             // Create a record in ordered_medicines table for each cart item
                   OrderedMedicine::create([
+                 'pharmacy_id' => $cart->pharmacy_id,
                  'pharmacy_order_id' => $cart->user_id,
                  'medicineName' => $cart->medicineName,
                  'medicineCategory' => $cart->medicineCategory,

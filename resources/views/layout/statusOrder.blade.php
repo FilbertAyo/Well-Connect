@@ -86,9 +86,7 @@
                           Is there stock shortage? alert the pharmacy admin.
                       </div>
                       <div class="d-grid">
-
                           <a href="{{ route('chatify') }}" class="btn btn-primary">Messages</a>
-
                       </div>
                   </div>
               </div>
@@ -100,7 +98,7 @@
 
     <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <!-- Logo -->
@@ -110,12 +108,7 @@
                         </a>
                     </div>
 
-                    <!-- Navigation Links -->
-                    {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                    </div> --}}
+
                 </div>
 
                 <!-- Settings Dropdown -->
@@ -201,97 +194,88 @@
 
 
 
-      <main class="content">
+    <main class="content">
 
-          <div class="container-fluid p-0">
+        <div class="container-fluid p-0">
 
-              <div class="headstock">
-                  <div class="">
-              <h1 class="h3 mb-3">Pharmacies</h1>
-          </div>
-          <div class="text-gray-300 btn-s">
-            <a href="{{ url('/dashboard') }}" class="btn">All Pharmacy</a>
-            <a href="{{ url('/registered') }}" class="btn">Registered</a>
-            <a href="{{ url('/pending') }}" class="btn act">Requested</a>
-            {{-- <a href="" class="btn">Insufficient</a> --}}
+            <div class="headstock">
+                <div class="">
+            <h1 class="h3 mb-3">{{ $user->name }}'s stocks</h1>
         </div>
-              </div>
+        <div class="text-gray-300 ">
+            <button class="btn cloth act" data-toggle="modal" data-target="#statusOrderModal">
+              Send notice
+            </button>
+      </div>
+            </div>
 
 
-                  <div class="row">
-                      <div class="col-12 col-lg-12 col-xxl-12 d-flex">
-                          <div class="card flex-fill">
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+                        <div class="card flex-fill">
+                          <div class="site-blocks-table">
+
+                              @if(Session::has('success'))
+                              <div class="alert alert-success" role="alert">
+                              {{ Session::get('success') }}
+                              </div>
+                                @endif
+
+                            <table class="table my-0">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>No.</th>
+                                        <th >NCD Name</th>
+
+                                        <th >Quantity</th>
 
 
-                              <table class="table table-hover my-0">
-                                  <thead>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                      <tr>
-                                          <th>No.</th>
-                                          <th class="d-none d-xl-table-cell">Pharmacy name</th>
-                                          <th class="d-none d-xl-table-cell">Pharmacy Email</th>
-                                          <th class="d-none d-xl-table-cell">Location</th>
-                                          <th class="d-none d-md-table-cell">Contact</th>
-                                          <th class="d-none d-md-table-cell">Licence</th>
-                                          <th class="d-none d-md-table-cell">Image</th>
-                                          <th>Status</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                    @if($pharmacy->count()>0)
-                                    @foreach ($pharmacy as $pharma)
+                  @if($product->count()>0)
+                  @foreach ($product as $prod)
 
-                                    @if( $pharma->status === 'pending')
-                                  <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                <tr>
+                  @if($prod->status === 'low')
+                  <td>
+                          <img src="/image/sdfs.gif" alt="" class="img-fluid rounded-circle" style="width: 30px;">
+              </td>
+              @else
+              <td>
 
-                                    <td>
-                                        {{ $pharma->pharmacyName }}
-                                    </td>
-                                    <td>
-                                        {{ $pharma->pharmacyEmail }}
-                                    </td>
-                                    <td>{{ $pharma->street }},    {{ $pharma->region }},    {{ $pharma->city }}</td>
-                                    <td>{{ $pharma->contact }}</td>
-                                    <td>
-                                        <a href="{{ asset('cert_image/' . $pharma->certification) }}" class="badge bg-primary"> Licence </a>
-                                    </td>
+              </td>
+              @endif
+                  <td>{{ $loop->iteration }}</td>
 
-                                    <td>
+                  <td class="product-name">
+                      {{ $prod->medicine_name }}
+                  </td>
 
-                                        <a href="{{ asset('pharmacy_image/'.$pharma->un_pharmacy_image) }}" alt="" class="badge bg-secondary">pharmaacy image</a>
-
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.show', $pharma->id) }}" class="badge btn btn-info">Details</a>
+                  <td>{{ $prod->quantity }}</td>
 
 
+                </tr>
 
-                                        <a href="" class="badge btn btn-danger ">{{ $pharma->status }}</a>
+                @endforeach
+                @else
+                <tr>
+                  <td class="text-center" colspan="8">NCD stock not found</td>
+              </tr>
+          @endif
 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                                    </td>
-                                  </tr>
+                </div>
 
-
-                                  @endif
-
-                                  @endforeach
-
-                                  @else
-                                  <tr>
-                                    <td class="text-center" colspan="8">No pending pharmacy found </td>
-                                </tr>
-                            @endif
-                                  </tbody>
-                              </table>
-                          </div>
-                      </div>
-
-                  </div>
-
-              </div>
-      </main>
+            </div>
+        </div>
+    </main>
 
   </div>
   </div>
@@ -300,6 +284,39 @@
 
 
         </div>
+
+
+        <div class="modal fade" id="statusOrderModal" tabindex="-1" aria-labelledby="completeOrderModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header act text-white">
+                        <h3 class="modal-title text-white h3" id="completeOrderModalLabel">
+                            Status reminder
+                        </h3>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="completeOrderForm" action="" method="POST">
+                            @csrf
+                            <div class="mb-4">
+                                <label for="message" class="form-label fw-bold h4">send notification to {{ $user->name }}:</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required
+                                          placeholder="Enter detailed medication dosage instructions here..."  value="old('message')"></textarea>
+                            </div>
+                            <input type="hidden" name="from_id" value="{{ auth()->user()->id }}">
+                            <input type="hidden" name="to_id" value="{{ $user->user_id }}">
+                            <div class="d-grid gap-2">
+                                <button class="btn cloth act" >
+                                    Send notice
+                                  </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
 
 
         <script src="{{ asset('static/js/app.js') }}"></script>
