@@ -43,20 +43,18 @@
             border-radius: 4px;
             transition: background-color 0.3s;
         }
-      
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Welcome {{ $name }} to Well Connect!</h1>
-        <p>We have received your form submission. Use the password below to complete registration:</p>
+        <p>You have successfully registered to our app</p>
         <ul>
             <li>Name: {{ $name }}</li>
             <li>Email: {{ $email }}</li>
-            <li>Password: {{ $password }}</li>
         </ul>
-        <p>Click below to proceed</p>
-        <a href="http://127.0.0.1:8000/login">Login</a>
+
         <p>Thank you for choosing our App!</p>
     </div>
 </body>

@@ -108,7 +108,7 @@
                         </a>
                     </div>
 
-                
+
                 </div>
 
                 <!-- Settings Dropdown -->
@@ -220,6 +220,7 @@
                                   <thead>
 
                                       <tr>
+                                        <th></th>
                                           <th>No.</th>
                                           <th class="d-none d-xl-table-cell">Pharmacy name</th>
                                           <th class="d-none d-xl-table-cell">Pharmacy Email</th>
@@ -235,6 +236,16 @@
                                     @foreach ($pharmacy as $pharma)
 
                                   <tr>
+                                    @if( $pharma->pharmacyStatus === 'low')
+                                    <td>
+                                            <img src="/image/sdfs.gif" alt="" class="img-fluid rounded-circle" style="width: 30px;">
+                                </td>
+                                @else
+                                <td>
+
+                                </td>
+                                @endif
+
                                     <td>{{ $loop->iteration }}</td>
 
                                     <td>

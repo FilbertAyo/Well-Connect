@@ -138,7 +138,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="completeOrderForm" action="{{ route('order.complete', ['id' => $order->id, 'timestamp' => $order->created_at->timestamp]) }}" method="POST">
+                <form id="completeOrderForm" action="{{ route('order.completed', ['id' => $order->id, 'timestamp' => $order->created_at->timestamp]) }}" method="POST">
                     @csrf
                     <div class="mb-4">
                         <label for="message" class="form-label fw-bold h4">Medication Dosage Instructions:</label>

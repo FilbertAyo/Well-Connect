@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Medicine;
 use App\Models\Pharmacy;
 use App\Models\UnverifiedPharmacy;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 
 class PharmacyController extends Controller
@@ -17,8 +20,34 @@ class PharmacyController extends Controller
     {
         $pharmacy = UnverifiedPharmacy::all();
 
-        return view('layout.system_admin',compact('pharmacy'));
+
+        foreach ($pharmacy as $pha) {
+            $user = User::where('email', $pha->pharmacyEmail)->first();
+
+            if ($user) {
+                $products = Medicine::where('user_id', (string) $user->id)->get();
+
+                // Assume the status is 'sufficient' initially
+                $pharmacyStatus = 'home';
+
+                // Check each product
+                foreach ($products as $product) {
+                    if ($product->quantity < 20) {
+                        $pharmacyStatus = 'low';
+                        break; // No need to check further if one product is low
+                    }
+                }
+
+                // Update the pharmacy status based on the products' quantities
+                $pha->update(['pharmacyStatus' => $pharmacyStatus]);
+            }
+        }
+
+        return view('layout.system_admin', compact('pharmacy'));
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -46,8 +75,6 @@ class PharmacyController extends Controller
             'pharmacyEmail' => 'required',
             'certification'=> 'required',
             'un_pharmacy_image'=>'required',
-
-
 
         ]);
 
@@ -123,4 +150,7 @@ class PharmacyController extends Controller
 
         return view('layout.pending_pharma',compact('pharmacy'));
     }
+
+
+
 }

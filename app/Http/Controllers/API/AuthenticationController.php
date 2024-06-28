@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Profile;
+use App\Notifications\SuccessRegistration;
 
 class AuthenticationController extends Controller
 {
@@ -39,6 +40,8 @@ class AuthenticationController extends Controller
         ]);
 
         $user->save();
+
+        $user->notify(new SuccessRegistration($request->name, $request->email, $request->password));
 
         $token = $user->createToken('API Token')->plainTextToken;
 
@@ -73,9 +76,9 @@ public function login(Request $request){
             'error'=>$validateUser->errors()
         ],401);
     }
-    
+
     $credentials = $request->only('email', 'password');
-    
+
     if (!Auth::attempt($credentials)) {
         return response()->json([
             'status'=>false,
@@ -155,7 +158,7 @@ public function updateProfile(Request $request)
         // Fetch email and username from the authenticated user
         $email = $user->email;
         $username = $user->name;
-        
+
          // Check if the user already has a profile
          $profile = Profile::where('email', $user->email)->first();
 
@@ -210,7 +213,7 @@ public function deleteAccount(Request $request)
     try {
         // Get the authenticated user
         $user = auth()->user();
-        
+
         // Delete the user's profile
         $profile = Profile::where('email', $user->email)->first();
         if ($profile) {

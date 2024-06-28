@@ -14,6 +14,7 @@ use Illuminate\View\View;
 use App\Models\Pharmacy;
 use App\Models\UnverifiedPharmacy;
 use App\Notifications\RegistrationFormMail;
+use App\Notifications\SuccessRegistration;
 use Illuminate\Support\Facades\Log;
 
 
@@ -80,8 +81,6 @@ if ($user->userType == 0) {
 
     return redirect()->back()->with('success','Registration done successfully');
 
-
-}elseif($user->userType == 1){
 
 }
 

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('certification');
             $table->string('un_pharmacy_image');
             $table->string('status')->default('pending');
+            $table->string('pharmacyStatus')->default('init');
             $table->timestamps();
         });
     }

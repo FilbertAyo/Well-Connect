@@ -17,6 +17,7 @@ class UnverifiedPharmacy extends Model
         'certification',
         'un_pharmacy_image',
         'pharmacyEmail',
+        'pharmacyStatus',
         'status'
     ];
 }

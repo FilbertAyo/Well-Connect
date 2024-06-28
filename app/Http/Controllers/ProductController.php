@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Medicine;
 use App\Models\Pharmacy;
+use App\Models\UnverifiedPharmacy;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,6 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+
 
             // Get the ID of the logged-in user
     $userId = Auth::id();
@@ -82,6 +85,7 @@ class ProductController extends Controller
         $requestData = array_merge($request->all(), [
             'pharmacy_id' => $pharmacy->id,
             'pharmacy_name' => $pharmacy->name,
+            'user_id'=> $pharmacy->user_id,
         ]);
         Medicine::create($requestData);
         return redirect()->route('stock.index')->with('success',"NCD medicine added successfully");
@@ -124,7 +128,7 @@ class ProductController extends Controller
         $product= Medicine::findOrFail($id);
 
         $request->validate([
-            'medicine_name' => 'required|regex:/^[a-zA-Z\s]+$/|max:100',
+            'medicine_name' => 'required|regex:/^[a-zA-Z\s]+$/|max:40',
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:1',
             'category' => 'required|regex:/^[a-zA-Z\s]+$/|max:40',
@@ -148,4 +152,33 @@ class ProductController extends Controller
 
         return redirect()->route('stock.index')->with('success',"NCD Medicine deleted successfully");
     }
+
+    public function stockStatus($id){
+        $userId = Auth::id();
+
+    // Find the pharmacy associated with the logged-in user
+    $pharmacy = UnverifiedPharmacy::find($id);
+
+    $user = User::where('email',$pharmacy->pharmacyEmail)->first();
+
+
+    $product = Medicine::where('user_id', (string) $user->id)->get();
+
+        foreach ($product as $prod) {
+            // Check if quantity is below 20
+            if ($prod['quantity'] < 1) {
+                // Delete the product if quantity is less than 1
+                $prod->delete();
+            } elseif ($prod['quantity'] >= 1 && $prod['quantity'] < 20) {
+                // Update status to 'low' if quantity is between 1 and 19
+                $prod->update(['status'=>'low']);
+            } elseif ($prod['quantity'] >= 20) {
+                // Update status to 'sufficient' if quantity is 20 or greater
+                $prod->update(['status'=>'sufficient']);
+            }
+        }
+
+        return view('layout.statusOrder',compact('product','user'));
+    }
+
 }

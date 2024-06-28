@@ -104,7 +104,7 @@
                                                 <td>{{ $order->created_at }}</td>
                                                 <td>
                                                     <span class="badge btn btn-danger">pending</span>
-                                                    <a href="{{ route('order.show', ['id' => $order->id, 'timestamp' => $order->created_at->timestamp]) }}" class="badge btn btn-info">View Order</a>
+                                                    <a href="{{ route('order.showOrder', ['id' => $order->id, 'timestamp' => $order->created_at->timestamp]) }}" class="badge btn btn-info">View Order</a>
 
                                                 </td>
                                             </tr>

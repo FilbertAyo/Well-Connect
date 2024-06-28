@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pharmacy_id')->constrained()->onDelete('cascade');
+            $table->string('user_id');
             $table->string('pharmacy_name'); // New column for pharmacy name
             $table->string('medicine_name');
             $table->string('category');

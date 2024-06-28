@@ -89,7 +89,7 @@
 
                           <a href="{{ route('chatify') }}" class="btn btn-primary">Messages</a>
 
-                  
+
                       </div>
                   </div>
               </div>
@@ -273,14 +273,14 @@
 
                                     </td>
                                   </tr>
+
+                                  @endif
+                                  @endforeach
                                   @else
                                   <tr>
                                     <td class="text-center" colspan="8">No pharmacy was registered </td>
                                 </tr>
-                                  @endif
 
-                                  @endforeach
-                              
                             @endif
                                   </tbody>
                               </table>
