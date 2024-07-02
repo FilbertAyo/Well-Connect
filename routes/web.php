@@ -49,7 +49,7 @@ Route::get('/admin_chat', function(){
     return view('layout.chat_admin');
 });
 
-
+Route::post('/statusOrder', [ProductController::class, 'statusOrder'])->name('status.statusOrder');
 
 //below function is just for the testing of some features before implementing
 Route::get('/test', function(){

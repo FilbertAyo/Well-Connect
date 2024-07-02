@@ -35,13 +35,11 @@ class AuthenticationController extends Controller
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' =>$request->password,
             'userType' => 2, // Set user_type to 2
         ]);
 
         $user->save();
-
-        $user->notify(new SuccessRegistration($request->name, $request->email, $request->password));
 
         $token = $user->createToken('API Token')->plainTextToken;
 

@@ -9,6 +9,7 @@ use App\Models\UnverifiedPharmacy;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ChMessage;
 
 class ProductController extends Controller
 {
@@ -192,6 +193,7 @@ class ProductController extends Controller
         return view('layout.statusOrder',compact('product','user'));
     }
 
+
     public function management()
     {
 
@@ -211,6 +213,30 @@ class ProductController extends Controller
         // Handle the case where no pharmacy is found for the logged-in user
         return redirect()->route('stock.management')->with('error', "No pharmacy found for the logged-in user.");
     }
+
+    public function statusOrder(Request $request){
+
+        $request->validate([
+            'message' => 'required|string',
+            'from_id' => 'required|integer',
+            'to_id' => 'required|integer',
+        ]);
+    
+        // Create and save the chat message
+        $chat = new ChMessage();
+        $chat->body = $request->input('message');
+        $chat->from_id = $request->input('from_id');
+        $chat->to_id = $request->input('to_id');
+        $chat->seen = false;
+        $chat->created_at = now();
+        $chat->save();
+    
+        // Flash success message to the session
+    session()->flash('success', 'Message sent successfully!');
+
+    // Redirect back to the previous page
+    return redirect()->back();
+
     }
 
 }
