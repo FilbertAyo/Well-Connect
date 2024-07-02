@@ -296,7 +296,7 @@
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="completeOrderForm" action="" method="POST">
+                        <form id="completeOrderForm" action="{{route('status.statusOrder')}}" method="POST">
                             @csrf
                             <div class="mb-4">
                                 <label for="message" class="form-label fw-bold h4">send notification to {{ $user->name }}:</label>
@@ -304,7 +304,7 @@
                                           placeholder="Enter detailed medication dosage instructions here..."  value="old('message')"></textarea>
                             </div>
                             <input type="hidden" name="from_id" value="{{ auth()->user()->id }}">
-                            <input type="hidden" name="to_id" value="{{ $user->user_id }}">
+                            <input type="hidden" name="to_id" value="{{ $user->id }}">
                             <div class="d-grid gap-2">
                                 <button class="btn cloth act" >
                                     Send notice
