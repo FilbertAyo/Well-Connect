@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('price');
-            $table->string('quantity');
-            $table->string('description');
-            $table->string('status')->default('enough');
+            $table->foreignId('pharmacy_id')->constrained()->onDelete('cascade');
+            $table->string('user_id');
+            $table->string('pharmacy_name'); // New column for pharmacy name
+            $table->string('medicine_name');
+            $table->string('category');
+            $table->decimal('price', 8, 2);
+            $table->decimal('totalPrice', 8, 2)->default('0.00');
+            $table->integer('quantity')->nullable();
+            $table->integer('earlyQuantity')->nullable();
+            $table->string('status')->default('unfinished');
             $table->timestamps();
         });
     }

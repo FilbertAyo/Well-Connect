@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\ChMessage;
+use App\Models\Product;
 use Carbon\Carbon;
 
 class OrderController extends Controller
@@ -126,24 +127,27 @@ class OrderController extends Controller
     $chat->created_at = now();
     $chat->save();
 
-    // Process the order
+
     // $orders = OrderedMedicine::all();
-    $orders =  OrderedMedicine::where('created_at', '=', Carbon::createFromTimestamp($timestamp))->where('id',$id)->get();
+    $orders =  PharmacyOrder::where('created_at', '=', Carbon::createFromTimestamp($timestamp))->get();
 
         foreach ($orders as $ordered) {
             $medicineName = $ordered->medicineName;
 
             $stock = Medicine::where('medicine_name', $medicineName)->first();
-
-            if (!$stock) {
-                return redirect()->back()->with('error', "Stock for medicine $medicineName is not found");
-            }
+            //added
+            $remain = Product::where('medicine_name', $medicineName)->first();
 
             // Decrease the stock quantity by one
             $stock->quantity -= 1;
             $stock->save();
+
+            $remain->quantity -= 1;
+            $remain->totalPrice = $remain->totalPrice + $remain->price;
+            $remain->save();
         }
 
+        // $remain->totalPrice = $remain->totalPrice + $remain->price;
         $order = PharmacyOrder::findOrFail($id);
 
            // Get the user ID from the order and futa ile list of order

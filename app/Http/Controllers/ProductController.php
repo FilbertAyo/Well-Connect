@@ -89,6 +89,17 @@ class ProductController extends Controller
             'user_id'=> $pharmacy->user_id,
         ]);
         Medicine::create($requestData);
+
+        //added code for the product history
+        $reqData = array_merge($request->all(), [
+            'pharmacy_id' => $pharmacy->id,
+            'pharmacy_name' => $pharmacy->name,
+            'user_id'=> $pharmacy->user_id,
+            'earlyQuantity'=>$request->quantity,
+        ]);
+
+          Product::create($reqData);
+
         return redirect()->route('stock.index')->with('success',"NCD medicine added successfully");
     }
     else {
@@ -182,6 +193,27 @@ class ProductController extends Controller
         return view('layout.statusOrder',compact('product','user'));
     }
 
+
+    public function management()
+    {
+
+            // Get the ID of the logged-in user
+    $userId = Auth::id();
+
+    // Find the pharmacy associated with the logged-in user
+    $pharmacy = Pharmacy::where('user_id', $userId)->first();
+
+    if ($pharmacy) {
+       // If pharmacy found, fetch only the medicines associated with that pharmacy
+        $product = Product::where('pharmacy_id', $pharmacy->id)->get();
+
+        // Pass the filtered medicines to the view
+        return view('layout.management', compact('product'));
+    } else {
+        // Handle the case where no pharmacy is found for the logged-in user
+        return redirect()->route('stock.management')->with('error', "No pharmacy found for the logged-in user.");
+    }
+
     public function statusOrder(Request $request){
 
         $request->validate([
@@ -204,6 +236,7 @@ class ProductController extends Controller
 
     // Redirect back to the previous page
     return redirect()->back();
+
     }
 
 }

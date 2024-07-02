@@ -19,13 +19,13 @@
                       </a>
                   </li>
 
-                  <li class="sidebar-item active">
+                  <li class="sidebar-item">
                       <a class="sidebar-link" href="{{ route('stock.index') }}">
                           <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Stock</span>
                       </a>
                   </li>
 
-                  <li class="sidebar-item">
+                  <li class="sidebar-item active">
                     <a class="sidebar-link" href="{{ route('stock.management') }}">
                         <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Store</span>
                     </a>
@@ -57,13 +57,9 @@
 
                   <div class="headstock">
                       <div class="">
-                  <h1 class="h3 mb-3">Available Stock</h1>
+                  <h1 class="h3 mb-3">Stock earnings</h1>
               </div>
-              <div class="text-gray-300 ">
-                <button type="button" class="btn cloth btn act" data-toggle="modal" data-target="#exampleModal">
-                    Add stock
-                  </button>
-            </div>
+
                   </div>
 
 
@@ -81,12 +77,15 @@
                                   <table class="table my-0">
                                       <thead>
                                           <tr>
-                                              <th></th>
+
                                               <th>No.</th>
                                               <th >NCD Name</th>
-                                              <th >Price</th>
+
+                                              <th >Price (each)</th>
                                               <th >Quantity</th>
-                                              <th>Description</th>
+                                              <th >toatal Earnings</th>
+                                              <th >Quantity remained</th>
+
                                               <th>Actions</th>
                                           </tr>
                                       </thead>
@@ -96,38 +95,24 @@
                         @foreach ($product as $prod)
 
                       <tr>
-                        @if($prod->status === 'low')
-                        <td>
-                                <img src="/image/sdfs.gif" alt="" class="img-fluid rounded-circle" style="width: 30px;">
-                    </td>
-                    @else
-                    <td>
 
-                    </td>
-                    @endif
                         <td>{{ $loop->iteration }}</td>
 
                         <td class="product-name">
                             {{ $prod->medicine_name }}
                         </td>
+
                         <td>{{ $prod->price }}/=</td>
+                        <td>{{ $prod->earlyQuantity }}</td>
+                        <td>{{ $prod->totalPrice }}</td>
                         <td>{{ $prod->quantity }}</td>
-                        <td class="product-name">
-                            {{ $prod->description }}
-                        </td>
+
                         <td>
-                            <a href="{{ route('stock.show', $prod->id) }}" class="badge btn btn-info ">Details</a>
-                            <a href="{{ route('stock.edit', $prod->id) }}" class="badge btn btn-primary  ">Edit</a>
-                            <a href="" class="badge btn btn-danger">
-
-                                <form action="{{ route('stock.destroy',$prod->id) }}" method="POST" type= "button" class=" height-auto p-0" onsubmit="return confirm('Delete')">
-                                    @csrf
-                                    @method('DELETE')
-
-                                                        <button class="">Delete</button>
-                                                    </form>
-
-                            </a>
+                            @if($prod->quantity < 1)
+                            <span class="badge btn btn-danger  ">Completed</span>
+                            @else
+                            <span class="badge btn btn-success ">Available</span>
+                            @endif
 
                         </td>
                       </tr>
