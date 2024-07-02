@@ -39,6 +39,8 @@ Route::post('/order/{id}/{timestamp}', [OrderController::class, 'completed'])->n
 
 Route::get('/status/{id}',[ProductController::class, 'stockStatus'])->name('status.stockStatus');
 
+Route::get('/management', [ProductController::class, 'management'])->name('stock.management');
+
 Route::get('/chat', function(){
     return view('layout.message');
 });

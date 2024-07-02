@@ -25,6 +25,12 @@
                     <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Stock</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('stock.management') }}">
+                    <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Store</span>
+                </a>
+            </li>
+
 
 
             <div class="sidebar-cta">

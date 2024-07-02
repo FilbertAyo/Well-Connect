@@ -26,6 +26,12 @@
                   </a>
               </li>
 
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('stock.management') }}">
+                    <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Store</span>
+                </a>
+            </li>
+
 
               <div class="sidebar-cta">
                   <div class="sidebar-cta-content">
@@ -99,7 +105,7 @@
                                                     <td>{{ $order->user_email }}</td>
                                                     <td>
                                                             <span class="badge btn btn-danger">pending</span>
-                                                            <a href="{{ route('order.show', ['id' => $order->id, 'timestamp' => $order->created_at->timestamp]) }}" class="badge btn btn-info">View Order</a>
+                                                            <a href="{{ route('order.showOrder', ['id' => $order->id, 'timestamp' => $order->created_at->timestamp]) }}" class="badge btn btn-info">View Order</a>
                                                     </td>
                                                 </tr>
                                                 @php

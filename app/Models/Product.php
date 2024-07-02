@@ -10,10 +10,15 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable=[
-        'name',
+        'pharmacy_id',
+        'user_id',
+        'pharmacy_name',
+        'medicine_name',
+        'category',
         'price',
         'quantity',
-        'status',
-        'description'
+        'earlyQuantity',
+        'totalPrice',
+        'status'
     ];
 }

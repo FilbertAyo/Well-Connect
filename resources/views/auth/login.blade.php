@@ -4,7 +4,8 @@
 
 
     <div class="text-center mb-3">
-        <h3><strong style="color:  #2b4257;">Welcome</strong></h3>
+
+        <div class="flex justify-center"><img src="/image/WC...png" alt="" style="height: 60px;"></div>
 
     </div>
 
