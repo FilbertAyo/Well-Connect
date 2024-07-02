@@ -213,6 +213,7 @@ class ProductController extends Controller
         // Handle the case where no pharmacy is found for the logged-in user
         return redirect()->route('stock.management')->with('error', "No pharmacy found for the logged-in user.");
     }
+}
 
     public function statusOrder(Request $request){
 
@@ -221,7 +222,7 @@ class ProductController extends Controller
             'from_id' => 'required|integer',
             'to_id' => 'required|integer',
         ]);
-    
+
         // Create and save the chat message
         $chat = new ChMessage();
         $chat->body = $request->input('message');
@@ -230,7 +231,7 @@ class ProductController extends Controller
         $chat->seen = false;
         $chat->created_at = now();
         $chat->save();
-    
+
         // Flash success message to the session
     session()->flash('success', 'Message sent successfully!');
 
