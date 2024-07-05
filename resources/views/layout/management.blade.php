@@ -83,10 +83,10 @@
 
                                               <th >Price (each)</th>
                                               <th >Quantity</th>
-                                              <th >toatal Earnings</th>
+                                              <th >total Earnings</th>
                                               <th >Quantity remained</th>
 
-                                              <th>Actions</th>
+                                              <th>Status</th>
                                           </tr>
                                       </thead>
                                       <tbody>
