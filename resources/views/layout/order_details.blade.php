@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+        <div class="col-12 col-md-12 col-xxl-12 d-flex order-3 order-xxl-2">
             <div class="card flex-fill w-100">
                 <div class="card-header" style="display: flex; justify-content: space-between;">
 

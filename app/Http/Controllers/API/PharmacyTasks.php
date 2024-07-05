@@ -24,19 +24,19 @@ class PharmacyTasks extends Controller
     //
     public function riskAssesment(Request $request) {
         try{
+
+            // Custom validation rule for pressure range
+        Validator::extend('pressure_range', function($attribute, $value, $parameters, $validator) {
+            list($systolic, $diastolic) = explode('/', $value);
+            return ($systolic >= 60 && $systolic <= 180) && ($diastolic >= 40 && $diastolic <= 120);
+        }, 'The :attribute must be within the range of 60/40 and 180/120.');
+
+
             $validateUser = Validator::make($request->all(), [
                 'age' => 'required|integer|min:1|max:120',
                 'weight' => 'required|numeric|min:10|max:300',
                 'height' => 'required|numeric|min:1.64|max:8.2',
-                'pressure' =>  ['required','string', 'regex:/^\d{2,3}\/\d{2,3}$/',
-                    function ($attribute, $value, $fail) {
-                        list($systolic, $diastolic) = explode('/', $value);
-
-                        if ($systolic < 60 || $systolic > 180 || $diastolic < 40 || $diastolic > 120) {
-                            $fail('The '.$attribute.' must be between 60/40 mmHg and 180/120 mmHg.');
-                        }
-                    },
-                ],
+                'pressure' =>  ['required','regex:/^\d+\/\d+$/','pressure_range'],
                 'sugar' => 'required|numeric|min:50|max:300',
             ]);
             if($validateUser->fails()){

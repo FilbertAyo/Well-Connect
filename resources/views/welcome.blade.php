@@ -176,7 +176,7 @@
                                                    <label for="productCode" class="form-label">Location of your pharmacy</label>
 
                                                    <div class="flex gap-2">
-                                                   <input type="text" class="form-control" name="street" placeholder="Steet" value="{{ old('street') }}" required>
+                                                   <input type="text" class="form-control" name="street" placeholder="Street" value="{{ old('street') }}" required>
                                                    @if ($errors->has('street'))
                                                    <div class="alert alert-danger">
                                                   invalid input

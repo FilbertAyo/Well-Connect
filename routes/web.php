@@ -39,6 +39,8 @@ Route::post('/order/{id}/{timestamp}', [OrderController::class, 'completed'])->n
 
 Route::get('/status/{id}',[ProductController::class, 'stockStatus'])->name('status.stockStatus');
 
+Route::get('/management', [ProductController::class, 'management'])->name('stock.management');
+
 Route::get('/chat', function(){
     return view('layout.message');
 });
@@ -47,9 +49,10 @@ Route::get('/admin_chat', function(){
     return view('layout.chat_admin');
 });
 
-Route::get('/management', [ProductController::class, 'management'])->name('stock.management');
 
-//below function is just for the testing of some features before implementing
+Route::post('/statusOrder', [ProductController::class, 'statusOrder'])->name('status.statusOrder');
+
+//below function is jut for the testing of some features before implementing
 Route::get('/test', function(){
     return view('confirmation');
 });
