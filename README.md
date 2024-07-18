@@ -64,3 +64,23 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+### Division of Work
+
+#### BUNANGO MOSES JOHN 2020-04-00876
+
+- Well connect Mobile Application Design
+- Well connect Mobile Application Development
+- intergration of well connect Mobile Application with Rest API's
+
+#### AYO FILBERT E 2020-04-00514
+
+- Well Connect Web Application Design
+- Well Connect Web Application Development
+- intergration of Well Connect Web Application with Rest API's
+
+#### RABNI SULEIMAN 2020-04-11879
+
+- Back-end of the system and Database
+- Mobile app and Web app intergration
